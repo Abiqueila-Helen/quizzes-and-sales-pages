@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import type { DiagnosisKey, DiagnosisResult, QuizConfig, QuizOption } from "@/types/quiz";
 
-type Stage = "hero" | "questions" | "processing" | "result";
+type Stage = "hero" | "questions" | "processing" | "percentages" | "result";
 
 export interface UseQuizApi {
   stage: Stage;
@@ -13,6 +13,7 @@ export interface UseQuizApi {
   answer: (option: QuizOption) => void;
   back: () => void;
   finishProcessing: () => void;
+  showResult: () => void;
   reset: () => void;
   diagnosis: DiagnosisResult | null;
   weights: Record<DiagnosisKey, number>;
@@ -73,6 +74,9 @@ export function useQuiz(config: QuizConfig): UseQuizApi {
     [config.questions, index, total],
   );
 
+  const finishProcessing = useCallback(() => setStage("percentages"), []);
+  const showResult = useCallback(() => setStage("result"), []);
+
   const back = useCallback(() => {
     if (stage !== "questions") return;
     if (index === 0) {
@@ -82,7 +86,6 @@ export function useQuiz(config: QuizConfig): UseQuizApi {
     setIndex((i) => Math.max(0, i - 1));
   }, [stage, index]);
 
-  const finishProcessing = useCallback(() => setStage("result"), []);
 
   const reset = useCallback(() => {
     setStage("hero");
@@ -100,6 +103,7 @@ export function useQuiz(config: QuizConfig): UseQuizApi {
     answer,
     back,
     finishProcessing,
+    showResult,
     reset,
     diagnosis,
     weights,

@@ -1,6 +1,7 @@
 import type { QuizConfig } from "@/types/quiz";
 import oDialogoInterno from "./o-dialogo-interno";
 import prisaoDaAutossabotagem from "./prisao-da-autossabotagem";
+import diagnosticoGratuito from "./diagnostico-gratuito";
 
 /**
  * Registry de quizzes. Para adicionar um novo quiz:
@@ -11,6 +12,7 @@ import prisaoDaAutossabotagem from "./prisao-da-autossabotagem";
 export const quizzes: Record<string, QuizConfig> = {
   [oDialogoInterno.slug]: oDialogoInterno,
   [prisaoDaAutossabotagem.slug]: prisaoDaAutossabotagem,
+  [diagnosticoGratuito.slug]: diagnosticoGratuito,
 };
 
 export function getQuiz(slug: string): QuizConfig | undefined {

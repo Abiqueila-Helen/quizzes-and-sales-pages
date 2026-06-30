@@ -93,10 +93,32 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, .font-serif {
+  h1, h2, h3, .font-serif, .font-display {
     font-family: var(--font-serif);
     letter-spacing: -0.01em;
   }
+  .font-body {
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .bg-marfim { background-color: #f7eddc; }
+  .bg-marrom { background-color: #2d1807; }
+  .bg-marrom-mid { background-color: #4a2a13; }
+  .bg-creme { background-color: #f0dfc0; }
+  .bg-gold { background-color: #d4a257; }
+  .bg-ambar { background-color: #b97a18; }
+
+  .text-marrom { color: #2d1807; }
+  .text-marrom-mid { color: #5a3821; }
+  .text-ambar { color: #b97a18; }
+  .text-creme { color: #f0dfc0; }
+  .text-gold { color: #d4a257; }
+  .text-muted { color: #7a5a40; }
+  .text-muted\/70 { color: color-mix(in srgb, #7a5a40 70%, transparent); }
+
+  .border-border { border-color: var(--color-border); }
 }
 
 @utility container-quiz {

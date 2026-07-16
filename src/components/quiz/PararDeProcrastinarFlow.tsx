@@ -6,7 +6,7 @@ import antesDepoisImg from "@/assets/procrastinar/antes-depois.jpg";
 import paraQuemImg from "@/assets/procrastinar/para-quem.jpg";
 
 const CTA_URL = "#comprar";
-const TOTAL_STEPS = 10;
+const TOTAL_STEPS = 14;
 
 // Design tokens locais (dark)
 const BG = "#141110";
@@ -484,7 +484,7 @@ function Step9Resultados({ next, back }: { next: () => void; back: () => void })
   );
 }
 
-function Step10ParaQuem() {
+function Step10ParaQuem({ next }: { next: () => void }) {
   return (
     <>
       <div className="mt-4 overflow-hidden rounded-2xl">
@@ -504,7 +504,156 @@ function Step10ParaQuem() {
         <li>Se <strong>sentir orgulhosa</strong> de quem você está sendo</li>
         <li>Provar para si mesma que <strong>você é capaz de ser constante</strong></li>
       </ul>
-      <GreenCTA href={CTA_URL}>Estou ciente, e é exatamente o que eu preciso!</GreenCTA>
+      <GreenCTA onClick={next}>Estou ciente, e é exatamente o que eu preciso!</GreenCTA>
+    </>
+  );
+}
+
+const OFERTA_BULLETS: { icon: string; text: React.ReactNode }[] = [
+  { icon: "✅", text: <><strong>Curso completo com 10 passos</strong> práticos anti-procrastinação para mudança de vida</> },
+  { icon: "✅", text: <><strong>Desafio Anti-sabotagem</strong> validado pela neurociência</> },
+  { icon: "✅", text: <><strong>Exercícios comportamentais</strong> diários aplicáveis</> },
+  { icon: "🎁", text: <><span style={{ color: GOLD }}><strong>BÔNUS:</strong></span> Planner exclusivo de produtividade</> },
+  { icon: "🛡️", text: <><strong>Garantia incondicional de 7 dias</strong></> },
+];
+
+function Step11Oferta({ next }: { next: () => void }) {
+  return (
+    <>
+      <p className="mt-4 text-center uppercase text-xs sm:text-sm tracking-[0.15em] font-semibold leading-relaxed" style={{ color: GOLD }}>
+        TUDO O QUE VOCÊ RECEBE AO ENTRAR HOJE NO<br />
+        PROTOCOLO DO ZERO À ROTINA PRODUTIVA:
+      </p>
+      <div className="mt-8 overflow-hidden">
+        <img src={mockupImg} alt="Protocolo" className="w-full h-auto block" width={1024} height={1024} loading="lazy" />
+      </div>
+      <ul className="mt-8 space-y-4 text-center">
+        {OFERTA_BULLETS.map((b, i) => (
+          <li key={i} className="text-[15px] leading-relaxed" style={{ color: TEXT }}>
+            <span className="mr-2">{b.icon}</span>{b.text}
+          </li>
+        ))}
+        <li className="italic text-sm pt-2" style={{ color: TEXT_MUTED }}>Resultados mensuráveis em apenas 10 dias</li>
+      </ul>
+      <GreenCTA onClick={next}>Estou ciente, e é exatamente o que eu preciso!</GreenCTA>
+    </>
+  );
+}
+
+function Step12Transformacao({ next }: { next: () => void }) {
+  return (
+    <>
+      <div className="mt-8 mx-auto max-w-sm rounded-full border-2 px-6 py-3 flex items-center justify-center gap-2" style={{ borderColor: COPPER, backgroundColor: "rgba(192,122,95,0.08)" }}>
+        <span style={{ color: COPPER }}>⚠️</span>
+        <span className="font-semibold" style={{ color: COPPER }}>Chegou a hora de mudar!</span>
+      </div>
+      <div className="mt-8 mx-auto rounded-2xl p-5" style={{ backgroundColor: "#f2b5a3" }}>
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-sm font-semibold" style={{ color: "#1a1310" }}>~Eliane Braz</p>
+          <p className="text-xs font-semibold" style={{ color: "#3d6a3d" }}>+55 94 99157-3873</p>
+        </div>
+        <p className="mt-3 text-[15px] leading-relaxed" style={{ color: "#1a1310" }}>
+          A imersão foi incrível, o conteúdo transformador. Me vejo em casa relato da Val, como sempre com uma pílula
+          para solucionar cada dificuldade que temos, às vezes me parece que alguém contou minha vida pra ela. Obrigada
+          Val por tanta entrega. Gratidão por tudo. Que energia gostosa meninas, ambiente transformador.
+        </p>
+        <div className="mt-3 flex items-end justify-between">
+          <div className="h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-semibold" style={{ backgroundColor: "#3d7a5d" }}>E</div>
+          <p className="text-xs" style={{ color: "#3a2a20" }}>21:59</p>
+        </div>
+      </div>
+      <h2 className="mt-10 text-center font-serif text-xl sm:text-2xl font-semibold leading-snug" style={{ color: GOLD }}>
+        Você está preparada para começar<br />
+        sua jornada de transformação?
+      </h2>
+      <GreenCTA onClick={next}>Sim! Estou pronta!</GreenCTA>
+    </>
+  );
+}
+
+function Step13Preco({ next }: { next: () => void }) {
+  return (
+    <>
+      <h2 className="mt-16 text-center font-serif text-xl sm:text-2xl font-semibold leading-snug" style={{ color: GOLD }}>
+        Mais de 6.700 mulheres já aplicaram<br />esse protocolo.
+      </h2>
+      <p className="mt-3 text-center italic font-semibold text-lg" style={{ color: GOLD_SOFT }}>Agora é a sua vez.</p>
+      <p className="mt-8 text-center text-sm leading-relaxed" style={{ color: TEXT }}>
+        E para você que chegou até aqui eu me certifiquei de que{" "}
+        <span style={{ color: GOLD, fontWeight: 600 }}>o preço não fosse de nenhuma forma um impeditivo</span> para você começar hoje a transformar sua rotina:
+      </p>
+      <div className="mt-10 mx-auto rounded-2xl border-2 p-5 text-center" style={{ backgroundColor: "#6a2418", borderColor: "#8a3428" }}>
+        <div className="flex items-start justify-center gap-2">
+          <span style={{ color: "#f2b5a3" }}>⚠️</span>
+          <p className="font-semibold text-sm leading-snug" style={{ color: "#f6e4d6" }}>
+            O investimento do Protocolo em breve<br />voltará para o preço original de<br />
+            <span style={{ color: GOLD_SOFT }}>R$297,00!</span>
+          </p>
+        </div>
+      </div>
+      <GreenCTA onClick={next}>Entendido!</GreenCTA>
+    </>
+  );
+}
+
+function useCountdown(initialSeconds: number) {
+  const [seconds, setSeconds] = useState(initialSeconds);
+  useEffect(() => {
+    const t = setInterval(() => setSeconds((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const mm = Math.floor(seconds / 60);
+  const ss = seconds % 60;
+  return { mm: String(mm).padStart(2, "0"), ss: String(ss).padStart(2, "0") };
+}
+
+function Step14Checkout() {
+  const { mm, ss } = useCountdown(15 * 60);
+  return (
+    <>
+      <div className="mt-4 flex items-center justify-center gap-3">
+        {[
+          { v: mm, l: "min" },
+          { v: ss, l: "seg" },
+        ].map((t, i) => (
+          <div key={i} className="flex items-center gap-3">
+            <div className="h-16 w-16 rounded-full flex flex-col items-center justify-center" style={{ backgroundColor: "#f2b5a3" }}>
+              <span className="text-lg font-semibold leading-none" style={{ color: "#8a3428" }}>{t.v}</span>
+              <span className="text-[10px] leading-none mt-0.5" style={{ color: "#8a3428" }}>{t.l}</span>
+            </div>
+            {i === 0 && <span className="text-xl font-semibold" style={{ color: TEXT }}>:</span>}
+          </div>
+        ))}
+      </div>
+      <h2 className="mt-6 text-center font-serif text-lg sm:text-xl font-semibold leading-snug" style={{ color: GOLD }}>
+        Chegou a hora de você tomar a<br />
+        decisão MAIS IMPORTANTE para<br />
+        mudar sua vida HOJE!
+      </h2>
+      <p className="mt-4 text-center italic text-sm leading-relaxed" style={{ color: TEXT }}>
+        Apenas hoje, por tempo limitado, você tem a oportunidade de acessar o desafio Protocolo DZRP com{" "}
+        <span style={{ color: COPPER }}>+R$200,00 de desconto:</span>
+      </p>
+      <p className="mt-8 text-center text-lg" style={{ color: TEXT }}>
+        De <span className="line-through" style={{ color: TEXT_MUTED }}>R$ 297,00</span> por apenas
+      </p>
+      <div className="mt-2 flex items-baseline justify-center gap-2">
+        <span className="text-2xl font-semibold" style={{ color: TEXT }}>12X</span>
+        <span className="font-serif text-5xl sm:text-6xl font-bold" style={{ color: GREEN }}>R$4,90</span>
+      </div>
+      <p className="mt-2 text-center italic text-sm" style={{ color: TEXT }}>Ou R$47,00 à vista</p>
+      <div className="mt-8 overflow-hidden">
+        <img src={mockupImg} alt="Protocolo" className="w-full h-auto block" width={1024} height={1024} loading="lazy" />
+      </div>
+      <ul className="mt-6 space-y-3 text-center">
+        {OFERTA_BULLETS.map((b, i) => (
+          <li key={i} className="text-sm leading-relaxed" style={{ color: TEXT }}>
+            <span className="mr-2">{b.icon}</span>{b.text}
+          </li>
+        ))}
+        <li className="italic text-xs pt-1" style={{ color: TEXT_MUTED }}>Resultados mensuráveis em apenas 10 dias</li>
+      </ul>
+      <GreenCTA href={CTA_URL}>DESTRAVAR MINHA VAGA AGORA</GreenCTA>
     </>
   );
 }
@@ -533,7 +682,11 @@ export function PararDeProcrastinarFlow() {
       {step === 7 && <Step7Tempo next={next} back={back} choice={tempo} setChoice={setTempo} />}
       {step === 8 && <Step8Protocolo next={next} back={back} />}
       {step === 9 && <Step9Resultados next={next} back={back} />}
-      {step === 10 && <Step10ParaQuem />}
+      {step === 10 && <Step10ParaQuem next={next} />}
+      {step === 11 && <Step11Oferta next={next} />}
+      {step === 12 && <Step12Transformacao next={next} />}
+      {step === 13 && <Step13Preco next={next} />}
+      {step === 14 && <Step14Checkout />}
     </Shell>
   );
 }

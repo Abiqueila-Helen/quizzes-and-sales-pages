@@ -1,0 +1,122 @@
+Descreva uma tarefa para eu pedir para o lovable criar o quiz em react de uma forma que no mesmo projeto eu consiga fazer vários quiz diferentes só mudando a url da página, mas precisam ser rotas completamente diferentes para que um usuário não consiga encontrar o outro quiz. o ideal é que a url seja uma slug de palavras separados por traço "-" por exemplo '/o-dialogo-interno' e me entregue a tarefa entre crase ```assim``` para facilitar eu copiar.
+
+- Quiz pode ter imagem (mas não em todas as páginas para não precisar de muitas imagens)
+- precisa de uma página de processamento dos dados que vai marcando um check igual a imagem p-09
+- Copiar o exatamente esse modelo de página de vendas da imagem p-21, e as sessões que não temos informações no script pode gerar com lorem ipsum que edito depois com texto real.
+- Precisa ser perfeito no mobile pois 99% dos acessos serão pelo celular, mas também perfeito no computador como nas imagens de referência. 
+
+Considere o conteúdo abaixo para cada página e também todas as informações que você tem sobre o aplicativo que iremos vender. Utilize gatilhos emocionais.
+
+Considerando as informações do seu projeto, elaborei um script de **18 páginas** (dentro da métrica recomendada de 15 a 25). Este roteiro utiliza o dialeto real do seu público para gerar identificação imediata e transformar o quiz em uma "consultoria personalizada".
+
+---
+
+# Script para Quiz: Sistema de Redirecionamento Emocional
+
+## ETAPA 1: Boas-vindas (Dobra 1)
+**Página 01: O Início**
+*   **Headline:** Descubra por que sua mente te mantém preso no "modo de fuga" e como recuperar seu estado produtivo em menos de 5 minutos.
+*   **Texto:** Este não é um teste de personalidade comum. É um diagnóstico do seu Sistema de Redirecionamento Emocional.
+*   **Botão:** Começar Diagnóstico Gratuito
+
+---
+
+## ETAPA 2: Perguntas sobre o Problema (Dobra 2)
+*Objetivo: Fazer o lead se enxergar no problema.*
+
+**Página 02: O Despertar**
+*   **Pergunta:** Como tem sido o seu despertar na maioria dos dias?
+*   **Opções:**
+    1. Acordo com energia e clareza.
+    2. Acordo sem energia e perco as primeiras horas rolando o feed do celular. (O Despertar Perdido)
+
+**Página 03: A Facada Digital**
+*   **Pergunta:** Ao abrir o Instagram e ver pessoas da sua idade conquistando casas, carros e o "shape perfeito", o que você sente?
+*   **Opções:**
+    1. Fico feliz por elas e me sinto motivado.
+    2. Sinto uma facada na autoestima e a sensação de que estou parado no tempo.
+
+**Página 04: O Diálogo Interno**
+*   **Pergunta:** Qual voz costuma gritar mais alto na sua cabeça quando você procrastina?
+*   **Opções:**
+    1. "Tudo bem, amanhã eu recupero."
+    2. "Eu sou um incompetente, não faço nada certo."
+
+**Página 05: A Agonia do Início**
+*   **Pergunta:** Quando você abre um livro ou uma planilha importante, o que acontece nos primeiros 5 minutos?
+*   **Opções:**
+    1. Entro em foco total.
+    2. Sinto uma agonia no peito que só passa quando fujo para o TikTok ou YouTube.
+
+**Página 06: O Peso do Travesseiro**
+*   **Pergunta:** Com que frequência você deita no travesseiro com o sentimento de derrota por não ter feito o que deveria?
+*   **Opções:**
+    1. Raramente.
+    2. Quase todas as noites; é sufocante.
+
+---
+
+## ETAPA 3: Conteúdo e Transição (Dobra 3)
+*Objetivo: Reforçar o problema e educar sobre a "Prisão Biológica".*
+
+**Página 07: O Estado de "Semi-Zumbi"**
+*   **Texto:** Se você marcou a maioria das opções anteriores, você está vivendo no que chamamos de **estado de semi-zumbi**. Não é falta de disciplina, é o seu cérebro tentando te "proteger" de um desconforto emocional.
+
+**Página 08: A Jaula Aberta**
+*   **Texto:** Sua mente hoje é uma jaula com a porta aberta, mas você continua preso porque seu sistema de redirecionamento está quebrado. O culpado não é você, mas um programa de autossabotagem instalado pelo seu passado.
+
+---
+
+## ETAPA 4: Estilo de Vida e Micro-recompensas (Dobra 4)
+*Objetivo: Personalizar o diagnóstico e gerar expectativa de recompensa.*
+
+**Página 09: A Noite dos Sonhos**
+*   **Pergunta:** Se você deitasse hoje com TODA a sua lista de tarefas concluída, qual seria o sentimento principal?
+*   **Opções:** Orgulho próprio / Paz mental / Alívio financeiro.
+
+**Página 10: O Objetivo Financeiro**
+*   **Pergunta:** Qual barreira financeira você mais deseja romper nos próximos 3 meses?
+*   **Opções:** Sair do vermelho / Prover melhor para minha família / Conquistar meu primeiro grande bem.
+
+**Página 11: O Autodomínio**
+*   **Pergunta:** O que mudaria na sua vida se você pudesse "apertar um botão" e voltar a produzir no exato momento da crise emocional?
+*   **Opções:** Teria mais tempo livre / Seria respeitado pela minha disciplina / Minha autoestima decolaria.
+
+---
+
+## ETAPA 5: Diagnóstico e Método (Dobra 5)
+*Objetivo: Apresentar a solução cirúrgica.*
+
+**Página 12: Processando seu Diagnóstico...**
+*   *(Animação de carregamento para aumentar o valor percebido)*
+
+**Página 13: Seu Diagnóstico: Paralisia por Sobrecarga Emocional**
+*   **Texto:** Você não precisa de mais um curso de 30 dias. Você precisa de uma **micro-intervenção cirúrgica** no momento exato em que a agonia aparece.
+
+**Página 14: Apresentando o Sistema de Redirecionamento Emocional**
+*   **Texto:** Criamos um método que intercepta o ciclo de fuga. Identifique o sentimento (culpa, medo, escassez), aperte um botão, ouça um áudio de 3 minutos e volte a produzir imediatamente.
+
+---
+
+## ETAPA 6: Prova Social (Dobra 6)
+**Página 15: "Eu era o caso mais difícil"**
+*   **Texto:** "Eu tinha 34 anos e não tinha conquistado nada. Achei que minha mente estava estragada. Esse aplicativo foi a chave que o sistema não me deu."
+
+---
+
+## ETAPA 7: Página de Vendas Embutida (Dobra 7)
+*Objetivo: Conversão direta.*
+
+**Página 16: A Oferta de Valor**
+*   **Headline:** Recupere seu estado mental produtivo em menos de 5 minutos.
+*   **Corpo da Cópia:**
+    *   **O Problema:** Chega de ser refém do TikTok e da culpa noturna.
+    *   **A Solução:** O aplicativo com áudios de micro-intervenção que desinstalam o programa de autossabotagem.
+    *   **O Benefício:** Agir sem depender de motivação. Sair do modo de fuga para o modo de ação sem esforço.
+
+**Página 17: Bônus e Garantia**
+*   **Texto:** Além do acesso ao Sistema, você recebe o guia de "Higiene do Sono para Alta Performance" e o mapa de "Ressignificação de Traumas Financeiros".
+
+**Página 18: Chamada para Ação Final**
+*   **Botão:** QUERO MEU ACESSO E VOLTAR A PRODUZIR AGORA
+*   **Rodapé:** Checkout Seguro IAMP | Acesso imediato.

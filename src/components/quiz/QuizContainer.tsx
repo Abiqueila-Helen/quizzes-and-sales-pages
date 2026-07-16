@@ -6,6 +6,7 @@ import { Question } from "./Question";
 import { Processing } from "./Processing";
 import { Result } from "./Result";
 import { DiagnosticoGratuitoFlow } from "./DiagnosticoGratuitoFlow";
+import { PararDeProcrastinarFlow } from "./PararDeProcrastinarFlow";
 
 interface Props {
   config: QuizConfig;
@@ -13,6 +14,10 @@ interface Props {
 
 export function QuizContainer({ config }: Props) {
   const quiz = useQuiz(config);
+
+  if (config.slug === "parar-de-procrastinar") {
+    return <PararDeProcrastinarFlow />;
+  }
 
   return (
     <div className="min-h-screen bg-background flex flex-col">

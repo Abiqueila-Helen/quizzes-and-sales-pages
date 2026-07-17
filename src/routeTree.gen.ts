@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as JornadaDeHonraRouteImport } from './routes/jornada-de-honra'
+import { Route as AppsreRouteImport } from './routes/appsre'
 import { Route as SlugRouteImport } from './routes/$slug'
 import { Route as IndexRouteImport } from './routes/index'
 
 const JornadaDeHonraRoute = JornadaDeHonraRouteImport.update({
   id: '/jornada-de-honra',
   path: '/jornada-de-honra',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsreRoute = AppsreRouteImport.update({
+  id: '/appsre',
+  path: '/appsre',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SlugRoute = SlugRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
+  '/appsre': typeof AppsreRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
+  '/appsre': typeof AppsreRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
+  '/appsre': typeof AppsreRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$slug' | '/jornada-de-honra'
+  fullPaths: '/' | '/$slug' | '/appsre' | '/jornada-de-honra'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$slug' | '/jornada-de-honra'
-  id: '__root__' | '/' | '/$slug' | '/jornada-de-honra'
+  to: '/' | '/$slug' | '/appsre' | '/jornada-de-honra'
+  id: '__root__' | '/' | '/$slug' | '/appsre' | '/jornada-de-honra'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SlugRoute: typeof SlugRoute
+  AppsreRoute: typeof AppsreRoute
   JornadaDeHonraRoute: typeof JornadaDeHonraRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/jornada-de-honra'
       fullPath: '/jornada-de-honra'
       preLoaderRoute: typeof JornadaDeHonraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/appsre': {
+      id: '/appsre'
+      path: '/appsre'
+      fullPath: '/appsre'
+      preLoaderRoute: typeof AppsreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$slug': {
@@ -88,8 +105,19 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SlugRoute: SlugRoute,
+  AppsreRoute: AppsreRoute,
   JornadaDeHonraRoute: JornadaDeHonraRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

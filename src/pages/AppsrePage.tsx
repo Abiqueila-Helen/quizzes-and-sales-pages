@@ -30,6 +30,7 @@ import {
   X,
 } from "lucide-react";
 
+import logo from "@/assets/Logo.png";
 import heroMockup from "@/assets/appsre/hero-mockup.png";
 import screenCheckin from "@/assets/appsre/screen-checkin.jpg";
 import screenAudios from "@/assets/appsre/screen-audios.jpg";
@@ -225,12 +226,7 @@ function Nav({ onCta }: { onCta: () => void }) {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
         <div className="flex items-center gap-2">
-          <div
-            className="grid h-9 w-9 place-items-center rounded-xl text-white"
-            style={{ background: `linear-gradient(135deg, ${BRAND.blue}, ${BRAND.green})` }}
-          >
-            <Sparkles className="h-4 w-4" />
-          </div>
+          <img src={logo} alt="Ressignifica" className="h-9 w-9 rounded-xl object-cover" />
           <span className="text-lg font-extrabold tracking-tight">Ressignifica</span>
         </div>
         <button
@@ -387,9 +383,9 @@ function Hero({ onCta }: { onCta: () => void }) {
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
               {[
                 { icon: <Brain className="h-4 w-4" />, label: "Pensamentos negativos", tone: "mute" },
+                { icon: <ListChecks className="h-4 w-4" />, label: "Ação", tone: "green" },
                 { icon: <Sparkles className="h-4 w-4" />, label: "Intervenção", tone: "blue" },
                 { icon: <Compass className="h-4 w-4" />, label: "Clareza", tone: "blue" },
-                { icon: <ListChecks className="h-4 w-4" />, label: "Ação", tone: "green" },
                 { icon: <TrendingUp className="h-4 w-4" />, label: "Resultado", tone: "green" },
               ].map((s, i, arr) => (
                 <div key={s.label} className="flex items-center gap-2">
@@ -1251,18 +1247,13 @@ function Footer() {
     <footer className="border-t py-10" style={{ borderColor: BRAND.border, background: BRAND.bg }}>
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 sm:flex-row">
         <div className="flex items-center gap-2">
-          <div
-            className="grid h-8 w-8 place-items-center rounded-lg text-white"
-            style={{ background: `linear-gradient(135deg, ${BRAND.blue}, ${BRAND.green})` }}
-          >
-            <Sparkles className="h-3.5 w-3.5" />
-          </div>
+          <img src={logo} alt="Ressignifica" className="h-8 w-8 rounded-lg object-cover" />
           <span className="text-sm font-bold">Ressignifica</span>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-5 text-xs" style={{ color: BRAND.textMute }}>
-          <a href="#privacy" className="hover:opacity-70">Política de Privacidade</a>
-          <a href="#terms" className="hover:opacity-70">Termos de Uso</a>
-          <a href="#contact" className="hover:opacity-70">Contato</a>
+          <a href="/politica-de-privacidade" className="hover:opacity-70">Política de Privacidade</a>
+          <a href="/termos-de-uso" className="hover:opacity-70">Termos de Uso</a>
+          <a href="https://wa.me/19991703327" target="_blank" rel="noopener noreferrer" className="hover:opacity-70">Contato</a>
         </div>
         <div className="text-xs" style={{ color: BRAND.textMute }}>© 2026 Ressignifica</div>
       </div>

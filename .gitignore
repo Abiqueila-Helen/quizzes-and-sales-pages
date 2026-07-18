@@ -1,5 +1,7 @@
-# Logs
-logs
+# =========================================================
+# LOGS
+# =========================================================
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,26 +9,74 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-.output
-.vinxi
-.tanstack/**
-.nitro
+# =========================================================
+# DEPENDÊNCIAS
+# =========================================================
+node_modules/
+
+# =========================================================
+# BUILD / DIST / COVERAGE
+# =========================================================
+dist/
+dist-ssr/
+build/
+coverage/
 *.local
+*.cache
+*.tmp
 
-# Wrangler / Cloudflare
-.wrangler/
-.dev.vars
+# =========================================================
+# VARIÁVEIS DE AMBIENTE
+# =========================================================
+.env
+.env.*.local
+.env.*.local
+# =========================================================
+# DOCKER
+# =========================================================
+# Arquivos de build, cache e dados temporários
+Dockerfile~
+docker-compose.override.yml
+docker-compose.dev.yml
+docker-compose.local.yml
+.docker/
+.dockerignore
+tmp/
+*.pid
+*.seed
+*.bak
 
-# Editor directories and files
+# =========================================================
+# SISTEMAS OPERACIONAIS
+# =========================================================
+.DS_Store
+Thumbs.db
+
+# =========================================================
+# EDITORES / IDEs
+# =========================================================
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# =========================================================
+# OUTROS
+# =========================================================
+Instructions.md
+*.tgz
+
+# =========================================================
+# FRAMEWORKS ESPECÍFICOS (OPCIONAIS)
+# =========================================================
+# Se usar Vite:
+vite.config.js.timestamp*
+vite.config.ts.timestamp*
+
+# Se usar Next.js:
+.next/
+out/

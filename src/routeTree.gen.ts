@@ -9,11 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
+import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as JornadaDeHonraRouteImport } from './routes/jornada-de-honra'
 import { Route as AppsreRouteImport } from './routes/appsre'
 import { Route as SlugRouteImport } from './routes/$slug'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
+  id: '/termos-de-uso',
+  path: '/termos-de-uso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
+  id: '/politica-de-privacidade',
+  path: '/politica-de-privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JornadaDeHonraRoute = JornadaDeHonraRouteImport.update({
   id: '/jornada-de-honra',
   path: '/jornada-de-honra',
@@ -40,12 +52,16 @@ export interface FileRoutesByFullPath {
   '/$slug': typeof SlugRoute
   '/appsre': typeof AppsreRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
   '/appsre': typeof AppsreRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +69,34 @@ export interface FileRoutesById {
   '/$slug': typeof SlugRoute
   '/appsre': typeof AppsreRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$slug' | '/appsre' | '/jornada-de-honra'
+  fullPaths:
+    | '/'
+    | '/$slug'
+    | '/appsre'
+    | '/jornada-de-honra'
+    | '/politica-de-privacidade'
+    | '/termos-de-uso'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$slug' | '/appsre' | '/jornada-de-honra'
-  id: '__root__' | '/' | '/$slug' | '/appsre' | '/jornada-de-honra'
+  to:
+    | '/'
+    | '/$slug'
+    | '/appsre'
+    | '/jornada-de-honra'
+    | '/politica-de-privacidade'
+    | '/termos-de-uso'
+  id:
+    | '__root__'
+    | '/'
+    | '/$slug'
+    | '/appsre'
+    | '/jornada-de-honra'
+    | '/politica-de-privacidade'
+    | '/termos-de-uso'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +104,26 @@ export interface RootRouteChildren {
   SlugRoute: typeof SlugRoute
   AppsreRoute: typeof AppsreRoute
   JornadaDeHonraRoute: typeof JornadaDeHonraRoute
+  PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
+  TermosDeUsoRoute: typeof TermosDeUsoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/termos-de-uso': {
+      id: '/termos-de-uso'
+      path: '/termos-de-uso'
+      fullPath: '/termos-de-uso'
+      preLoaderRoute: typeof TermosDeUsoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-privacidade': {
+      id: '/politica-de-privacidade'
+      path: '/politica-de-privacidade'
+      fullPath: '/politica-de-privacidade'
+      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/jornada-de-honra': {
       id: '/jornada-de-honra'
       path: '/jornada-de-honra'
@@ -107,7 +160,19 @@ const rootRouteChildren: RootRouteChildren = {
   SlugRoute: SlugRoute,
   AppsreRoute: AppsreRoute,
   JornadaDeHonraRoute: JornadaDeHonraRoute,
+  PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
+  TermosDeUsoRoute: TermosDeUsoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

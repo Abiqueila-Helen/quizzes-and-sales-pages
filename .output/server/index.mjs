@@ -1,6 +1,9 @@
 globalThis.__nitro_main__ = import.meta.url;
-import { a as FastResponse, n as HTTPError, r as defineLazyEventHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
-import { t as HookableCore } from "./_libs/hookable.mjs";
+import { a as toEventHandler, c as NodeResponse, i as defineLazyEventHandler, l as serve, n as HTTPError, r as defineHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
+import { i as withoutTrailingSlash, n as joinURL, r as withLeadingSlash, t as decodePath } from "./_libs/ufo.mjs";
+import { promises } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
 //#region #nitro-vite-setup
 function lazyService(loader) {
 	let promise, mod;
@@ -12,6 +15,11 @@ function lazyService(loader) {
 }
 var services = { ["ssr"]: lazyService(() => import("./_ssr/ssr.mjs")) };
 globalThis.__nitro_vite_envs__ = services;
+//#endregion
+//#region node_modules/nitro/dist/runtime/internal/route-rules.mjs
+var headers = ((m) => function headersRouteRule(event) {
+	for (const [key, value] of Object.entries(m.options || {})) event.res.headers.set(key, value);
+});
 //#endregion
 //#region #nitro/virtual/public-assets-data
 var public_assets_data_default = {
@@ -46,177 +54,163 @@ var public_assets_data_default = {
 	"/assets/antes-depois-CM32NS16.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"16338-XBATzXSOU1s91PSkarFVNPayhfg\"",
-		"mtime": "2026-07-18T23:29:11.270Z",
+		"mtime": "2026-07-19T12:53:58.948Z",
 		"size": 90936,
 		"path": "../public/assets/antes-depois-CM32NS16.jpg"
 	},
 	"/assets/appsre-Du3uL6IP.css": {
 		"type": "text/css; charset=utf-8",
 		"etag": "\"14c8-+2TMGaAxSsLQ006SytZkhj/elO0\"",
-		"mtime": "2026-07-18T23:29:11.270Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 5320,
 		"path": "../public/assets/appsre-Du3uL6IP.css"
-	},
-	"/assets/appsre-uqf7U-Sv.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"336b8-pN4kWe+Y5gYCg2kghTOkDFGI3U8\"",
-		"mtime": "2026-07-18T23:29:11.263Z",
-		"size": 210616,
-		"path": "../public/assets/appsre-uqf7U-Sv.js"
-	},
-	"/assets/hero-Dcf32M4q.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"e9d2-1zBZgv9Ncsuf+To1g352Zxan4fQ\"",
-		"mtime": "2026-07-18T23:29:11.270Z",
-		"size": 59858,
-		"path": "../public/assets/hero-Dcf32M4q.jpg"
 	},
 	"/assets/button-CpTEEiup.js": {
 		"type": "text/javascript; charset=utf-8",
 		"etag": "\"7e12-NS47tKDI1SfCk6E905zVYAB+IK8\"",
-		"mtime": "2026-07-18T23:29:11.263Z",
+		"mtime": "2026-07-19T12:53:58.938Z",
 		"size": 32274,
 		"path": "../public/assets/button-CpTEEiup.js"
+	},
+	"/assets/hero-Dcf32M4q.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"e9d2-1zBZgv9Ncsuf+To1g352Zxan4fQ\"",
+		"mtime": "2026-07-19T12:53:58.949Z",
+		"size": 59858,
+		"path": "../public/assets/hero-Dcf32M4q.jpg"
 	},
 	"/assets/createLucideIcon-B_1GbDvl.js": {
 		"type": "text/javascript; charset=utf-8",
 		"etag": "\"4ab-Y4enwiXY2yAcF1Gu2b12sxHBTW8\"",
-		"mtime": "2026-07-18T23:29:11.264Z",
+		"mtime": "2026-07-19T12:53:58.938Z",
 		"size": 1195,
 		"path": "../public/assets/createLucideIcon-B_1GbDvl.js"
+	},
+	"/assets/appsre-uqf7U-Sv.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"336b8-pN4kWe+Y5gYCg2kghTOkDFGI3U8\"",
+		"mtime": "2026-07-19T12:53:58.938Z",
+		"size": 210616,
+		"path": "../public/assets/appsre-uqf7U-Sv.js"
 	},
 	"/assets/jornada-de-honra-my6d8qCw.js": {
 		"type": "text/javascript; charset=utf-8",
 		"etag": "\"12ec-6bxrsakl7sl02qqJ44M8WXTI3lc\"",
-		"mtime": "2026-07-18T23:29:11.264Z",
+		"mtime": "2026-07-19T12:53:58.938Z",
 		"size": 4844,
 		"path": "../public/assets/jornada-de-honra-my6d8qCw.js"
 	},
 	"/assets/Logo-CEZ_QuOe.png": {
 		"type": "image/png",
 		"etag": "\"155ed-0Swy+uQhUyd5BRLxSjhi6e6YZc4\"",
-		"mtime": "2026-07-18T23:29:11.269Z",
+		"mtime": "2026-07-19T12:53:58.948Z",
 		"size": 87533,
 		"path": "../public/assets/Logo-CEZ_QuOe.png"
 	},
 	"/assets/mockup-DtadlHOq.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"df3f-qbpIXs5OPb5F5CBLOsO1PSWG90E\"",
-		"mtime": "2026-07-18T23:29:11.272Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 57151,
 		"path": "../public/assets/mockup-DtadlHOq.jpg"
+	},
+	"/assets/jsx-runtime-D8nDyRPw.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"2210-qrBAUPDOR8ROKpBVNEla8AGnGKU\"",
+		"mtime": "2026-07-19T12:53:58.938Z",
+		"size": 8720,
+		"path": "../public/assets/jsx-runtime-D8nDyRPw.js"
 	},
 	"/assets/para-quem-BEbbknBt.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"18518-VKGgEbjJaCzLdtnM14JKoIGyggw\"",
-		"mtime": "2026-07-18T23:29:11.272Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 99608,
 		"path": "../public/assets/para-quem-BEbbknBt.jpg"
 	},
 	"/assets/screen-audios-DqbagL6F.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"eef3-ZkB3qfKS5ZMuvJv01TzPYcBKhZo\"",
-		"mtime": "2026-07-18T23:29:11.272Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 61171,
 		"path": "../public/assets/screen-audios-DqbagL6F.jpg"
-	},
-	"/assets/react-dom-CrK8yE57.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"dda-TYAl7GnUPUCbV+AVNcbJobxY8L4\"",
-		"mtime": "2026-07-18T23:29:11.268Z",
-		"size": 3546,
-		"path": "../public/assets/react-dom-CrK8yE57.js"
-	},
-	"/assets/jsx-runtime-D8nDyRPw.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"2210-qrBAUPDOR8ROKpBVNEla8AGnGKU\"",
-		"mtime": "2026-07-18T23:29:11.264Z",
-		"size": 8720,
-		"path": "../public/assets/jsx-runtime-D8nDyRPw.js"
-	},
-	"/assets/screen-checkin-BQZ0GZY-.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"e06f-ho7jfU0UvbdnUpmAgdJQAUiXVN0\"",
-		"mtime": "2026-07-18T23:29:11.273Z",
-		"size": 57455,
-		"path": "../public/assets/screen-checkin-BQZ0GZY-.jpg"
-	},
-	"/assets/screen-dashboard-B30khCPl.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"e827-IH/OO7ancEfggsciJl7/5+qMUsg\"",
-		"mtime": "2026-07-18T23:29:11.273Z",
-		"size": 59431,
-		"path": "../public/assets/screen-dashboard-B30khCPl.jpg"
 	},
 	"/assets/politica-de-privacidade-Cbb63RjO.js": {
 		"type": "text/javascript; charset=utf-8",
 		"etag": "\"1808-h1CxhGTxfTQQyuey3SKuqBcy7x4\"",
-		"mtime": "2026-07-18T23:29:11.267Z",
+		"mtime": "2026-07-19T12:53:58.938Z",
 		"size": 6152,
 		"path": "../public/assets/politica-de-privacidade-Cbb63RjO.js"
+	},
+	"/assets/screen-checkin-BQZ0GZY-.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"e06f-ho7jfU0UvbdnUpmAgdJQAUiXVN0\"",
+		"mtime": "2026-07-19T12:53:58.949Z",
+		"size": 57455,
+		"path": "../public/assets/screen-checkin-BQZ0GZY-.jpg"
+	},
+	"/assets/react-dom-CrK8yE57.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"dda-TYAl7GnUPUCbV+AVNcbJobxY8L4\"",
+		"mtime": "2026-07-19T12:53:58.938Z",
+		"size": 3546,
+		"path": "../public/assets/react-dom-CrK8yE57.js"
+	},
+	"/assets/screen-dashboard-B30khCPl.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"e827-IH/OO7ancEfggsciJl7/5+qMUsg\"",
+		"mtime": "2026-07-19T12:53:58.949Z",
+		"size": 59431,
+		"path": "../public/assets/screen-dashboard-B30khCPl.jpg"
 	},
 	"/assets/screen-tarefas-CyKXyYtL.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"f14c-Ou1KAg3/u0M0eDUqE43VOSZzgDU\"",
-		"mtime": "2026-07-18T23:29:11.274Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 61772,
 		"path": "../public/assets/screen-tarefas-CyKXyYtL.jpg"
 	},
 	"/assets/screen-videos-lI6hL3N-.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"ec46-NtfQTA07W08OjksC7sAqFqzvocc\"",
-		"mtime": "2026-07-18T23:29:11.274Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 60486,
 		"path": "../public/assets/screen-videos-lI6hL3N-.jpg"
 	},
 	"/assets/styles-Cg-_MUWO.css": {
 		"type": "text/css; charset=utf-8",
 		"etag": "\"172ff-lkN37cy1XKCWWIvy+/hqP9y1TiQ\"",
-		"mtime": "2026-07-18T23:29:11.274Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 94975,
 		"path": "../public/assets/styles-Cg-_MUWO.css"
 	},
 	"/assets/index-NVGaDF-V.js": {
 		"type": "text/javascript; charset=utf-8",
 		"etag": "\"59d00-5DXxKy0rAfHIegTwmc6v7yrjmeY\"",
-		"mtime": "2026-07-18T23:29:11.262Z",
+		"mtime": "2026-07-19T12:53:58.938Z",
 		"size": 367872,
 		"path": "../public/assets/index-NVGaDF-V.js"
 	},
 	"/assets/hero-mockup-D1wke1Ye.png": {
 		"type": "image/png",
 		"etag": "\"1352b5-BGt0vl1/Zsv04SzgUhUBtKqH2l4\"",
-		"mtime": "2026-07-18T23:29:11.271Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 1266357,
 		"path": "../public/assets/hero-mockup-D1wke1Ye.png"
 	},
 	"/assets/testi-1-CiqZlaoh.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"61aa-1dyCuLQS09SMIG8Nv+i0J6hSVgk\"",
-		"mtime": "2026-07-18T23:29:11.275Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 25002,
 		"path": "../public/assets/testi-1-CiqZlaoh.jpg"
-	},
-	"/assets/termos-de-uso-BT6rKNfN.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"200c-C9Zje0fvdxMwRGy2YwOFJ7T/nf4\"",
-		"mtime": "2026-07-18T23:29:11.268Z",
-		"size": 8204,
-		"path": "../public/assets/termos-de-uso-BT6rKNfN.js"
 	},
 	"/assets/testi-3-DwPFJxU_.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"5c3a-7/d3vOdxW8bH1xvJ4yJLcputZkA\"",
-		"mtime": "2026-07-18T23:29:11.275Z",
+		"mtime": "2026-07-19T12:53:58.949Z",
 		"size": 23610,
 		"path": "../public/assets/testi-3-DwPFJxU_.jpg"
-	},
-	"/assets/x-a7nUlXUP.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"4eb-upXwmiyxM8H94mKMgTr6xP+9aKs\"",
-		"mtime": "2026-07-18T23:29:11.269Z",
-		"size": 1259,
-		"path": "../public/assets/x-a7nUlXUP.js"
 	},
 	"/jornada-de-honra/ac-pratica.svg": {
 		"type": "image/svg+xml",
@@ -225,12 +219,19 @@ var public_assets_data_default = {
 		"size": 32532,
 		"path": "../public/jornada-de-honra/ac-pratica.svg"
 	},
-	"/assets/_slug-C6TCZ9zQ.js": {
+	"/assets/termos-de-uso-BT6rKNfN.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"d67e-9lvjvFUVfzp5RoDqkdUFlg1SAAA\"",
-		"mtime": "2026-07-18T23:29:11.263Z",
-		"size": 54910,
-		"path": "../public/assets/_slug-C6TCZ9zQ.js"
+		"etag": "\"200c-C9Zje0fvdxMwRGy2YwOFJ7T/nf4\"",
+		"mtime": "2026-07-19T12:53:58.938Z",
+		"size": 8204,
+		"path": "../public/assets/termos-de-uso-BT6rKNfN.js"
+	},
+	"/assets/x-a7nUlXUP.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"4eb-upXwmiyxM8H94mKMgTr6xP+9aKs\"",
+		"mtime": "2026-07-19T12:53:58.938Z",
+		"size": 1259,
+		"path": "../public/assets/x-a7nUlXUP.js"
 	},
 	"/jornada-de-honra/presencial-ac.svg": {
 		"type": "image/svg+xml",
@@ -259,8 +260,21 @@ var public_assets_data_default = {
 		"mtime": "2026-07-18T14:54:30.277Z",
 		"size": 178448,
 		"path": "../public/jornada-de-honra/Thumb-Bio-Jornada-de-Honra.webp"
+	},
+	"/assets/_slug-C6TCZ9zQ.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"d67e-9lvjvFUVfzp5RoDqkdUFlg1SAAA\"",
+		"mtime": "2026-07-19T12:53:58.938Z",
+		"size": 54910,
+		"path": "../public/assets/_slug-C6TCZ9zQ.js"
 	}
 };
+//#endregion
+//#region #nitro/virtual/public-assets-node
+function readAsset(id) {
+	const serverDir = dirname(fileURLToPath(globalThis.__nitro_main__));
+	return promises.readFile(resolve(serverDir, public_assets_data_default[id].path));
+}
 //#endregion
 //#region #nitro/virtual/public-assets
 var publicAssetBases = {};
@@ -269,10 +283,56 @@ function isPublicAssetURL(id = "") {
 	for (const base in publicAssetBases) if (id.startsWith(base)) return true;
 	return false;
 }
+function getAsset(id) {
+	return public_assets_data_default[id];
+}
 //#endregion
-//#region node_modules/nitro/dist/runtime/internal/route-rules.mjs
-var headers = ((m) => function headersRouteRule(event) {
-	for (const [key, value] of Object.entries(m.options || {})) event.res.headers.set(key, value);
+//#region node_modules/nitro/dist/runtime/internal/static.mjs
+var METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
+var EncodingMap = {
+	gzip: ".gz",
+	br: ".br",
+	zstd: ".zst"
+};
+var static_default = defineHandler((event) => {
+	if (event.req.method && !METHODS.has(event.req.method)) return;
+	let id = decodePath(withLeadingSlash(withoutTrailingSlash(event.url.pathname)));
+	let asset;
+	const encodings = [...(event.req.headers.get("accept-encoding") || "").split(",").map((e) => EncodingMap[e.trim()]).filter(Boolean).sort(), ""];
+	for (const encoding of encodings) for (const _id of [id + encoding, joinURL(id, "index.html" + encoding)]) {
+		const _asset = getAsset(_id);
+		if (_asset) {
+			asset = _asset;
+			id = _id;
+			break;
+		}
+	}
+	if (!asset) {
+		if (isPublicAssetURL(id)) {
+			event.res.headers.delete("Cache-Control");
+			throw new HTTPError({ status: 404 });
+		}
+		return;
+	}
+	if (encodings.length > 1) event.res.headers.append("Vary", "Accept-Encoding");
+	if (event.req.headers.get("if-none-match") === asset.etag) {
+		event.res.status = 304;
+		event.res.statusText = "Not Modified";
+		return "";
+	}
+	const ifModifiedSinceH = event.req.headers.get("if-modified-since");
+	const mtimeDate = new Date(asset.mtime);
+	if (ifModifiedSinceH && asset.mtime && new Date(ifModifiedSinceH) >= mtimeDate) {
+		event.res.status = 304;
+		event.res.statusText = "Not Modified";
+		return "";
+	}
+	if (asset.type) event.res.headers.set("Content-Type", asset.type);
+	if (asset.etag && !event.res.headers.has("ETag")) event.res.headers.set("ETag", asset.etag);
+	if (asset.mtime && !event.res.headers.has("Last-Modified")) event.res.headers.set("Last-Modified", mtimeDate.toUTCString());
+	if (asset.encoding && !event.res.headers.has("Content-Encoding")) event.res.headers.set("Content-Encoding", asset.encoding);
+	if (asset.size > 0 && !event.res.headers.has("Content-Length")) event.res.headers.set("Content-Length", asset.size.toString());
+	return readAsset(id);
 });
 //#endregion
 //#region #nitro/virtual/routing
@@ -309,12 +369,12 @@ var findRoute = /* @__PURE__ */ (() => {
 		};
 	});
 })();
-[].filter(Boolean);
+var globalMiddleware = [toEventHandler(static_default)].filter(Boolean);
 //#endregion
 //#region node_modules/nitro/dist/runtime/internal/error/prod.mjs
 var errorHandler = (error, event) => {
 	const res = defaultHandler(error, event);
-	return new FastResponse(typeof res.body === "string" ? res.body : JSON.stringify(res.body, null, 2), res);
+	return new NodeResponse(typeof res.body === "string" ? res.body : JSON.stringify(res.body, null, 2), res);
 };
 function defaultHandler(error, event) {
 	const unhandled = error.unhandled ?? !HTTPError.isError(error);
@@ -387,6 +447,7 @@ function createNitroApp() {
 function createH3App(config) {
 	const h3App = new H3Core(config);
 	h3App["~findRoute"] = (event) => findRoute(event.req.method, event.url.pathname);
+	h3App["~middleware"].push(...globalMiddleware);
 	h3App["~getMiddleware"] = (event, route) => {
 		const pathname = event.url.pathname;
 		const method = event.req.method;
@@ -394,6 +455,7 @@ function createH3App(config) {
 		const routeRules = getRouteRules(method, pathname);
 		event.context.routeRules = routeRules?.routeRules;
 		if (routeRules?.routeRuleMiddleware.length) middleware.push(...routeRules.routeRuleMiddleware);
+		middleware.push(...h3App["~middleware"]);
 		if (route?.data?.middleware?.length) middleware.push(...route.data.middleware);
 		return middleware;
 	};
@@ -409,12 +471,6 @@ function useNitroApp() {
 	globalThis.__nitro__ = globalThis.__nitro__ || {};
 	globalThis.__nitro__[APP_ID] = instance;
 	return instance;
-}
-function useNitroHooks() {
-	const nitroApp = useNitroApp();
-	const hooks = nitroApp.hooks;
-	if (hooks) return hooks;
-	return nitroApp.hooks = new HookableCore();
 }
 function getRouteRules(method, pathname) {
 	const m = findRouteRules(method, pathname);
@@ -454,83 +510,37 @@ function getRouteRules(method, pathname) {
 	};
 }
 //#endregion
-//#region node_modules/nitro/dist/presets/cloudflare/runtime/_module-handler.mjs
-function createHandler(hooks) {
-	const nitroApp = useNitroApp();
-	const nitroHooks = useNitroHooks();
-	return {
-		async fetch(request, env, context) {
-			globalThis.__env__ = env;
-			augmentReq(request, {
-				env,
-				context
-			});
-			const ctxExt = {};
-			const url = new URL(request.url);
-			if (hooks.fetch) {
-				const res = await hooks.fetch(request, env, context, url, ctxExt);
-				if (res) return res;
-			}
-			return await nitroApp.fetch(request);
-		},
-		scheduled(controller, env, context) {
-			globalThis.__env__ = env;
-			context.waitUntil(nitroHooks.callHook("cloudflare:scheduled", {
-				controller,
-				env,
-				context
-			}) || Promise.resolve());
-		},
-		email(message, env, context) {
-			globalThis.__env__ = env;
-			context.waitUntil(nitroHooks.callHook("cloudflare:email", {
-				message,
-				event: message,
-				env,
-				context
-			}) || Promise.resolve());
-		},
-		queue(batch, env, context) {
-			globalThis.__env__ = env;
-			context.waitUntil(nitroHooks.callHook("cloudflare:queue", {
-				batch,
-				event: batch,
-				env,
-				context
-			}) || Promise.resolve());
-		},
-		tail(traces, env, context) {
-			globalThis.__env__ = env;
-			context.waitUntil(nitroHooks.callHook("cloudflare:tail", {
-				traces,
-				env,
-				context
-			}) || Promise.resolve());
-		},
-		trace(traces, env, context) {
-			globalThis.__env__ = env;
-			context.waitUntil(nitroHooks.callHook("cloudflare:trace", {
-				traces,
-				env,
-				context
-			}) || Promise.resolve());
-		}
-	};
+//#region node_modules/nitro/dist/runtime/internal/error/hooks.mjs
+function _captureError(error, type) {
+	console.error(`[${type}]`, error);
+	useNitroApp().captureError?.(error, { tags: [type] });
 }
-function augmentReq(cfReq, ctx) {
-	const req = cfReq;
-	req.ip = cfReq.headers.get("cf-connecting-ip") || void 0;
-	req.runtime ??= { name: "cloudflare" };
-	req.runtime.cloudflare = {
-		...req.runtime.cloudflare,
-		...ctx
-	};
-	req.waitUntil = ctx.context?.waitUntil.bind(ctx.context);
+function trapUnhandledErrors() {
+	process.on("unhandledRejection", (error) => _captureError(error, "unhandledRejection"));
+	process.on("uncaughtException", (error) => _captureError(error, "uncaughtException"));
 }
 //#endregion
-//#region node_modules/nitro/dist/presets/cloudflare/runtime/cloudflare-module.mjs
-var cloudflare_module_default = createHandler({ fetch(cfRequest, env, context, url) {
-	if (env.ASSETS && isPublicAssetURL(url.pathname)) return env.ASSETS.fetch(cfRequest);
-} });
+//#region #nitro/virtual/tracing
+var tracingSrvxPlugins = [];
 //#endregion
-export { cloudflare_module_default as default };
+//#region node_modules/nitro/dist/presets/node/runtime/node-server.mjs
+var _parsedPort = Number.parseInt(process.env.NITRO_PORT ?? process.env.PORT ?? "");
+var port = Number.isNaN(_parsedPort) ? 3e3 : _parsedPort;
+var host = process.env.NITRO_HOST || process.env.HOST;
+var cert = process.env.NITRO_SSL_CERT;
+var key = process.env.NITRO_SSL_KEY;
+var nitroApp = useNitroApp();
+serve({
+	port,
+	hostname: host,
+	tls: cert && key ? {
+		cert,
+		key
+	} : void 0,
+	fetch: nitroApp.fetch,
+	plugins: [...tracingSrvxPlugins]
+});
+trapUnhandledErrors();
+var node_server_default = {};
+//#endregion
+export { node_server_default as default };

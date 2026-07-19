@@ -6,7 +6,6 @@ import { n as createMemoryHistory } from "../_libs/tanstack__history.mjs";
 import { a as defaultSerovalPlugins, c as makeSerovalPlugin, d as su, i as getOrigin, l as Pu, n as attachRouterServerSsrUtils, o as createRawStreamRPCPlugin, r as getNormalizedURL, s as createSerializationAdapter, t as mergeHeaders, u as iu } from "../_libs/@tanstack/router-core+[...].mjs";
 import { t as createMiddleware } from "./createStart-Dt05N14y.mjs";
 import { n as toResponse, t as H3Event } from "../_libs/h3-v2.mjs";
-import process from "node:process";
 import { AsyncLocalStorage } from "node:async_hooks";
 require_react();
 var import_jsx_runtime = require_jsx_runtime();

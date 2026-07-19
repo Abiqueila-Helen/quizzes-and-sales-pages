@@ -2,9 +2,9 @@ version: "3.9"
 
 services:
   quizzes-and-sales-pages:
-    image: insightagency/quizzes-and-sales-pages:v0.0.1
+    image: insightagency/quizzes-and-sales-pages:v0.0.4
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=8080
       - HOST=0.0.0.0
     deploy:
@@ -17,30 +17,31 @@ services:
         failure_action: rollback
       resources:
         limits:
-          cpus: '1'
+          cpus: "1"
           memory: 1024M
         reservations:
-          cpus: '0.25'
+          cpus: "0.25"
           memory: 256M
       placement:
         constraints:
           - node.role == manager
-          #- node.hostname == BancoDeDados01
       labels:
         - traefik.enable=true
         - traefik.http.routers.quizzes-and-sales-pages.rule=Host(`scalix.com.br`)
         - traefik.http.routers.quizzes-and-sales-pages.entrypoints=websecure
         - traefik.http.routers.quizzes-and-sales-pages.tls.certresolver=letsencryptresolver
         - traefik.http.routers.quizzes-and-sales-pages.priority=1
+
         - traefik.http.routers.quizzes-and-sales-pages.service=quizzes-and-sales-pages
         - traefik.http.services.quizzes-and-sales-pages.loadbalancer.server.port=8080
         - traefik.http.services.quizzes-and-sales-pages.loadbalancer.passHostHeader=true
+
         - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
         - traefik.http.routers.quizzes-and-sales-pages.middlewares=sslheader@docker
+
     networks:
       - network_swarm_public
 
 networks:
   network_swarm_public:
-    name: network_swarm_public
     external: true

@@ -1,4 +1,4 @@
-import { a as __toESM } from "../_runtime.mjs";
+import { o as __toESM } from "../_runtime.mjs";
 import { n as require_react } from "./@radix-ui/react-compose-refs+[...].mjs";
 import { g as require_react_dom } from "./@tanstack/react-router+[...].mjs";
 //#region node_modules/yet-another-react-lightbox/dist/types.js

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as JornadaDeHonraRouteImport } from './routes/jornada-de-honra'
+import { Route as AppsreObrigadoRouteImport } from './routes/appsre-obrigado'
 import { Route as AppsreRouteImport } from './routes/appsre'
 import { Route as SlugRouteImport } from './routes/$slug'
 import { Route as IndexRouteImport } from './routes/index'
@@ -29,6 +30,11 @@ const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
 const JornadaDeHonraRoute = JornadaDeHonraRouteImport.update({
   id: '/jornada-de-honra',
   path: '/jornada-de-honra',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsreObrigadoRoute = AppsreObrigadoRouteImport.update({
+  id: '/appsre-obrigado',
+  path: '/appsre-obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppsreRoute = AppsreRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
   '/appsre': typeof AppsreRoute
+  '/appsre-obrigado': typeof AppsreObrigadoRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
   '/appsre': typeof AppsreRoute
+  '/appsre-obrigado': typeof AppsreObrigadoRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
   '/appsre': typeof AppsreRoute
+  '/appsre-obrigado': typeof AppsreObrigadoRoute
   '/jornada-de-honra': typeof JornadaDeHonraRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$slug'
     | '/appsre'
+    | '/appsre-obrigado'
     | '/jornada-de-honra'
     | '/politica-de-privacidade'
     | '/termos-de-uso'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$slug'
     | '/appsre'
+    | '/appsre-obrigado'
     | '/jornada-de-honra'
     | '/politica-de-privacidade'
     | '/termos-de-uso'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$slug'
     | '/appsre'
+    | '/appsre-obrigado'
     | '/jornada-de-honra'
     | '/politica-de-privacidade'
     | '/termos-de-uso'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SlugRoute: typeof SlugRoute
   AppsreRoute: typeof AppsreRoute
+  AppsreObrigadoRoute: typeof AppsreObrigadoRoute
   JornadaDeHonraRoute: typeof JornadaDeHonraRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/jornada-de-honra'
       fullPath: '/jornada-de-honra'
       preLoaderRoute: typeof JornadaDeHonraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/appsre-obrigado': {
+      id: '/appsre-obrigado'
+      path: '/appsre-obrigado'
+      fullPath: '/appsre-obrigado'
+      preLoaderRoute: typeof AppsreObrigadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/appsre': {
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SlugRoute: SlugRoute,
   AppsreRoute: AppsreRoute,
+  AppsreObrigadoRoute: AppsreObrigadoRoute,
   JornadaDeHonraRoute: JornadaDeHonraRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,

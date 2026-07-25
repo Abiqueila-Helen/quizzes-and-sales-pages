@@ -27,18 +27,16 @@ import {
   Star,
   TrendingUp,
   Upload,
+  Users,
+  Video,
   X,
 } from "lucide-react";
 
 import logo from "@/assets/Logo.png";
 import heroMockup from "@/assets/appsre/hero-mockup.png";
-import screenCheckin from "@/assets/appsre/screen-checkin.jpg";
-import screenAudios from "@/assets/appsre/screen-audios.jpg";
-import screenDashboard from "@/assets/appsre/screen-dashboard.jpg";
-import screenTarefas from "@/assets/appsre/screen-tarefas.jpg";
-import screenVideos from "@/assets/appsre/screen-videos.jpg";
-import testi1 from "@/assets/appsre/testi-1.jpg";
-import testi3 from "@/assets/appsre/testi-3.jpg";
+import teste1 from "@/assets/appsre/Daniela.jpg";
+import teste2 from "@/assets/appsre/Fernanda.jpg";
+import teste3 from "@/assets/appsre/Ricardo.jpg";
 
 /* =========================================================================
    Design tokens (page-scoped, não altera o tema global do projeto)
@@ -158,6 +156,35 @@ function Card({
   );
 }
 
+function EtapaCard({
+  icon,
+  label,
+  tone,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  tone: "mute" | "blue" | "green";
+}) {
+  return (
+    <div
+      className="flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold"
+      style={{
+        background:
+          tone === "mute"
+            ? "#F1F5F9"
+            : tone === "blue"
+            ? `${BRAND.blue}12`
+            : `${BRAND.green}14`,
+        color:
+          tone === "mute" ? BRAND.textMute : tone === "blue" ? BRAND.blueDeep : BRAND.greenDeep,
+      }}
+    >
+      {icon}
+      <span className="truncate">{label}</span>
+    </div>
+  );
+}
+
 /* =========================================================================
    Page
    ========================================================================= */
@@ -267,7 +294,7 @@ function Hero({ onCta }: { onCta: () => void }) {
           </Reveal>
           <Reveal delay={0.05}>
             <h1 className="mt-5 text-[2.4rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
-              Interrompa o loop dos <span className="rs-grad-text">pensamentos negativos</span> em menos de 5 minutos.
+              Interrompa o loop dos <span className="rs-grad-text">pensamentos negativos</span> em menos de 2 minutos.
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
@@ -310,8 +337,8 @@ function Hero({ onCta }: { onCta: () => void }) {
           <Reveal delay={0.25}>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm" style={{ color: BRAND.textMute }}>
               <span className="flex items-center gap-1.5"><Check className="h-4 w-4" style={{ color: BRAND.blue }} /> Acesso imediato</span>
-              <span className="flex items-center gap-1.5"><Check className="h-4 w-4" style={{ color: BRAND.blue }} /> Funciona no celular</span>
-              <span className="flex items-center gap-1.5"><Check className="h-4 w-4" style={{ color: BRAND.blue }} /> Sem instalação obrigatória</span>
+              <span className="flex items-center gap-1.5"><Check className="h-4 w-4" style={{ color: BRAND.blue }} /> Para Android e iPhone</span>
+              {/* <span className="flex items-center gap-1.5"><Check className="h-4 w-4" style={{ color: BRAND.blue }} /> Sem instalação obrigatória</span> */}
             </div>
           </Reveal>
         </div>
@@ -380,36 +407,27 @@ function Hero({ onCta }: { onCta: () => void }) {
       <Reveal delay={0.15}>
         <div className="relative mx-auto mt-14 max-w-5xl px-5">
           <div className="rounded-3xl border bg-white p-5 sm:p-6" style={{ borderColor: BRAND.border }}>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-              {[
-                { icon: <Brain className="h-4 w-4" />, label: "Pensamentos negativos", tone: "mute" },
-                { icon: <ListChecks className="h-4 w-4" />, label: "Ação", tone: "green" },
-                { icon: <Sparkles className="h-4 w-4" />, label: "Intervenção", tone: "blue" },
-                { icon: <Compass className="h-4 w-4" />, label: "Clareza", tone: "blue" },
-                { icon: <TrendingUp className="h-4 w-4" />, label: "Resultado", tone: "green" },
-              ].map((s, i, arr) => (
-                <div key={s.label} className="flex items-center gap-2">
-                  <div
-                    className="flex flex-1 items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold"
-                    style={{
-                      background:
-                        s.tone === "mute"
-                          ? "#F1F5F9"
-                          : s.tone === "blue"
-                          ? `${BRAND.blue}12`
-                          : `${BRAND.green}14`,
-                      color:
-                        s.tone === "mute" ? BRAND.textMute : s.tone === "blue" ? BRAND.blueDeep : BRAND.greenDeep,
-                    }}
-                  >
-                    {s.icon}
-                    <span className="truncate">{s.label}</span>
-                  </div>
-                  {i < arr.length - 1 && (
-                    <ChevronRight className="hidden h-4 w-4 shrink-0 sm:block" style={{ color: BRAND.textMute }} />
-                  )}
-                </div>
-              ))}
+            {/* LINHA 1 — Pensamentos negativos (sozinho) */}
+            <div className="flex flex-col items-center gap-2">
+              <EtapaCard icon={<Brain className="h-4 w-4" />} label="Pensamentos negativos" tone="mute" />
+            </div>
+
+            {/* Seta vertical entre linhas 1 e 2 */}
+            <ChevronDown className="mx-auto mt-3 h-4 w-4" style={{ color: BRAND.textMute }} />
+
+            {/* LINHA 2 — Intervenção + Clareza */}
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <EtapaCard icon={<Sparkles className="h-4 w-4" />} label="Intervenção" tone="blue" />
+              <EtapaCard icon={<Compass className="h-4 w-4" />} label="Clareza" tone="blue" />
+            </div>
+
+            {/* Seta vertical entre linhas 2 e 3 */}
+            <ChevronDown className="mx-auto mt-3 h-4 w-4" style={{ color: BRAND.textMute }} />
+
+            {/* LINHA 3 — Ação + Resultado */}
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <EtapaCard icon={<ListChecks className="h-4 w-4" />} label="Ação" tone="green" />
+              <EtapaCard icon={<TrendingUp className="h-4 w-4" />} label="Resultado" tone="green" />
             </div>
           </div>
         </div>
@@ -663,13 +681,15 @@ function Comparison() {
    App Gallery — Carrossel Embla + Lightbox
    ========================================================================= */
 
-const GALLERY = [
-  { src: screenCheckin, alt: "Tela de check-in de sentimentos" },
-  { src: screenAudios, alt: "Tela de áudios de ressignificação" },
-  { src: screenDashboard, alt: "Tela de dashboard e progresso" },
-  { src: screenTarefas, alt: "Tela de tarefas inteligentes" },
-  { src: screenVideos, alt: "Tela de biblioteca de vídeos" },
-];
+const carouselModules = import.meta.glob<{ default: string }>(
+  "/src/assets/appsre/carousel/*.jpg",
+  { eager: true, query: "?url" },
+);
+
+const GALLERY = Object.entries(carouselModules).map(([path, mod], i) => ({
+  src: mod.default,
+  alt: `Tela do aplicativo ${i + 1}`,
+}));
 
 function AppGallery() {
   const autoplay = useRef(Autoplay({ delay: 4200, stopOnInteraction: false, stopOnMouseEnter: true }));
@@ -797,8 +817,8 @@ function AppGallery() {
 function Bonuses() {
   const bonuses = [
     { icon: Flame, tag: "Bônus #1", title: "Guia PDF — 30 Microações", text: "Sequência de 30 microações prontas para sair da procrastinação em qualquer situação.", value: "R$ 47" },
-    { icon: Headphones, tag: "Bônus #2", title: "20 Áudios exclusivos", text: "Coleção completa de intervenção emocional para diferentes momentos do dia.", value: "R$ 97" },
-    { icon: Calendar, tag: "Bônus #3", title: "Desafio de 7 dias", text: "Plano diário para reconstruir a autoestima com pequenas vitórias reais.", value: "R$ 53" },
+    { icon: Users, tag: "Bônus #2", title: "Comunidade Secreta", text: "Acesso a um grupo exclusivo para troca de experiências, suporte mútuo e networking com pessoas que buscam o mesmo crescimento.", value: "R$ 97" },
+    { icon: Video, tag: "Bônus #3", title: "Webinar Exclusivo", text: "Sessões ao vivo com o criador para aprofundar o conhecimento sobre redirecionamento emocional e tirar suas dúvidas em tempo real.", value: "R$ 53" },
   ];
   return (
     <section className="py-24" style={{ background: BRAND.bg }}>
@@ -885,9 +905,9 @@ function Avatar({ src, name }: { src?: string; name: string }) {
 
 function Testimonials() {
   const list = [
-    { name: "Carlos M.", role: "Empreendedor", img: testi1, text: "Eu passava horas preso em pensamentos negativos. Hoje em poucos minutos consigo recuperar o foco e voltar ao trabalho." },
-    { name: "Fernanda A.", role: "Designer", img: undefined, text: "O aplicativo virou meu botão de emergência emocional. Simplesmente funciona." },
-    { name: "Ricardo S.", role: "Analista", img: testi3, text: "Foi a primeira vez que consegui transformar pequenas ações em uma rotina consistente." },
+    { name: "Daniela Pereira", role: "Empreendedora", img: teste1, text: "Eu passava horas presa em pensamentos negativos. Hoje em poucos minutos consigo recuperar o foco e voltar ao trabalho." },
+    { name: "Fernanda Alves", role: "Designer", img: teste2, text: "O aplicativo virou meu botão de emergência emocional. Simplesmente funciona." },
+    { name: "Ricardo Sousa", role: "Analista", img: teste3, text: "Foi a primeira vez que consegui transformar pequenas ações em uma rotina consistente." },
   ];
   return (
     <section className="py-24" style={{ background: BRAND.bgSoft }}>
@@ -949,14 +969,14 @@ function useCountdown(totalSeconds = 15 * 60) {
 function Offer() {
   const { mm, ss } = useCountdown(15 * 60);
   const includes = [
-    "Aplicativo Ressignifica (acesso vitalício)",
+    "Aplicativo Ressignifica (assinatura mensal)",
     "Biblioteca completa de áudios e vídeos",
     "Dashboard e histórico emocional",
     "Upload dos seus próprios áudios e vídeos",
     "Todas as futuras atualizações",
     "Bônus #1 — Guia PDF 30 Microações",
-    "Bônus #2 — 20 Áudios exclusivos",
-    "Bônus #3 — Desafio de 7 dias",
+    "Bônus #2 — Comunidade Secreta",
+    "Bônus #3 — Webinar Exclusivo",
   ];
 
   return (
@@ -980,7 +1000,7 @@ function Offer() {
           <Reveal><Eyebrow tone="green">Oferta por tempo limitado</Eyebrow></Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-4 text-3xl font-extrabold sm:text-4xl">
-              Comece hoje. <span className="rs-grad-text">Alívio já na primeira sessão</span>.
+              Comece hoje. <span className="rs-grad-text">Alívio já desde o primeiro uso</span>.
             </h2>
           </Reveal>
         </div>
@@ -1014,16 +1034,16 @@ function Offer() {
             {/* Price */}
             <div className="mt-8 text-center">
               <div className="text-sm" style={{ color: BRAND.textMute }}>
-                <span className="line-through">De R$ 197</span>{" "}
-                por apenas
+                <span className="line-through">De R$ 97,90</span>{" "}
+                por mês
               </div>
               <div className="mt-1 flex items-end justify-center gap-1">
                 <span className="text-2xl font-bold" style={{ color: BRAND.text }}>R$</span>
-                <span className="text-6xl font-extrabold leading-none" style={{ color: BRAND.text }}>47</span>
+                <span className="text-6xl font-extrabold leading-none" style={{ color: BRAND.text }}>37</span>
                 <span className="mb-1 text-lg font-bold" style={{ color: BRAND.text }}>,00</span>
               </div>
               <div className="mt-2 text-sm" style={{ color: BRAND.textMute }}>
-                ou 12x de <strong style={{ color: BRAND.text }}>R$ 4,90</strong> no cartão
+                No pix, ou <strong style={{ color: BRAND.text }}></strong> cartão 
               </div>
             </div>
 
@@ -1044,14 +1064,16 @@ function Offer() {
 
             {/* CTA */}
             <div className="mt-8">
-              <PrimaryButton full>QUERO COMEÇAR AGORA</PrimaryButton>
+              <PrimaryButton full onClick={() => window.open("https://pay.cakto.com.br/3bfg6d6_992279", "_blank")}>
+                QUERO COMEÇAR AGORA
+              </PrimaryButton>
             </div>
 
             {/* Trust badges */}
             <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs" style={{ color: BRAND.textMute }}>
               <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Pagamento seguro</span>
               <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" /> Compra protegida</span>
-              <span>Pix • Cartão • Parcelamento</span>
+              <span> • Pix • Cartão</span>
             </div>
           </div>
         </Reveal>

@@ -679,6 +679,49 @@ var Upload = createLucideIcon("upload", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var Users = createLucideIcon("users", [
+	["path", {
+		d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",
+		key: "1yyitq"
+	}],
+	["path", {
+		d: "M16 3.128a4 4 0 0 1 0 7.744",
+		key: "16gr8j"
+	}],
+	["path", {
+		d: "M22 21v-2a4 4 0 0 0-3-3.87",
+		key: "kshegd"
+	}],
+	["circle", {
+		cx: "9",
+		cy: "7",
+		r: "4",
+		key: "nufk8"
+	}]
+]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
+var Video = createLucideIcon("video", [["path", {
+	d: "m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5",
+	key: "ftymec"
+}], ["rect", {
+	x: "2",
+	y: "6",
+	width: "14",
+	height: "12",
+	rx: "2",
+	key: "158x01"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var X = createLucideIcon("x", [["path", {
 	d: "M18 6 6 18",
 	key: "1bl5f8"
@@ -700,4 +743,4 @@ var Youtube = createLucideIcon("youtube", [["path", {
 	key: "1jp15x"
 }]]);
 //#endregion
-export { ArrowLeft as A, ChevronRight as C, Calendar as D, Check as E, CirclePlay as M, Brain as O, ClipboardList as S, ChevronDown as T, Flame as _, Target as a, Clock as b, RefreshCw as c, Lock as d, ListChecks as f, Headphones as g, Heart as h, TrendingUp as i, Sparkles as j, ArrowRight as k, Quote as l, Instagram as m, X as n, Star as o, LayoutDashboard as p, Upload as r, ShieldCheck as s, Youtube as t, MessageCircleMore as u, Feather as v, ChevronLeft as w, Clock3 as x, Compass as y };
+export { Brain as A, Clock3 as C, ChevronDown as D, ChevronLeft as E, ArrowLeft as M, Sparkles as N, Check as O, CirclePlay as P, Clock as S, ChevronRight as T, Heart as _, Upload as a, Feather as b, Star as c, Quote as d, MessageCircleMore as f, Instagram as g, LayoutDashboard as h, Users as i, ArrowRight as j, Calendar as k, ShieldCheck as l, ListChecks as m, X as n, TrendingUp as o, Lock as p, Video as r, Target as s, Youtube as t, RefreshCw as u, Headphones as v, ClipboardList as w, Compass as x, Flame as y };

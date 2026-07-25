@@ -42,7 +42,7 @@ docker login
 Substitua a versão pelo número desejado (exemplo: v0.0.1):
 ```bash
 docker build \
-  -t insightagency/quizzes-and-sales-pages:v0.0.5 \
+  -t insightagency/quizzes-and-sales-pages:v0.0.6 \
   .
 ```
 
@@ -50,7 +50,7 @@ docker build \
 Rode a imagem para conferir antes de enviar:
 
 ```bash
-docker run --rm -p 8080:8080 --name quizzes-test insightagency/quizzes-and-sales-pages:v0.0.5
+docker run --rm -p 8080:8080 --name quizzes-test insightagency/quizzes-and-sales-pages:v0.0.6
 ```
 
 Acesse em: http://localhost:8080
@@ -67,7 +67,7 @@ docker rm -f quizzes-test
 Envie para o repositório remoto:
 
 ```bash
-docker push insightagency/quizzes-and-sales-pages:v0.0.5
+docker push insightagency/quizzes-and-sales-pages:v0.0.6
 ```
 ## 6. Atualizar a stack no Portainer
 
@@ -81,7 +81,7 @@ docker push insightagency/quizzes-and-sales-pages:v0.0.5
 
 ```bash
 yaml
-image: insightagency/quizzes-and-sales-pages:v0.0.5
+image: insightagency/quizzes-and-sales-pages:v0.0.6
 ```
 5. Clique em Update the stack.
 
@@ -93,10 +93,10 @@ image: insightagency/quizzes-and-sales-pages:v0.0.5
 
 
 🔄 Boas práticas
-- Sempre incremente a versão: v0.0.5, v0.0.5, etc.
+- Sempre incremente a versão: v0.0.6, v0.0.6, etc.
 - Opcional: também atualizar a tag latest para sempre apontar para a versão mais recente:
 ```bash
-docker tag insightagency/quizzes-and-sales-pages:v0.0.5 insightagency/uizzes-and-sales-pages:latest
+docker tag insightagency/quizzes-and-sales-pages:v0.0.6 insightagency/uizzes-and-sales-pages:latest
 docker push insightagency/uizzes-and-sales-pages:latest
 ```
 

@@ -17,7 +17,7 @@ export default function TermsOfUse() {
               Termos de Uso
             </h1>
             <p className="text-muted-foreground">
-              Última atualização: 15 de novembro de 2025
+              Última atualização: 15 de março de 2026
             </p>
           </div>
 

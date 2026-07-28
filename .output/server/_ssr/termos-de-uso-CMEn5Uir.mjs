@@ -1,7 +1,7 @@
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { n as Card, t as Button } from "./button-9n0_K27d.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/termos-de-uso-DJxwmVMH.js
+//#region node_modules/.nitro/vite/services/ssr/assets/termos-de-uso-CMEn5Uir.js
 var import_jsx_runtime = require_jsx_runtime();
 function TermsOfUse() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -15,11 +15,11 @@ function TermsOfUse() {
 						className: "mb-8",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-								to: "/cadastro",
+								to: "/appsre",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
 									variant: "outline",
 									className: "mb-4",
-									children: "← Voltar ao Cadastro"
+									children: "← Voltar"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {

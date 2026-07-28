@@ -8,9 +8,9 @@ export default function TermsOfUse() {
       <div className="max-w-4xl mx-auto">
         <Card className="p-8 shadow-lg">
           <div className="mb-8">
-            <Link to="/cadastro">
+            <Link to="/appsre">
               <Button variant="outline" className="mb-4">
-                ← Voltar ao Cadastro
+                ← Voltar
               </Button>
             </Link>
             <h1 className="text-h1 text-foreground mb-4">

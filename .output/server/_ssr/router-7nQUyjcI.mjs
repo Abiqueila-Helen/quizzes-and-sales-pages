@@ -5,7 +5,7 @@ import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/rea
 import { t as Route$7 } from "../_slug-5euZHj5S.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { a as Container, i as Row, n as Card, r as Col, t as CardBody } from "../_libs/reactstrap.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BfOm0xMQ.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-7nQUyjcI.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-xVEl7MEL.css";
@@ -181,7 +181,7 @@ function RootComponent() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
-var $$splitComponentImporter$4 = () => import("./termos-de-uso-DJxwmVMH.mjs");
+var $$splitComponentImporter$4 = () => import("./termos-de-uso-CMEn5Uir.mjs");
 var Route$5 = createFileRoute("/termos-de-uso")({
 	head: () => ({
 		meta: [
@@ -280,7 +280,7 @@ var Route$2 = createFileRoute("/appsre-obrigado")({
 	}),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./appsre-CMHVWfGE.mjs");
+var $$splitComponentImporter = () => import("./appsre-B5M3Vyct.mjs");
 var Route$1 = createFileRoute("/appsre")({
 	head: () => ({
 		meta: [

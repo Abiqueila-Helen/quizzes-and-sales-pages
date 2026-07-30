@@ -1,9 +1,564 @@
-- Quero que você mude o bônus #2 que é '20 Áudios exclusivos' para:
-🤝
-## Comunidade Secreta
+# Tarefa: Desenvolver uma Nova Landing Page Mobile First de Alta Conversão para o App Ressignifica
+
+## Objetivo
+
+Criar uma nova Landing Page Mobile First para o aplicativo **Ressignifica**, com a rota '/ressignifica-app-sell'
+
+Esta página deve ser construída para gerar conversão máxima, conduzindo o visitante por uma jornada emocional e racional que o faça compreender que o verdadeiro problema não é falta de disciplina, mas sim um ciclo mental que reduz sua produtividade e impacta diretamente sua vida financeira.
+
+O novo posicionamento da marca deve ser:
+
+> **O aplicativo que recupera sua capacidade de produzir quando sua mente tenta te paralisar.**
+
+O produto não deve ser apresentado como um aplicativo de meditação, bem-estar ou motivação.
+
+Ele deve ser apresentado como um **Botão de Emergência para interromper o ciclo da procrastinação e devolver a capacidade de agir.**
+
+---
+
+# Arquivos de referência
+
+Durante todo o desenvolvimento utilize obrigatoriamente estes arquivos.
+
+- docs\meu-produto.md
+- docs\pesquisa.md
+- docs\Página de Vendas_ App Ressignifica - O Botão de Emergência para Sua Produção e Riqueza.md
+- docs\modelo01-mobile.png
+
+Sempre consulte esses documentos antes de criar qualquer texto ou elemento visual.
+
+---
+
+# Referência visual
+
+A Landing Page deve seguir o mesmo padrão visual da referência **modelo01-mobile.png**, porém com um nível de acabamento ainda mais premium.
+
+Características:
+
+- Mobile First
+- Aparência semelhante a aplicativos Apple
+- Muito espaço em branco
+- Cards elegantes
+- Cantos arredondados
+- Sombras suaves
+- Gradientes discretos
+- Ícones modernos
+- Micro animações
+- Excelente hierarquia visual
+- Alta legibilidade
+- Excelente contraste
+
+Paleta principal
+
+- Branco
+- Azul (#1ABCFE)
+- Verde (#0ACF83)
+
+---
+
+# Imagens
+
+Crie todas as imagens necessárias para a Landing Page.
+
+IMPORTANTE:
+
+Os prints reais do aplicativo estarão anexados.
+
+Sempre utilize esses prints para montar as imagens.
+
+Não invente telas.
+
+Não utilize interfaces genéricas.
+
+As imagens devem parecer fotografias do aplicativo funcionando.
+
+Sempre utilizar mockups modernos de smartphones.
+
+Também criar:
+
+- ilustrações abstratas
+- infográficos
+- fluxogramas
+- comparativos
+- elementos decorativos
+- ícones exclusivos
+
+Todo o visual deve transmitir:
+
+- Clareza
+- Movimento
+- Produtividade
+- Evolução
+- Esperança
+- Abundância
+
+---
+
+# Posicionamento
+
+A Landing Page deve vender:
+
+✅ Recuperação da produtividade
+
+✅ Interrupção da procrastinação
+
+✅ Recuperação da autoestima
+
+✅ Recuperação da capacidade de agir
+
+✅ Recuperação da geração de resultados
+
+Mostrar que dinheiro é consequência da produção.
+
+O aplicativo interrompe exatamente o ciclo que impede essa produção.
+
+---
+
+# Narrativa da página
+
+A narrativa deve seguir esta sequência emocional.
+
+Antecipação
+
+↓
+
+Conexão
+
+↓
+
+Identificação
+
+↓
+
+Dor
+
+↓
+
+Descoberta
+
+↓
+
+Esperança
+
+↓
+
+Confiança
+
+↓
+
+Desejo
+
+↓
+
+Urgência
+
+↓
+
+Compra
+
+Cada seção deve preparar emocionalmente o visitante para a próxima.
+
+---
+
+# Estrutura da Landing Page
+
+## Seção 1 — Hero
+
+Objetivo:
+
+Criar conexão imediata.
+
+Headline extremamente forte.
+
+Exemplo de direção:
+
+**Sua mente não está apenas roubando sua paz. Ela pode estar roubando o seu futuro financeiro.**
+
+Subheadline mostrando que pensamentos de medo, insegurança, culpa e escassez fazem milhares de pessoas perderem dias inteiros de produtividade.
+
+Adicionar:
+
+- Mockup premium do aplicativo
+- Vídeo ou imagem principal
+- Botão CTA "Quero Recuperar Minha Produtividade"
+- Selos de acesso imediato
+- Garantia
+- Compatibilidade Android e iPhone
+
+Criar uma imagem hero exclusiva.
+
+---
+
+## Seção 2 — O Ciclo Invisível
+
+Criar um infográfico elegante mostrando:
+
+Pensamentos negativos
+
+↓
+
+Escassez
+
+↓
+
+Ansiedade
+
+↓
+
+Paralisia
+
+↓
+
+Procrastinação
+
+↓
+
+Você produz menos
+
+↓
+
+Você ganha menos dinheiro
+
+↓
+
+Sua autoestima diminui
+
+↓
+
+O ciclo recomeça
+
+Explicar que disciplina nunca foi o problema.
+
+---
+
+## Seção 3 — O Verdadeiro Problema
+
+Criar uma narrativa mostrando um dia comum do cliente.
+
+Acorda.
+
+Pega o celular.
+
+Compara sua vida.
+
+Trava.
+
+Perde horas.
+
+Adia tarefas.
+
+Vai dormir culpado.
+
+No dia seguinte tudo recomeça.
+
+Finalizar mostrando que esse ciclo pode ser interrompido.
+
+---
+
+## Seção 4 — Conheça o Ressignifica
+
+Mostrar o aplicativo.
+
+Explicar o funcionamento.
+
+Fluxo:
+
+Identifica o sentimento
+
+↓
+
+O aplicativo realiza uma intervenção
+
+↓
+
+O estado emocional muda
+
+↓
+
+Você executa uma Microação
+
+↓
+
+Sua autoestima aumenta
+
+↓
+
+Você produz novamente
+
+↓
+
+Sua vida financeira começa a melhorar
+
+Criar uma ilustração premium desse fluxo.
+
+---
+
+## Seção 5 — O Que Você Recebe
+
+Criar cards mostrando:
+
+- Biblioteca de áudios
+- Biblioteca de vídeos
+- Exercícios de ressignificação
+- Microações
+- Dashboard de evolução
+- Registro de vitórias
+- Check-in emocional
+- Evolução diária
+
+Cada card deve possuir um pequeno texto objetivo.
+
+---
+
+## Seção 6 — Por Que Funciona
+
+Criar quatro cards explicando.
+
+Não depende de motivação.
+
+Não depende de disciplina.
+
+Não depende de força de vontade.
+
+Interrompe o ciclo mental exatamente quando ele começa.
+
+Criar um comparativo visual elegante.
+
+---
+
+## Seção 7 — Sua Transformação
+
+Criar um comparativo Antes x Depois.
+
+Antes
+
+- Paralisa
+- Procrastina
+- Perde oportunidades
+- Perde dinheiro
+- Autoestima baixa
+
+Depois
+
+- Age
+- Executa
+- Produz
+- Recupera a autoestima
+- Volta a gerar resultados
+
+Utilizar um layout premium.
+
+---
+
+## Seção 8 — Bônus
+
+Criar três bônus alinhados com a pesquisa do público.
+
+### Bônus 1
+
+**Comunidade Secreta**
+
 Acesso a um grupo exclusivo para troca de experiências, suporte mútuo e networking com pessoas que buscam o mesmo crescimento.
 
-- Quero que você mude o bônus #3 que é 'Desafio de 7 dias' para:
-🎥
-## Webinar Exclusivo
+Criar capa profissional.
+
+---
+
+### Bônus 2
+
+**Webinar Exclusivo**
+
 Sessões ao vivo com o criador para aprofundar o conhecimento sobre redirecionamento emocional e tirar suas dúvidas em tempo real.
+
+Criar imagem premium.
+
+---
+
+
+## Seção 9 — Oferta
+
+Esta seção deve seguir visualmente o mesmo padrão da referência **docs\modelo01-mobile.png**.
+
+Criar uma seção extremamente chamativa.
+
+Adicionar:
+
+- Temporizador de 15 minutos
+- Destaque visual
+- Cards premium
+- Botões grandes
+- Selos de compra segura
+- Garantia
+- Destaque para economia
+
+### Plano 1 — Mensal
+
+**R$ 9,90 por mês**
+
+Ideal para quem deseja conhecer o aplicativo.
+
+Botão:
+
+**Começar Agora**
+
+---
+
+### Plano 2 — Trimestral (Plano Recomendado)
+
+Destacar este plano visualmente como o mais escolhido.
+
+Preço:
+
+**R$ 22,20**
+
+Texto de destaque:
+
+**Apenas R$ 7,40 por mês**
+
+Adicionar selo:
+
+**Mais Popular**
+
+Criar um card maior que os demais.
+
+Adicionar uma borda destacada.
+
+Adicionar uma etiqueta indicando melhor custo-benefício.
+
+Botão:
+
+**Quero Economizar**
+
+---
+
+### Plano 3 — Semestral
+
+Destacar este plano como o de maior economia.
+
+Preço:
+
+**R$ 29,40**
+
+Texto de destaque:
+
+**Apenas R$ 4,90 por mês**
+
+Adicionar selo:
+
+**Maior Economia**
+
+Criar elementos visuais mostrando a economia em relação ao plano mensal.
+
+Botão:
+
+**Quero o Melhor Valor**
+
+Todos os três planos devem possuir:
+
+- Lista de benefícios
+- Ícones
+- Visual semelhante ao modelo enviado
+- Excelente hierarquia visual
+- Cards modernos e premium
+
+---
+
+## Seção 10 — Veja o Aplicativo
+
+Criar um carrossel premium, com point dot e seta para direita e esquerda e scroll automatico
+
+Utilizar 10 prints reais do aplicativo que estão na pasta 'D:\RepositorioLocal\quizzes-and-sales-pages\src\assets\appsre\carousel'. Faça o carrossel de uma maneira que ao adicionar novas imagens na pasta elas já apareceram no carousel
+
+---
+
+## Seção 11 — Depoimentos
+
+Criar três depoimentos naturais.
+
+Cada depoimento deve conter:
+
+- Foto
+- Nome
+- Cidade
+- Avaliação
+- Resultado obtido
+
+Evitar exageros.
+
+Os relatos devem parecer autênticos.
+
+---
+
+## Seção 12 — Garantia
+
+Criar um bloco premium.
+
+Garantia incondicional de 7 dias.
+
+Adicionar um selo grande de garantia.
+
+Transmitir segurança.
+
+---
+
+## Seção 13 — Perguntas Frequentes
+
+Criar cinco perguntas.
+
+Exemplos:
+
+- Funciona para ansiedade?
+- Quanto tempo leva para perceber resultados?
+- Preciso usar todos os dias?
+- É terapia?
+- Como recebo acesso?
+
+---
+
+## Seção 14 — CTA Final
+
+Criar um fechamento extremamente emocional.
+
+Reforçar que:
+
+Enquanto você adia mais um dia, sua mente continua alimentando o ciclo da procrastinação.
+
+Mas basta interromper esse ciclo uma vez para começar a construir uma nova realidade.
+
+Finalizar com um botão grande:
+
+**Quero Recuperar Minha Capacidade de Produzir**
+
+---
+
+## Rodapé
+
+Layout simples.
+
+© 2026 Ressignifica.
+
+Todos os direitos reservados.
+
+Adicionar:
+
+- Política de Privacidade
+- Termos de Uso
+- Contato
+
+---
+
+# Objetivo Final
+
+Ao terminar a Landing Page, o visitante deve concluir naturalmente:
+
+> Meu problema nunca foi falta de disciplina.
+
+> Minha mente entrou em um ciclo que está reduzindo minha produtividade.
+
+> O Ressignifica foi criado exatamente para interromper esse ciclo.
+
+> Quanto mais eu consigo agir, mais eu produzo.
+
+> Quanto mais eu produzo, maiores são minhas chances de melhorar minha vida financeira.
+
+Toda a Landing Page deve transmitir um nível visual superior ao modelo de referência, com aparência premium, moderna, elegante e totalmente otimizada para dispositivos móveis.

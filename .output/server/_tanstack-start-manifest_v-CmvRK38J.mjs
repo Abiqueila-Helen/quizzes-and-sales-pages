@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-DLyhobsJ.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-CmvRK38J.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "D:/RepositorioLocal/quizzes-and-sales-pages/src/routes/__root.tsx",
@@ -12,7 +12,7 @@ var tsrStartManifest = () => ({ routes: {
 			"/termos-de-uso"
 		],
 		preloads: [
-			"/assets/index-8AHQEVVE.js",
+			"/assets/index-B9X8_o4j.js",
 			"/assets/jsx-runtime-D8nDyRPw.js",
 			"/assets/react-dom-CrK8yE57.js",
 			"/assets/link-Brextwmt.js"
@@ -20,14 +20,14 @@ var tsrStartManifest = () => ({ routes: {
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-8AHQEVVE.js"
+			src: "/assets/index-B9X8_o4j.js"
 		} }]
 	},
 	"/$slug": {
 		filePath: "D:/RepositorioLocal/quizzes-and-sales-pages/src/routes/$slug.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/_slug-COJo1fMs.js",
+			"/assets/_slug-CPzwhctS.js",
 			"/assets/createLucideIcon-B_1GbDvl.js",
 			"/assets/x-D8CB8E3D.js"
 		]
@@ -37,7 +37,7 @@ var tsrStartManifest = () => ({ routes: {
 		children: void 0,
 		css: ["/assets/appsre-Du3uL6IP.css"],
 		preloads: [
-			"/assets/appsre-BVX8JINa.js",
+			"/assets/appsre-BvtaHeJ0.js",
 			"/assets/createLucideIcon-B_1GbDvl.js",
 			"/assets/x-D8CB8E3D.js"
 		]
@@ -45,7 +45,7 @@ var tsrStartManifest = () => ({ routes: {
 	"/appsre-obrigado": {
 		filePath: "D:/RepositorioLocal/quizzes-and-sales-pages/src/routes/appsre-obrigado.tsx",
 		children: void 0,
-		preloads: ["/assets/appsre-obrigado-D4mD30h9.js"]
+		preloads: ["/assets/appsre-obrigado-CykAr7vm.js"]
 	},
 	"/jornada-de-honra": {
 		filePath: "D:/RepositorioLocal/quizzes-and-sales-pages/src/routes/jornada-de-honra.tsx",

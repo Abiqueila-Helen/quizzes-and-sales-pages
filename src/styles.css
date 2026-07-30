@@ -100,6 +100,14 @@
   .font-body {
     font-family: var(--font-sans);
   }
+  /* Landing /ressignifica-app-sell: tipografia sans premium, sem serifa */
+  .rs-sell,
+  .rs-sell h1,
+  .rs-sell h2,
+  .rs-sell h3 {
+    font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
 }
 
 @layer utilities {

@@ -383,17 +383,94 @@ Criar uma seção extremamente chamativa.
 
 Adicionar:
 
-- Temporizador de 15 minutos
+- Temporizador de contagem regressiva com destaque visual
 - Destaque visual
 - Cards premium
 - Botões grandes
 - Selos de compra segura
 - Garantia
-- Destaque para economia
 
-### Plano 1 — Mensal
+A hierarquia visual de cada card deve destacar o **valor mensal equivalente** como informação principal (fonte maior e mais peso visual) e exibir o **valor total cobrado** como informação secundária complementar, reforçando a percepção de baixo custo.
 
-**R$ 9,90 por mês**
+A ordem de exibição dos planos deve ser:
+
+1. Anual
+2. Trimestral
+3. Mensal
+
+---
+
+### Plano 1 — Anual (Maior Economia)
+
+Exibir primeiro na ordem dos cards.
+
+Destaque principal:
+
+**Apenas R$ 3,99 por mês**
+
+Informação secundária:
+
+**Cobrado R$ 47,88 por ano**
+
+Adicionar selo:
+
+**Maior Economia**
+
+Adicionar texto de economia:
+
+**Economize 60%**
+
+Benefício exclusivo:
+
+**Maior economia do ano**
+
+Botão:
+
+**Quero o Melhor Valor**
+
+---
+
+### Plano 2 — Trimestral (Mais Popular)
+
+Destacar este plano visualmente como o mais escolhido, com borda destacada e leve escala maior.
+
+Destaque principal:
+
+**Apenas R$ 7,40 por mês**
+
+Informação secundária:
+
+**Cobrado R$ 22,20 a cada 3 meses**
+
+Adicionar selo:
+
+**Mais Popular**
+
+Adicionar texto de economia:
+
+**Economize 25%**
+
+Benefício exclusivo:
+
+**Melhor custo-benefício**
+
+Botão:
+
+**Quero Economizar**
+
+---
+
+### Plano 3 — Mensal
+
+Exibir por último na ordem dos cards.
+
+Destaque principal:
+
+**Apenas R$ 9,90 por mês**
+
+Informação secundária:
+
+**Cobrado R$ 9,90 por mês**
 
 Ideal para quem deseja conhecer o aplicativo.
 
@@ -403,56 +480,6 @@ Botão:
 
 ---
 
-### Plano 2 — Trimestral (Plano Recomendado)
-
-Destacar este plano visualmente como o mais escolhido.
-
-Preço:
-
-**R$ 22,20**
-
-Texto de destaque:
-
-**Apenas R$ 7,40 por mês**
-
-Adicionar selo:
-
-**Mais Popular**
-
-Criar um card maior que os demais.
-
-Adicionar uma borda destacada.
-
-Adicionar uma etiqueta indicando melhor custo-benefício.
-
-Botão:
-
-**Quero Economizar**
-
----
-
-### Plano 3 — Semestral
-
-Destacar este plano como o de maior economia.
-
-Preço:
-
-**R$ 29,40**
-
-Texto de destaque:
-
-**Apenas R$ 4,90 por mês**
-
-Adicionar selo:
-
-**Maior Economia**
-
-Criar elementos visuais mostrando a economia em relação ao plano mensal.
-
-Botão:
-
-**Quero o Melhor Valor**
-
 Todos os três planos devem possuir:
 
 - Lista de benefícios
@@ -460,6 +487,14 @@ Todos os três planos devem possuir:
 - Visual semelhante ao modelo enviado
 - Excelente hierarquia visual
 - Cards modernos e premium
+
+Benefícios comuns a todos os planos:
+
+- Acesso completo ao app
+- Biblioteca de áudios e vídeos
+- Microações e dashboard
+- Comunidade Secreta
+- Webinar exclusivo
 
 ---
 

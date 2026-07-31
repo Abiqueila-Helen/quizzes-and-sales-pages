@@ -25,84 +25,87 @@ import {
   CalendarCheck,
 } from "lucide-react";
 
-import { BRAND, CTA, Card, Eyebrow, GradText, GRADIENT, Reveal, SectionTitle } from "./ui";
+import { CTA, Card, Reveal, SectionTitle } from "./ui";
 import heroImg from "@/assets/ressignifica-sell/hero.png";
-import cicloImg from "@/assets/ressignifica-sell/ciclo.png";
-import transformacaoImg from "@/assets/ressignifica-sell/transformacao.png";
+import cicloImg from "@/assets/ressignifica-sell/ciclo.avif";
+import transformacaoImg from "@/assets/ressignifica-sell/transformacao.avif";
+import titulo01Img from "@/assets/ressignifica-sell/titulo01.avif";
 
 /* ---------------------------------------------------------------- Hero */
 
 export function Hero({ onCta }: { onCta: () => void }) {
   return (
-    <section className="relative overflow-hidden pt-10 pb-16" style={{ background: BRAND.bgSoft }}>
-      <div
-        className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full opacity-25 blur-3xl"
-        style={{ background: GRADIENT }}
-      />
-      <div className="relative mx-auto max-w-5xl px-5">
+    <section className="hero-bg overflow-hidden" style={{ padding: "88px 0 96px" }}>
+      <div className="mx-auto max-w-5xl px-5">
         <div className="text-center">
-          <Reveal>
-            <Eyebrow tone="green">
-              <Zap className="h-3.5 w-3.5" /> Botão de emergência mental
-            </Eyebrow>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h1 className="mt-5 text-[32px] font-extrabold leading-[1.1] tracking-tight sm:text-5xl">
-              Sua mente não está apenas roubando sua paz.{" "}
-              <GradText>Ela pode estar roubando o seu futuro financeiro.</GradText>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed sm:text-lg" style={{ color: BRAND.textSoft }}>
-              Medo, insegurança, culpa e escassez fazem milhares de pessoas perderem dias inteiros de
-              produtividade. O Ressignifica interrompe esse ciclo em menos de 5 minutos e devolve sua
-              capacidade de agir.
-            </p>
-          </Reveal>
+          <div className="hero-logo-text">
+            <span className="l1">
+              <Zap className="inline-block h-3.5 w-3.5 mr-1.5" style={{ verticalAlign: "-0.125em" }} />
+              Sistema Intervenção Emocional
+            </span>
+          </div>
+          <img
+            src={titulo01Img}
+            alt="Sua mente não está apenas roubando sua paz. Ela pode estar roubando o seu futuro financeiro."
+            className="mx-auto mt-5 w-full max-w-[600px] sm:max-w-[700px] h-auto"
+          />
+          <p
+            className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed sm:text-lg"
+            style={{ color: "#2f3a48cc" }}
+          >
+            Medo, insegurança, culpa e <span style={{ color: "#443634", fontWeight: 800 }} className="text-[16px]">ESCASSEZ</span> fazem milhares de pessoas perderem dias inteiros de
+            produtividade. O <span style={{ color: "#443634", fontWeight: 800 }} className="text-[16px]">Ressignifica</span> interrompe esse ciclo em menos de 2 minutos e <span style={{ color: "#e8732e" }} className="text-[16px]">devolve sua
+            capacidade de agir.</span>
+          </p>
 
-          <Reveal delay={0.15}>
-            <div className="mx-auto mt-8 max-w-sm">
-              <CTA onClick={onCta}>Quero Recuperar Minha Produtividade</CTA>
-              <p className="mt-3 text-xs" style={{ color: BRAND.textSoft }}>
-                Acesso imediato • Garantia de 7 dias • Cancele quando quiser
-              </p>
-            </div>
-          </Reveal>
+          
         </div>
 
-        <Reveal delay={0.2}>
-          <div className="relative mx-auto mt-10 max-w-[320px] sm:max-w-[380px]">
-            <motion.img
-              src={heroImg}
-              alt="Aplicativo Ressignifica aberto em um smartphone"
-              width={1024}
-              height={1280}
-              className="w-full drop-shadow-2xl"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-        </Reveal>
+        {/* <div className="mx-auto mt-10 max-w-[320px] sm:max-w-[380px]">
+          <motion.img
+            src={heroImg}
+            alt="Aplicativo Ressignifica aberto em um smartphone"
+            width={1024}
+            height={1280}
+            className="w-full drop-shadow-2xl"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div> */}
 
-        <Reveal delay={0.25}>
-          <div className="mx-auto mt-8 flex max-w-md flex-wrap items-center justify-center gap-2">
-            {[
-              { icon: Smartphone, label: "Android" },
-              { icon: Apple, label: "iPhone" },
-              { icon: Zap, label: "Acesso imediato" },
-              { icon: ShieldCheck, label: "Garantia 7 dias" },
-            ].map(({ icon: Icon, label }) => (
-              <span
-                key={label}
-                className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-xs font-semibold"
-                style={{ border: `1px solid ${BRAND.border}`, color: BRAND.text }}
-              >
-                <Icon className="h-3.5 w-3.5" style={{ color: BRAND.blue }} />
-                {label}
-              </span>
-            ))}
-          </div>
-        </Reveal>
+        {/* <div className="mx-auto mt-8 flex max-w-md flex-wrap items-center justify-center gap-2">
+          {[
+            { icon: Smartphone, label: "Android" },
+            { icon: Apple, label: "iPhone" },
+            { icon: Zap, label: "Acesso imediato" },
+            { icon: ShieldCheck, label: "Garantia 7 dias" },
+          ].map(({ icon: Icon, label }) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-xs font-semibold"
+              style={{ border: "1px solid #E2E8F0", color: "#373435" }}
+            >
+              <Icon className="h-3.5 w-3.5" style={{ color: "#00AFEF" }} />
+              {label}
+            </span>
+          ))}
+        </div> */}
+        {/* <div className="mx-auto mt-8 max-w-sm">
+            <button
+              onClick={onCta}
+              className="w-full rounded-2xl px-6 py-4 text-base font-extrabold transition-all active:scale-[0.98] hover:-translate-y-0.5"
+              style={{
+                background: "linear-gradient(135deg, #ED7B3A 0%, #F5A45E 100%)",
+                color: "#fff",
+                boxShadow: "0 16px 34px -14px rgba(237,123,58,0.5)",
+              }}
+            >
+              QUERO CONHECER
+            </button>
+            <p className="mt-3 text-xs" style={{ color: "#CF5F1E" }}>
+              Acesso imediato • Garantia de 7 dias • Cancele quando quiser
+            </p>
+          </div> */}
       </div>
     </section>
   );
@@ -124,13 +127,14 @@ const CICLO = [
 
 export function CicloInvisivel() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" style={{ background: "#fffdfd" }}>
       <div className="mx-auto max-w-3xl px-5">
         <SectionTitle
           eyebrow="O ciclo invisível"
           title={
             <>
-              Existe um loop rodando na sua cabeça <GradText>todos os dias</GradText>.
+              Existe um loop rodando na sua cabeça{" "}
+              <span style={{ color: "#e8732e" }}>todos os dias</span>.
             </>
           }
           subtitle="Ele não avisa quando começa. Só cobra o preço no fim do mês."
@@ -155,15 +159,15 @@ export function CicloInvisivel() {
                   className="w-full rounded-2xl px-5 py-3.5 text-center text-sm font-bold"
                   style={{
                     background: i === CICLO.length - 1 ? "#FEF2F2" : "#fff",
-                    border: `1px solid ${i === CICLO.length - 1 ? "#FECACA" : BRAND.border}`,
-                    color: i === CICLO.length - 1 ? "#DC2626" : BRAND.text,
+                    border: `1px solid ${i === CICLO.length - 1 ? "#FECACA" : "#E2E8F0"}`,
+                    color: i === CICLO.length - 1 ? "#DC2626" : "#373435",
                     boxShadow: "0 12px 28px -24px rgba(15,23,42,0.5)",
                   }}
                 >
                   {step}
                 </div>
                 {i < CICLO.length - 1 && (
-                  <ArrowDown className="my-1.5 h-4 w-4" style={{ color: BRAND.textSoft }} />
+                  <ArrowDown className="my-1.5 h-4 w-4" style={{ color: "#2f3a48cc" }} />
                 )}
               </div>
             </Reveal>
@@ -173,12 +177,12 @@ export function CicloInvisivel() {
         <Reveal delay={0.15}>
           <div
             className="mx-auto mt-10 max-w-xl rounded-3xl p-6 text-center"
-            style={{ background: `${BRAND.blue}0F`, border: `1px solid ${BRAND.blue}33` }}
+            style={{ background: "#00AFEF0F", border: "1px solid #00AFEF33" }}
           >
-            <p className="text-lg font-extrabold" style={{ color: BRAND.text }}>
+            <p className="text-lg font-extrabold" style={{ color: "#373435" }}>
               Disciplina nunca foi o seu problema.
             </p>
-            <p className="mt-2 text-sm leading-relaxed" style={{ color: BRAND.textSoft }}>
+            <p className="mt-2 text-sm leading-relaxed" style={{ color: "#2f3a48cc" }}>
               Ninguém executa bem enquanto a mente está em modo de defesa. O que você precisa não é de
               mais força de vontade — é de uma interrupção no momento exato em que o ciclo começa.
             </p>
@@ -204,13 +208,15 @@ const DIA = [
 
 export function VerdadeiroProblema() {
   return (
-    <section className="py-16 sm:py-24" style={{ background: BRAND.bgSoft }}>
+    <section className="py-16 sm:py-24" style={{ background: "#ebded6" }}>
       <div className="mx-auto max-w-3xl px-5">
         <SectionTitle
           eyebrow="O verdadeiro problema"
+          tone="green"
           title={
             <>
-              Não é preguiça. É um <GradText>dia inteiro sendo sequestrado</GradText>.
+              Não é preguiça. É um{" "}
+              <span style={{ color: "#e8732e" }}>dia inteiro sendo sequestrado</span>.
             </>
           }
         />
@@ -220,15 +226,15 @@ export function VerdadeiroProblema() {
             <Reveal key={i} delay={0.04 * i}>
               <div
                 className="flex items-start gap-4 rounded-2xl bg-white p-4"
-                style={{ border: `1px solid ${BRAND.border}` }}
+                style={{ border: "1px solid #E2E8F0" }}
               >
                 <span
                   className="mt-0.5 shrink-0 rounded-lg px-2.5 py-1 text-xs font-extrabold tabular-nums"
-                  style={{ background: `${BRAND.blue}14`, color: BRAND.blueDark }}
+                  style={{ background: "#00AFEF14", color: "#00AFEF" }}
                 >
                   {d.h}
                 </span>
-                <p className="text-[15px] leading-relaxed" style={{ color: BRAND.text }}>
+                <p className="text-[15px] leading-relaxed" style={{ color: "#373435" }}>
                   {d.t}
                 </p>
               </div>
@@ -237,8 +243,8 @@ export function VerdadeiroProblema() {
         </div>
 
         <Reveal delay={0.1}>
-          <p className="mt-10 text-center text-lg font-extrabold" style={{ color: BRAND.text }}>
-            Esse ciclo pode ser interrompido. <GradText>Hoje.</GradText>
+          <p className="mt-10 text-center text-lg font-extrabold" style={{ color: "#373435" }}>
+            Esse ciclo pode ser interrompido. <span style={{ color: "#e8732e" }}>Hoje.</span>
           </p>
         </Reveal>
       </div>
@@ -259,14 +265,14 @@ const FLUXO = [
 
 export function ConhecaOApp() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" style={{ background: "#fffdfd" }}>
       <div className="mx-auto max-w-3xl px-5">
         <SectionTitle
           eyebrow="Conheça o Ressignifica"
           tone="green"
           title={
             <>
-              Um botão. <GradText>Cinco minutos.</GradText> Um dia inteiro recuperado.
+              Um botão. <span style={{ color: "#e8732e" }}>Dois minutos.</span> Um dia inteiro recuperado.
             </>
           }
           subtitle="O Ressignifica não é um app de meditação. É um sistema de redirecionamento emocional que age no momento exato em que sua mente tenta te paralisar."
@@ -275,18 +281,18 @@ export function ConhecaOApp() {
         <div className="mt-10 space-y-3">
           {FLUXO.map(({ icon: Icon, t, d }, i) => (
             <Reveal key={t} delay={0.05 * i}>
-              <div className="flex items-start gap-4 rounded-3xl bg-white p-5" style={{ border: `1px solid ${BRAND.border}` }}>
+              <div className="flex items-start gap-4 rounded-3xl bg-white p-5" style={{ border: "1px solid #E2E8F0" }}>
                 <div
                   className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
-                  style={{ background: GRADIENT }}
+                  style={{ background: "#00AFEF18" }}
                 >
-                  <Icon className="h-5 w-5 text-white" />
+                  <Icon className="h-5 w-5" style={{ color: "#00AFEF" }} />
                 </div>
                 <div>
-                  <p className="text-[15px] font-extrabold" style={{ color: BRAND.text }}>
+                  <p className="text-[15px] font-extrabold" style={{ color: "#373435" }}>
                     {i + 1}. {t}
                   </p>
-                  <p className="mt-1 text-sm leading-relaxed" style={{ color: BRAND.textSoft }}>
+                  <p className="mt-1 text-sm leading-relaxed" style={{ color: "#2f3a48cc" }}>
                     {d}
                   </p>
                 </div>
@@ -296,11 +302,11 @@ export function ConhecaOApp() {
         </div>
 
         <Reveal delay={0.1}>
-          <div
-            className="mt-6 rounded-3xl p-6 text-center"
-            style={{ background: `${BRAND.green}12`, border: `1px solid ${BRAND.green}33` }}
-          >
-            <p className="text-[15px] font-extrabold" style={{ color: BRAND.text }}>
+            <div
+              className="mt-6 rounded-3xl p-6 text-center"
+              style={{ background: "#CCE7D4", border: "1px solid #B8DFC8" }}
+            >
+            <p className="text-[15px] font-extrabold" style={{ color: "#373435" }}>
               Quanto mais você age, mais você produz. Quanto mais você produz, maiores as suas chances de
               mudar sua vida financeira.
             </p>
@@ -326,13 +332,15 @@ const RECEBE = [
 
 export function Recebe() {
   return (
-    <section className="py-16 sm:py-24" style={{ background: BRAND.bgSoft }}>
+    <section className="py-16 sm:py-24" style={{ background: "#ebded6" }}>
       <div className="mx-auto max-w-4xl px-5">
         <SectionTitle
           eyebrow="O que você recebe"
+          tone="green"
           title={
             <>
-              Tudo o que você precisa para <GradText>voltar a produzir</GradText>.
+              Tudo o que você precisa para{" "}
+              <span style={{ color: "#e8732e" }}>voltar a produzir</span>.
             </>
           }
         />
@@ -342,14 +350,14 @@ export function Recebe() {
               <Card className="h-full">
                 <div
                   className="flex h-11 w-11 items-center justify-center rounded-2xl"
-                  style={{ background: `${BRAND.blue}14` }}
+                  style={{ background: "#00AFEF18" }}
                 >
-                  <Icon className="h-5 w-5" style={{ color: BRAND.blueDark }} />
+                  <Icon className="h-5 w-5" style={{ color: "#00AFEF" }} />
                 </div>
-                <p className="mt-4 text-[15px] font-extrabold" style={{ color: BRAND.text }}>
+                <p className="mt-4 text-[15px] font-extrabold" style={{ color: "#373435" }}>
                   {t}
                 </p>
-                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: BRAND.textSoft }}>
+                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#2f3a48cc" }}>
                   {d}
                 </p>
               </Card>
@@ -372,14 +380,15 @@ const PORQUE = [
 
 export function PorqueFunciona() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" style={{ background: "#fffdfd" }}>
       <div className="mx-auto max-w-4xl px-5">
         <SectionTitle
           eyebrow="Por que funciona"
           tone="green"
           title={
             <>
-              Funciona justamente porque <GradText>não exige nada de você</GradText>.
+              Funciona justamente porque{" "}
+              <span style={{ color: "#e8732e" }}>não exige nada de você</span>.
             </>
           }
         />
@@ -390,14 +399,14 @@ export function PorqueFunciona() {
               <Card className="h-full">
                 <div
                   className="flex h-11 w-11 items-center justify-center rounded-2xl"
-                  style={{ background: `${BRAND.green}16` }}
+                  style={{ background: "#00AFEF16" }}
                 >
-                  <Icon className="h-5 w-5" style={{ color: BRAND.greenDark }} />
+                  <Icon className="h-5 w-5" style={{ color: "#00AFEF" }} />
                 </div>
-                <p className="mt-4 text-[15px] font-extrabold" style={{ color: BRAND.text }}>
+                <p className="mt-4 text-[15px] font-extrabold" style={{ color: "#373435" }}>
                   {t}
                 </p>
-                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: BRAND.textSoft }}>
+                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#2f3a48cc" }}>
                   {d}
                 </p>
               </Card>
@@ -407,26 +416,26 @@ export function PorqueFunciona() {
 
         <Reveal delay={0.1}>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-3xl p-6" style={{ background: "#FEF2F2", border: "1px solid #FECACA" }}>
-              <p className="text-sm font-extrabold" style={{ color: "#B91C1C" }}>
+            <div className="rounded-3xl p-6" style={{ background: "#FEF2F2", border: "1px solid #C9524155" }}>
+              <p className="text-sm font-extrabold" style={{ color: "#C95241" }}>
                 O jeito antigo
               </p>
               <ul className="mt-4 space-y-2.5">
                 {["Esperar a motivação chegar", "Prometer que amanhã começa", "Se cobrar mais", "Se culpar à noite"].map((x) => (
-                  <li key={x} className="flex items-start gap-2 text-sm" style={{ color: "#7F1D1D" }}>
-                    <X className="mt-0.5 h-4 w-4 shrink-0" /> {x}
+                  <li key={x} className="flex items-start gap-2 text-sm" style={{ color: "#9B2C2C" }}>
+                    <X className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#C95241" }} /> {x}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="rounded-3xl p-6" style={{ background: `${BRAND.green}10`, border: `1px solid ${BRAND.green}44` }}>
-              <p className="text-sm font-extrabold" style={{ color: BRAND.greenDark }}>
+            <div className="rounded-3xl p-6 text-white" style={{ background: "linear-gradient(135deg, #00A859 0%, #379263 100%)", border: "1px solid #00A85944" }}>
+              <p className="text-sm font-extrabold">
                 Com o Ressignifica
               </p>
               <ul className="mt-4 space-y-2.5">
                 {["Apertar o botão quando travar", "Ouvir 2 a 5 minutos", "Executar uma microação", "Registrar a vitória"].map((x) => (
-                  <li key={x} className="flex items-start gap-2 text-sm" style={{ color: BRAND.text }}>
-                    <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: BRAND.green }} /> {x}
+                  <li key={x} className="flex items-start gap-2 text-sm text-white">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#FFCC29" }} /> {x}
                   </li>
                 ))}
               </ul>
@@ -445,13 +454,14 @@ export function Transformacao() {
   const depois = ["Age", "Executa", "Produz", "Recupera a autoestima", "Volta a gerar resultados"];
 
   return (
-    <section className="py-16 sm:py-24" style={{ background: BRAND.bgSoft }}>
+    <section className="py-16 sm:py-24" style={{ background: "#ebded6" }}>
       <div className="mx-auto max-w-4xl px-5">
         <SectionTitle
           eyebrow="Sua transformação"
+          tone="green"
           title={
             <>
-              De travado a <GradText>em movimento</GradText>.
+              De travado a <span style={{ color: "#e8732e" }}>em movimento</span>.
             </>
           }
         />
@@ -469,13 +479,13 @@ export function Transformacao() {
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <Reveal>
-            <div className="h-full rounded-3xl bg-white p-6" style={{ border: `1px solid ${BRAND.border}` }}>
+            <div className="h-full rounded-3xl bg-white p-6" style={{ border: "1px solid #E2E8F0" }}>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
                 <TrendingDown className="h-3.5 w-3.5" /> Antes
               </span>
               <ul className="mt-5 space-y-3">
                 {antes.map((x) => (
-                  <li key={x} className="flex items-center gap-3 text-[15px]" style={{ color: BRAND.textSoft }}>
+                  <li key={x} className="flex items-center gap-3 text-[15px]" style={{ color: "#2f3a48cc" }}>
                     <span className="h-1.5 w-1.5 rounded-full bg-slate-300" /> {x}
                   </li>
                 ))}
@@ -485,7 +495,7 @@ export function Transformacao() {
           <Reveal delay={0.08}>
             <div
               className="h-full rounded-3xl p-6"
-              style={{ background: GRADIENT, boxShadow: "0 24px 50px -28px rgba(10,207,131,0.7)" }}
+              style={{ background: "linear-gradient(135deg, #00A859 0%, #379263 100%)", boxShadow: "0 24px 50px -28px #00A85988" }}
             >
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white">
                 <TrendingUp className="h-3.5 w-3.5" /> Depois
@@ -493,7 +503,7 @@ export function Transformacao() {
               <ul className="mt-5 space-y-3">
                 {depois.map((x) => (
                   <li key={x} className="flex items-center gap-3 text-[15px] font-semibold text-white">
-                    <BadgeCheck className="h-4 w-4 shrink-0" /> {x}
+                    <BadgeCheck className="h-4 w-4 shrink-0" style={{ color: "#FFCC29" }} /> {x}
                   </li>
                 ))}
               </ul>

@@ -118,6 +118,8 @@ Botão:
 
 **Começar Agora**
 
+Link do checkout Plano mensal: "https://pay.cakto.com.br/3bfg6d6_992279"
+
 ---
 
 ### Plano 2 — Trimestral (Plano Recomendado)
@@ -146,23 +148,27 @@ Botão:
 
 **Quero Economizar**
 
+Link do checkout Plano Trimestral: "https://pay.cakto.com.br/38uxdqx"
+
 ---
 
-### Plano 3 — Semestral
+### Plano 3 — Anual
 
 Destacar este plano como o de maior economia.
 
 Preço:
 
-**R$ 29,40**
+**R$ 47,88**
 
 Texto de destaque:
 
-**Apenas R$ 4,90 por mês**
+**Apenas R$ 3,99 por mês**
 
 Adicionar selo:
 
 **Maior Economia**
+
+Link do checkout Plano anual: "https://pay.cakto.com.br/39ainba"
 
 Criar elementos visuais mostrando a economia em relação ao plano mensal.
 

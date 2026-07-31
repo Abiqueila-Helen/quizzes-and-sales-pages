@@ -9,43 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
-import { Route as RessignificaAppSellRouteImport } from './routes/ressignifica-app-sell'
-import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
-import { Route as JornadaDeHonraRouteImport } from './routes/jornada-de-honra'
-import { Route as AppsreObrigadoRouteImport } from './routes/appsre-obrigado'
-import { Route as AppsreRouteImport } from './routes/appsre'
-import { Route as SlugRouteImport } from './routes/$slug'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SlugRouteImport } from './routes/$slug'
+import { Route as AppsreRouteImport } from './routes/appsre'
+import { Route as AppsreObrigadoRouteImport } from './routes/appsre-obrigado'
+import { Route as JornadaDeHonraRouteImport } from './routes/jornada-de-honra'
+import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
+import { Route as RessignificaAppSellRouteImport } from './routes/ressignifica-app-sell'
+import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
 
-const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
-  id: '/termos-de-uso',
-  path: '/termos-de-uso',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RessignificaAppSellRoute = RessignificaAppSellRouteImport.update({
-  id: '/ressignifica-app-sell',
-  path: '/ressignifica-app-sell',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
-  id: '/politica-de-privacidade',
-  path: '/politica-de-privacidade',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JornadaDeHonraRoute = JornadaDeHonraRouteImport.update({
-  id: '/jornada-de-honra',
-  path: '/jornada-de-honra',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppsreObrigadoRoute = AppsreObrigadoRouteImport.update({
-  id: '/appsre-obrigado',
-  path: '/appsre-obrigado',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppsreRoute = AppsreRouteImport.update({
-  id: '/appsre',
-  path: '/appsre',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SlugRoute = SlugRouteImport.update({
@@ -53,9 +28,34 @@ const SlugRoute = SlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AppsreRoute = AppsreRouteImport.update({
+  id: '/appsre',
+  path: '/appsre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsreObrigadoRoute = AppsreObrigadoRouteImport.update({
+  id: '/appsre-obrigado',
+  path: '/appsre-obrigado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaDeHonraRoute = JornadaDeHonraRouteImport.update({
+  id: '/jornada-de-honra',
+  path: '/jornada-de-honra',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
+  id: '/politica-de-privacidade',
+  path: '/politica-de-privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RessignificaAppSellRoute = RessignificaAppSellRouteImport.update({
+  id: '/ressignifica-app-sell',
+  path: '/ressignifica-app-sell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
+  id: '/termos-de-uso',
+  path: '/termos-de-uso',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -136,46 +136,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/termos-de-uso': {
-      id: '/termos-de-uso'
-      path: '/termos-de-uso'
-      fullPath: '/termos-de-uso'
-      preLoaderRoute: typeof TermosDeUsoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ressignifica-app-sell': {
-      id: '/ressignifica-app-sell'
-      path: '/ressignifica-app-sell'
-      fullPath: '/ressignifica-app-sell'
-      preLoaderRoute: typeof RessignificaAppSellRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/politica-de-privacidade': {
-      id: '/politica-de-privacidade'
-      path: '/politica-de-privacidade'
-      fullPath: '/politica-de-privacidade'
-      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/jornada-de-honra': {
-      id: '/jornada-de-honra'
-      path: '/jornada-de-honra'
-      fullPath: '/jornada-de-honra'
-      preLoaderRoute: typeof JornadaDeHonraRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/appsre-obrigado': {
-      id: '/appsre-obrigado'
-      path: '/appsre-obrigado'
-      fullPath: '/appsre-obrigado'
-      preLoaderRoute: typeof AppsreObrigadoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/appsre': {
-      id: '/appsre'
-      path: '/appsre'
-      fullPath: '/appsre'
-      preLoaderRoute: typeof AppsreRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$slug': {
@@ -185,11 +150,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/appsre': {
+      id: '/appsre'
+      path: '/appsre'
+      fullPath: '/appsre'
+      preLoaderRoute: typeof AppsreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/appsre-obrigado': {
+      id: '/appsre-obrigado'
+      path: '/appsre-obrigado'
+      fullPath: '/appsre-obrigado'
+      preLoaderRoute: typeof AppsreObrigadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada-de-honra': {
+      id: '/jornada-de-honra'
+      path: '/jornada-de-honra'
+      fullPath: '/jornada-de-honra'
+      preLoaderRoute: typeof JornadaDeHonraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-privacidade': {
+      id: '/politica-de-privacidade'
+      path: '/politica-de-privacidade'
+      fullPath: '/politica-de-privacidade'
+      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ressignifica-app-sell': {
+      id: '/ressignifica-app-sell'
+      path: '/ressignifica-app-sell'
+      fullPath: '/ressignifica-app-sell'
+      preLoaderRoute: typeof RessignificaAppSellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/termos-de-uso': {
+      id: '/termos-de-uso'
+      path: '/termos-de-uso'
+      fullPath: '/termos-de-uso'
+      preLoaderRoute: typeof TermosDeUsoRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -208,3 +208,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

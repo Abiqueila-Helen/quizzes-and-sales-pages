@@ -23,3 +23,10 @@ npm run dev
 ```
 #### Em produção
 - Acessar em https://scalix.com.br
+
+
+## dependencias desatualizadas
+rm package-lock.json
+rm -rf node_modules
+
+npm install --legacy-peer-deps

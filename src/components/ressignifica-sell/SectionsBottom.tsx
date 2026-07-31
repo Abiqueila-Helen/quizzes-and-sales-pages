@@ -20,9 +20,9 @@ import {
   Users,
 } from "lucide-react";
 
-import { BRAND, CHECKOUT, CTA, Card, Eyebrow, GRADIENT, GradText, Reveal, SectionTitle, go, useCountdown } from "./ui";
-import bonusComunidade from "@/assets/ressignifica-sell/bonus-comunidade.jpg";
-import bonusWebinar from "@/assets/ressignifica-sell/bonus-webinar.jpg";
+import { Card, CHECKOUT, CTA, go, Reveal, SectionTitle, useCountdown } from "./ui";
+import bonusComunidade from "@/assets/ressignifica-sell/bonus-comunidade.avif";
+import bonusWebinar from "@/assets/ressignifica-sell/bonus-webinar.avif";
 import fotoDaniela from "@/assets/appsre/Daniela.jpg";
 import fotoFernanda from "@/assets/appsre/Fernanda.jpg";
 import fotoRicardo from "@/assets/appsre/Ricardo.jpg";
@@ -48,14 +48,14 @@ const BONUS = [
 
 export function Bonus() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" style={{ background: "#fffdfd" }}>
       <div className="mx-auto max-w-4xl px-5">
         <SectionTitle
           eyebrow="Bônus inclusos"
           tone="green"
           title={
             <>
-              Você não entra sozinho <GradText>nessa virada</GradText>.
+              Você não entra sozinho <span style={{ color: "#e8732e" }}>nessa virada</span>.
             </>
           }
         />
@@ -65,16 +65,16 @@ export function Bonus() {
               <Card className="h-full overflow-hidden !p-0">
                 <img src={img} alt={t} loading="lazy" width={1024} height={768} className="h-40 w-full object-cover" />
                 <div className="p-6">
-                  <span
-                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em]"
-                    style={{ background: `${BRAND.green}16`, color: BRAND.greenDark }}
-                  >
+                   <span
+                     className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em]"
+                     style={{ background: "#00AFEF16", color: "#00AFEF" }}
+                   >
                     <Gift className="h-3.5 w-3.5" /> {tag}
                   </span>
-                  <p className="mt-3 flex items-center gap-2 text-lg font-extrabold" style={{ color: BRAND.text }}>
-                    <Icon className="h-4.5 w-4.5" style={{ color: BRAND.blue }} /> {t}
+                  <p className="mt-3 flex items-center gap-2 text-lg font-extrabold" style={{ color: "#373435" }}>
+                    <Icon className="h-4.5 w-4.5" style={{ color: "#00AFEF" }} /> {t}
                   </p>
-                  <p className="mt-2 text-sm leading-relaxed" style={{ color: BRAND.textSoft }}>
+                  <p className="mt-2 text-sm leading-relaxed" style={{ color: "#2f3a48cc" }}>
                     {d}
                   </p>
                 </div>
@@ -91,9 +91,12 @@ export function Bonus() {
 
 type Plano = {
   nome: string;
-  preco: string;
-  detalhe: string;
+  precoMensal: string;
+  precoMensalLabel: string;
+  precoTotal: string;
+  precoTotalLabel: string;
   sub: string;
+  economia?: string;
   bullets: string[];
   cta: string;
   url: string;
@@ -111,19 +114,26 @@ const BASE_BULLETS = [
 
 const PLANOS: Plano[] = [
   {
-    nome: "Mensal",
-    preco: "R$ 9,90",
-    detalhe: "por mês",
-    sub: "Ideal para quem deseja conhecer o aplicativo.",
-    bullets: BASE_BULLETS,
-    cta: "Começar Agora",
-    url: CHECKOUT.mensal,
+    nome: "Anual",
+    precoMensal: "R$ 3,99",
+    precoMensalLabel: "por mês",
+    precoTotal: "R$ 47,88",
+    precoTotalLabel: "por ano",
+    sub: "Apenas R$ 3,99 por mês — economize 60%.",
+    economia: "Economize 60%",
+    bullets: [...BASE_BULLETS, "Maior economia do ano"],
+    cta: "Quero o Melhor Valor",
+    url: CHECKOUT.anual,
+    selo: "Maior Economia",
   },
   {
     nome: "Trimestral",
-    preco: "R$ 22,20",
-    detalhe: "a cada 3 meses",
+    precoMensal: "R$ 7,40",
+    precoMensalLabel: "por mês",
+    precoTotal: "R$ 22,20",
+    precoTotalLabel: "a cada 3 meses",
     sub: "Apenas R$ 7,40 por mês — economize 25%.",
+    economia: "Economize 25%",
     bullets: [...BASE_BULLETS, "Melhor custo-benefício"],
     cta: "Quero Economizar",
     url: CHECKOUT.trimestral,
@@ -131,14 +141,15 @@ const PLANOS: Plano[] = [
     destaque: true,
   },
   {
-    nome: "Anual",
-    preco: "R$ 47,88",
-    detalhe: "por ano",
-    sub: "Apenas R$ 3,99 por mês — economize 60%.",
-    bullets: [...BASE_BULLETS, "Maior economia do ano"],
-    cta: "Quero o Melhor Valor",
-    url: CHECKOUT.anual,
-    selo: "Maior Economia",
+    nome: "Mensal",
+    precoMensal: "R$ 9,90",
+    precoMensalLabel: "por mês",
+    precoTotal: "R$ 9,90",
+    precoTotalLabel: "por mês",
+    sub: "Ideal para quem deseja conhecer o aplicativo.",
+    bullets: BASE_BULLETS,
+    cta: "Começar Agora",
+    url: CHECKOUT.mensal,
   },
 ];
 
@@ -155,13 +166,13 @@ export function Oferta() {
   const { m, s } = useCountdown();
 
   return (
-    <section id="oferta" className="py-16 sm:py-24" style={{ background: BRAND.bgSoft }}>
+    <section id="oferta" className="py-16 sm:py-24" style={{ background: "#ebded6" }}>
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
-          <div
-            className="mx-auto max-w-md rounded-3xl p-6 text-center"
-            style={{ background: GRADIENT, boxShadow: "0 26px 55px -30px rgba(26,188,254,0.8)" }}
-          >
+            <div
+              className="mx-auto max-w-md rounded-3xl p-6 text-center"
+              style={{ background: "linear-gradient(135deg, #ED3237 0%, #C95241 100%)", boxShadow: "0 26px 55px -30px #F5863488" }}
+            >
             <p className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-white">
               <Timer className="h-4 w-4" /> Condição especial expira em
             </p>
@@ -178,7 +189,7 @@ export function Oferta() {
             eyebrow="Escolha seu plano"
             title={
               <>
-                Menos que um café por semana para <GradText>recuperar seus dias</GradText>.
+                Menos que um café por semana para <span style={{ color: "#e8732e" }}>recuperar seus dias</span>.
               </>
             }
           />
@@ -190,9 +201,9 @@ export function Oferta() {
               <div
                 className="relative h-full rounded-[28px] bg-white p-6"
                 style={{
-                  border: p.destaque ? `2px solid ${BRAND.green}` : `1px solid ${BRAND.border}`,
+                  border: p.destaque ? "2px solid #F58634" : "1px solid #E2E8F0",
                   boxShadow: p.destaque
-                    ? "0 30px 60px -30px rgba(10,207,131,0.55)"
+                    ? "0 30px 60px -30px #F5863488"
                     : "0 18px 40px -30px rgba(15,23,42,0.4)",
                   transform: p.destaque ? "scale(1.015)" : undefined,
                 }}
@@ -200,29 +211,34 @@ export function Oferta() {
                 {p.selo && (
                   <span
                     className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-white"
-                    style={{ background: p.destaque ? BRAND.green : BRAND.blue }}
+                    style={{ background: p.destaque ? "#373435" : "#00AFEF" }}
                   >
                     <Crown className="h-3.5 w-3.5" /> {p.selo}
                   </span>
                 )}
 
-                <p className="mt-2 text-sm font-extrabold uppercase tracking-[0.14em]" style={{ color: BRAND.textSoft }}>
+                <p className="mt-2 text-sm font-extrabold uppercase tracking-[0.14em]" style={{ color: "#2f3a48cc" }}>
                   {p.nome}
                 </p>
-                <p className="mt-3 text-4xl font-extrabold tracking-tight" style={{ color: BRAND.text }}>
-                  {p.preco}
+                <p className="mt-3 text-4xl font-extrabold tracking-tight" style={{ color: "#373435" }}>
+                  {p.precoMensal}
                 </p>
-                <p className="text-sm" style={{ color: BRAND.textSoft }}>
-                  {p.detalhe}
+                <p className="text-sm font-semibold" style={{ color: "#2f3a48cc" }}>
+                  {p.precoMensalLabel}
                 </p>
-                <p className="mt-3 text-sm font-bold" style={{ color: p.destaque ? BRAND.greenDark : BRAND.blueDark }}>
-                  {p.sub}
+                <p className="mt-1 text-sm" style={{ color: "#2f3a48cc" }}>
+                  Cobrado {p.precoTotal} {p.precoTotalLabel}
                 </p>
+                {p.economia && (
+                  <p className="mt-1 text-sm font-bold" style={{ color: p.destaque ? "#379263" : "#0095C7" }}>
+                    {p.economia}
+                  </p>
+                )}
 
                 <ul className="mt-5 space-y-2.5">
                   {p.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2.5 text-sm" style={{ color: BRAND.text }}>
-                      <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: BRAND.green }} />
+                    <li key={b} className="flex items-start gap-2.5 text-sm" style={{ color: "#373435" }}>
+                      <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#00A859" }} />
                       {b}
                     </li>
                   ))}
@@ -239,7 +255,7 @@ export function Oferta() {
         </div>
 
         <Reveal delay={0.1}>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs font-semibold" style={{ color: BRAND.textSoft }}>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs font-semibold" style={{ color: "#2f3a48cc" }}>
             <span className="inline-flex items-center gap-1.5">
               <Lock className="h-3.5 w-3.5" /> Compra 100% segura
             </span>
@@ -290,13 +306,13 @@ export function Galeria() {
   if (GALLERY.length === 0) return null;
 
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" style={{ background: "#fffdfd" }}>
       <div className="mx-auto max-w-5xl px-5">
         <SectionTitle
           eyebrow="Veja o aplicativo"
           title={
             <>
-              Telas reais do <GradText>Ressignifica</GradText>.
+              Telas reais do <span style={{ color: "#e8732e" }}>Ressignifica</span>.
             </>
           }
           subtitle="Toque em qualquer tela para ver em tamanho real."
@@ -312,7 +328,7 @@ export function Galeria() {
                       onClick={() => setLightboxIndex(i)}
                       className="group block w-full overflow-hidden rounded-[26px] bg-white transition-transform hover:-translate-y-1"
                       style={{
-                        border: `1px solid ${BRAND.border}`,
+                        border: "1px solid #E2E8F0",
                         boxShadow: "0 20px 40px -24px rgba(15,23,42,0.35)",
                         aspectRatio: "9 / 16",
                       }}
@@ -334,7 +350,7 @@ export function Galeria() {
               onClick={() => emblaApi?.scrollPrev()}
               aria-label="Anterior"
               className="absolute -left-1 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-2.5 shadow-lg transition-transform hover:scale-105"
-              style={{ border: `1px solid ${BRAND.border}`, color: BRAND.text }}
+              style={{ border: "1px solid #E2E8F0", color: "#373435" }}
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -342,7 +358,7 @@ export function Galeria() {
               onClick={() => emblaApi?.scrollNext()}
               aria-label="Próximo"
               className="absolute -right-1 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-2.5 shadow-lg transition-transform hover:scale-105"
-              style={{ border: `1px solid ${BRAND.border}`, color: BRAND.text }}
+              style={{ border: "1px solid #E2E8F0", color: "#373435" }}
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -354,7 +370,7 @@ export function Galeria() {
                   onClick={() => emblaApi?.scrollTo(i)}
                   aria-label={`Ir para a tela ${i + 1}`}
                   className="h-2 rounded-full transition-all"
-                  style={{ width: selected === i ? 26 : 8, background: selected === i ? BRAND.blue : BRAND.border }}
+                  style={{ width: selected === i ? 26 : 8, background: selected === i ? "#00AFEF" : "#E2E8F0" }}
                 />
               ))}
             </div>
@@ -405,13 +421,14 @@ const DEPOIMENTOS = [
 
 export function Depoimentos() {
   return (
-    <section className="py-16 sm:py-24" style={{ background: BRAND.bgSoft }}>
+    <section className="py-16 sm:py-24" style={{ background: "#ebded6" }}>
       <div className="mx-auto max-w-4xl px-5">
         <SectionTitle
           eyebrow="Depoimentos"
+          tone="green"
           title={
             <>
-              Pessoas comuns que <GradText>voltaram a agir</GradText>.
+              Pessoas comuns que <span style={{ color: "#e8732e" }}>voltaram a agir</span>.
             </>
           }
         />
@@ -427,10 +444,10 @@ export function Depoimentos() {
                     className="h-11 w-11 rounded-full object-cover"
                   />
                   <div>
-                    <p className="text-sm font-extrabold" style={{ color: BRAND.text }}>
+                    <p className="text-sm font-extrabold" style={{ color: "#373435" }}>
                       {d.nome}
                     </p>
-                    <p className="text-xs" style={{ color: BRAND.textSoft }}>
+                    <p className="text-xs" style={{ color: "#2f3a48cc" }}>
                       {d.cidade}
                     </p>
                   </div>
@@ -440,7 +457,7 @@ export function Depoimentos() {
                     <Star key={k} className="h-3.5 w-3.5" style={{ color: "#F59E0B", fill: "#F59E0B" }} />
                   ))}
                 </div>
-                <p className="mt-3 text-sm leading-relaxed" style={{ color: BRAND.textSoft }}>
+                <p className="mt-3 text-sm leading-relaxed" style={{ color: "#2f3a48cc" }}>
                   “{d.texto}”
                 </p>
               </Card>
@@ -456,23 +473,23 @@ export function Depoimentos() {
 
 export function Garantia() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" style={{ background: "#fffdfd" }}>
       <div className="mx-auto max-w-2xl px-5">
         <Reveal>
           <div
             className="rounded-[32px] bg-white p-8 text-center"
-            style={{ border: `1px solid ${BRAND.border}`, boxShadow: "0 26px 55px -34px rgba(15,23,42,0.5)" }}
+            style={{ border: "1px solid #E2E8F0", boxShadow: "0 26px 55px -34px rgba(15,23,42,0.5)" }}
           >
             <div
               className="mx-auto flex h-20 w-20 items-center justify-center rounded-full"
-              style={{ background: GRADIENT, boxShadow: "0 18px 36px -18px rgba(10,207,131,0.7)" }}
+              style={{ background: "linear-gradient(135deg, #00AFEF 0%, #00A859 100%)", boxShadow: "0 18px 36px -18px #00AFEF88" }}
             >
               <ShieldCheck className="h-9 w-9 text-white" />
             </div>
-            <p className="mt-5 text-2xl font-extrabold" style={{ color: BRAND.text }}>
+            <p className="mt-5 text-2xl font-extrabold" style={{ color: "#373435" }}>
               Garantia incondicional de 7 dias
             </p>
-            <p className="mt-3 text-[15px] leading-relaxed" style={{ color: BRAND.textSoft }}>
+            <p className="mt-3 text-[15px] leading-relaxed" style={{ color: "#2f3a48cc" }}>
               Teste o Ressignifica por sete dias. Se você sentir que não é para você, basta pedir o
               reembolso — devolvemos 100% do valor, sem perguntas e sem burocracia. O risco é todo nosso.
             </p>
@@ -511,26 +528,26 @@ const FAQS = [
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="py-16 sm:py-24" style={{ background: BRAND.bgSoft }}>
+    <section className="py-16 sm:py-24" style={{ background: "#ebded6" }}>
       <div className="mx-auto max-w-2xl px-5">
-        <SectionTitle eyebrow="Perguntas frequentes" title="Ainda com alguma dúvida?" />
+        <SectionTitle eyebrow="Perguntas frequentes" tone="green" title="Ainda com alguma dúvida?" />
         <div className="mt-10 space-y-3">
           {FAQS.map((f, i) => {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} delay={0.04 * i}>
-                <div className="overflow-hidden rounded-2xl bg-white" style={{ border: `1px solid ${BRAND.border}` }}>
+                <div className="overflow-hidden rounded-2xl bg-white" style={{ border: "1px solid #E2E8F0" }}>
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
                     className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
                   >
-                    <span className="text-[15px] font-bold" style={{ color: BRAND.text }}>
+                    <span className="text-[15px] font-bold" style={{ color: "#373435" }}>
                       {f.q}
                     </span>
                     {isOpen ? (
-                      <Minus className="h-4 w-4 shrink-0" style={{ color: BRAND.blue }} />
+                      <Minus className="h-4 w-4 shrink-0" style={{ color: "#00AFEF" }} />
                     ) : (
-                      <Plus className="h-4 w-4 shrink-0" style={{ color: BRAND.blue }} />
+                      <Plus className="h-4 w-4 shrink-0" style={{ color: "#00AFEF" }} />
                     )}
                   </button>
                   <AnimatePresence initial={false}>
@@ -541,7 +558,7 @@ export function FAQ() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25 }}
                       >
-                        <p className="px-5 pb-5 text-sm leading-relaxed" style={{ color: BRAND.textSoft }}>
+                        <p className="px-5 pb-5 text-sm leading-relaxed" style={{ color: "#2f3a48cc" }}>
                           {f.a}
                         </p>
                       </motion.div>
@@ -561,15 +578,12 @@ export function FAQ() {
 
 export function CTAFinal({ onCta }: { onCta: () => void }) {
   return (
-    <section className="px-5 py-16 sm:py-24">
+    <section className="px-5 py-16 sm:py-24" style={{ background: "#fffdfd" }}>
       <Reveal>
         <div
           className="mx-auto max-w-3xl rounded-[32px] px-6 py-12 text-center"
-          style={{ background: GRADIENT, boxShadow: "0 30px 70px -34px rgba(26,188,254,0.8)" }}
+          style={{ background: "linear-gradient(135deg, #221a12 0%, #443634 100%)", boxShadow: "0 30px 70px -34px #E8732E" }}
         >
-          <Eyebrow tone="green">
-            <span className="text-white">Última chamada</span>
-          </Eyebrow>
           <h2 className="mt-5 text-[28px] font-extrabold leading-[1.15] text-white sm:text-4xl">
             Enquanto você adia mais um dia, sua mente continua alimentando o ciclo.
           </h2>
@@ -581,7 +595,7 @@ export function CTAFinal({ onCta }: { onCta: () => void }) {
             <button
               onClick={onCta}
               className="w-full rounded-2xl bg-white px-6 py-4 text-base font-extrabold transition-transform active:scale-[0.98] hover:-translate-y-0.5"
-              style={{ color: BRAND.blueDark, boxShadow: "0 18px 36px -18px rgba(15,23,42,0.5)" }}
+              style={{ color: "#E8732E", boxShadow: "0 18px 36px -18px #221a12" }}
             >
               Quero Recuperar Minha Capacidade de Produzir
             </button>
@@ -597,12 +611,12 @@ export function CTAFinal({ onCta }: { onCta: () => void }) {
 
 export function Rodape() {
   return (
-    <footer className="px-5 py-10" style={{ borderTop: `1px solid ${BRAND.border}`, background: BRAND.bgSoft }}>
+    <footer className="px-5 py-10" style={{ borderTop: "1px solid #E2E8F0", background: "linear-gradient(135deg, #221a12 0%, #443634 100%)" }}>
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 text-center">
-        <p className="text-sm font-extrabold" style={{ color: BRAND.text }}>
+        <p className="text-sm font-extrabold" style={{ color: "#fff" }}>
           Ressignifica
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold" style={{ color: BRAND.textSoft }}>
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold" style={{ color: "#fffdfdcc" }}>
           <a href="/politica-de-privacidade" className="hover:opacity-70">
             Política de Privacidade
           </a>
@@ -613,7 +627,7 @@ export function Rodape() {
             Contato
           </a>
         </div>
-        <p className="text-xs" style={{ color: BRAND.textSoft }}>
+        <p className="text-xs" style={{ color: "#fffdfdcc" }}>
           © 2026 Ressignifica. Todos os direitos reservados.
         </p>
       </div>

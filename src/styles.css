@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cause:wght@100..900&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -100,14 +101,43 @@
   .font-body {
     font-family: var(--font-sans);
   }
-  /* Landing /ressignifica-app-sell: tipografia sans premium, sem serifa */
-  .rs-sell,
+  /* Landing /ressignifica-app-sell: títulos em Cause, cor #443634 */
   .rs-sell h1,
-  .rs-sell h2,
-  .rs-sell h3 {
-    font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
-    letter-spacing: -0.02em;
+  .rs-sell h2 {
+    font-family: "Cause", Georgia, serif;
+    color: #443634;
   }
+  .rs-sell h3,
+  .rs-sell p,
+  .rs-sell span,
+  .rs-sell li,
+  .rs-sell button {
+    font-family: "Montserrat", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+    letter-spacing: 0.02em;
+  }
+  /* Hero background: gradientes radiais */
+  .rs-sell .hero-bg {
+    background: radial-gradient(900px 460px at 50% -8%, rgba(245, 164, 94, 0.30), transparent 68%),
+                radial-gradient(640px 380px at 84% 28%, rgba(232, 115, 46, 0.14), transparent 70%),
+                #f5f0eb;
+    text-align: center;
+    position: relative;
+  }
+}
+
+/* Hero refatorado */
+.hero-logo-text .l1 {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #C95241;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Título grande do Hero */
+.hero-title {
+  font-family: "Cause", Georgia, serif;
+  color: #443634;
 }
 
 @layer utilities {

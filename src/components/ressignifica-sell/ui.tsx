@@ -2,10 +2,19 @@ import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export const BRAND = {
-  blue: "#1ABCFE",
-  blueDark: "#0B93D5",
-  green: "#0ACF83",
-  greenDark: "#07A96A",
+  blue: "#00AFEF",
+  blueDark: "#0095C7",
+  green: "#00A859",
+  greenDark: "#379263",
+  orange: "#F58634",
+  orangeDark: "#D96D28",
+  yellow: "#FFCC29",
+  black: "#373435",
+  red: "#ED3237",
+  terracota: "#C95241",
+  brown: "#BF7F4D",
+  mint: "#CCE7D4",
+  olive: "#D2E28B",
   text: "#0F172A",
   textSoft: "#64748B",
   border: "#E2E8F0",
@@ -13,7 +22,10 @@ export const BRAND = {
   bgSoft: "#F8FAFC",
 };
 
-export const GRADIENT = `linear-gradient(135deg, ${BRAND.blue} 0%, ${BRAND.green} 100%)`;
+export const GRADIENT_CTA = `linear-gradient(135deg, ${BRAND.orange} 0%, ${BRAND.yellow} 100%)`;
+export const GRADIENT_GREEN = `linear-gradient(135deg, ${BRAND.green} 0%, ${BRAND.greenDark} 100%)`;
+export const GRADIENT_BLUE_GREEN = `linear-gradient(135deg, ${BRAND.blue} 0%, ${BRAND.green} 100%)`;
+export const GRADIENT_ORANGE = `linear-gradient(135deg, ${BRAND.orange} 0%, ${BRAND.yellow} 100%)`;
 
 export const CHECKOUT = {
   mensal: "https://pay.cakto.com.br/3bfg6d6_992279",
@@ -60,7 +72,7 @@ export function Eyebrow({
   return (
     <span
       className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em]"
-      style={{ color: c, background: `${c}14` }}
+      style={{ color: c, background: `${c}18` }}
     >
       {children}
     </span>
@@ -71,7 +83,7 @@ export function GradText({ children }: { children: React.ReactNode }) {
   return (
     <span
       style={{
-        background: GRADIENT,
+        background: GRADIENT_BLUE_GREEN,
         WebkitBackgroundClip: "text",
         backgroundClip: "text",
         color: "transparent",
@@ -95,9 +107,9 @@ export function CTA({
 }) {
   const styles: React.CSSProperties =
     variant === "gradient"
-      ? { background: GRADIENT, color: "#fff", boxShadow: "0 16px 34px -14px rgba(10,207,131,0.6)" }
+      ? { background: GRADIENT_CTA, color: "#fff", boxShadow: `0 16px 34px -14px ${BRAND.orange}88` }
       : variant === "green"
-        ? { background: BRAND.green, color: "#fff", boxShadow: "0 16px 34px -14px rgba(10,207,131,0.6)" }
+        ? { background: BRAND.green, color: "#fff", boxShadow: `0 16px 34px -14px ${BRAND.green}88` }
         : { background: "#fff", color: BRAND.text, border: `1px solid ${BRAND.border}` };
 
   return (

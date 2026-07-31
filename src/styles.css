@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Cause:wght@100..900&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -172,4 +172,56 @@
 }
 @utility animate-fade-up {
   animation: fade-up 0.4s ease-out both;
+}
+
+/* ===== Página /ressignifica-app-sell-pie — estilos isolados (prefixo pie-) ===== */
+
+/* Marquee: texto contínuo da página pie (frase da seção Benefícios) */
+.pie-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.pie-marquee-track {
+  display: inline-flex;
+  width: max-content;
+  will-change: transform;
+  animation: pie-marquee-scroll 10s linear infinite;
+}
+
+.pie-marquee-item {
+  white-space: nowrap;
+  font-size: 30px;
+  line-height: 1.25;
+  padding-right: 2rem;
+}
+
+@media (min-width: 640px) {
+  .pie-marquee-item {
+    font-size: 44px;
+  }
+}
+
+@keyframes pie-marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Stacking: seções como "cards empilhados" que sobem e cobrem a anterior */
+.pie-stack {
+  position: relative;
+}
+
+.pie-stack + .pie-stack {
+  margin-top: -24px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  overflow: visible;
+}
+
+@media (min-width: 640px) {
+  .pie-stack + .pie-stack {
+    margin-top: -40px;
+  }
 }

@@ -5,6 +5,9 @@ export const FIG = {
   yellow: "#FFCC29",
   mint: "#CCE7D4",
   olive: "#D2E28B",
+  terracota: "#C95241",
+  orange: "#F58634",
+  dark_green: "#379263",
 };
 
 export const GRADIENT_SOFT = `linear-gradient(160deg, ${FIG.mint} 0%, ${FIG.olive} 100%)`;
@@ -17,6 +20,7 @@ export const CHECKOUT = {
 
 export const SERIF = "'Fraunces', Georgia, serif";
 export const SANS = "'DM Sans', system-ui, sans-serif";
+export const TITLE = "'Cause', Georgia, serif";
 
 export function go(url: string) {
   window.open(url, "_blank", "noopener,noreferrer");

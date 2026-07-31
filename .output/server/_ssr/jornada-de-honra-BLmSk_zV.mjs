@@ -1,5 +1,5 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { f as MessageCircleMore, g as Instagram, t as Youtube } from "../_libs/lucide-react.mjs";
+import { C as Instagram, n as Youtube, y as MessageCircleMore } from "../_libs/lucide-react.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/jornada-de-honra-BLmSk_zV.js
 var import_jsx_runtime = require_jsx_runtime();
 var cards = [

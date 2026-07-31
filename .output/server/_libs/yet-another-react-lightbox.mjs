@@ -44,7 +44,7 @@ var IMAGE_FIT_CONTAIN = "contain";
 var UNKNOWN_ACTION_TYPE = "Unknown action type";
 //#endregion
 //#region node_modules/yet-another-react-lightbox/dist/index.js
-var import_react_dom = require_react_dom();
+var import_react_dom = /* @__PURE__ */ __toESM(require_react_dom(), 1);
 var cssPrefix$3 = "yarl__";
 function clsx(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -132,7 +132,7 @@ function getSlideKey(slide) {
 function calculatePreload(carousel, slides, minimum = 0) {
 	return Math.min(carousel.preload, Math.max(carousel.finite ? slides.length - 1 : Math.floor(slides.length / 2), minimum));
 }
-var isReact19 = Number("19.2.7".split(".")[0]) >= 19;
+var isReact19 = Number("19.2.8".split(".")[0]) >= 19;
 function makeInertWhen(condition) {
 	return { inert: isReact19 ? condition : condition ? "" : void 0 };
 }
@@ -698,11 +698,11 @@ function useThrottle(callback, delay) {
 	const delayCallback = useDelay();
 	const executeCallback = useEventCallback((...args) => {
 		lastCallbackTime.current = Date.now();
-		callback(args);
+		callback(...args);
 	});
 	return import_react.useCallback((...args) => {
 		delayCallback(() => {
-			executeCallback(args);
+			executeCallback(...args);
 		}, delay - (Date.now() - lastCallbackTime.current));
 	}, [
 		delay,
@@ -851,7 +851,7 @@ function usePointerSwipe({ disableSwipeNavigation, closeOnBackdropClick }, subsc
 			const currentOffset = offset.current;
 			if (gesture.current === Gesture.SWIPE) if (Math.abs(currentOffset) > .3 * containerWidth || Math.abs(currentOffset) > 5 && duration < swipeAnimationDuration) onSwipeFinish(currentOffset, duration);
 			else onSwipeCancel(currentOffset);
-			else if (gesture.current === Gesture.PULL) if (exceedsPullThreshold(currentOffset, 2 * SWIPE_THRESHOLD)) onPullFinish(currentOffset, duration);
+			else if (gesture.current === Gesture.PULL) if (exceedsPullThreshold(currentOffset, 60)) onPullFinish(currentOffset, duration);
 			else onPullCancel(currentOffset);
 			offset.current = 0;
 			gesture.current = Gesture.NONE;
@@ -1049,7 +1049,7 @@ function Controller({ children, ...props }) {
 				if (closeOnPullUp && offset < 0) return -offset;
 				return 0;
 			})();
-			return Math.min(Math.max(round(1 - offsetValue / threshold * (1 - minOpacity), 2), minOpacity), 1);
+			return Math.min(Math.max(round(1 - offsetValue / threshold * .5, 2), minOpacity), 1);
 		})();
 		(_a = containerRef.current) === null || _a === void 0 || _a.style.setProperty(cssVar("pull_offset"), `${Math.round(offset)}px`);
 		(_b = containerRef.current) === null || _b === void 0 || _b.style.setProperty(cssVar("pull_opacity"), `${pullOpacity.current}`);

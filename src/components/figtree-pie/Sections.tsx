@@ -3,12 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import { Check, Clock, Lock, ShieldCheck, Star } from "lucide-react";
 
 import decoHero from "@/assets/figtree-pie/deco-hero.png";
-import decoLeaf from "@/assets/figtree-pie/deco-leaf.png";
+import handsImg from "@/assets/figtree-pie/hands.png";
+import handsHeartImg from "@/assets/figtree-pie/hands-heart.avif";
+import sunImg from "@/assets/figtree-pie/sun.png";
+import treeImg from "@/assets/figtree-pie/tree.avif";
 import mok01 from "@/assets/appsre/carousel/mok01.jpg";
 import mok02 from "@/assets/appsre/carousel/mok02.jpg";
 import mok03 from "@/assets/appsre/carousel/mok03.jpg";
 
-import { CHECKOUT, FIG, GRADIENT_SOFT, SANS, SERIF, go } from "./theme";
+import { CHECKOUT, FIG, GRADIENT_SOFT, SANS, SERIF, TITLE, go } from "./theme";
 
 function Reveal({
   children,
@@ -76,7 +79,7 @@ function BigCta({
 
 export function Hero({ onCta }: { onCta: () => void }) {
   return (
-    <section className="relative overflow-hidden px-6 pb-20 pt-16" style={{ background: FIG.white }}>
+    <section className="pie-stack relative overflow-hidden px-6 pb-20 pt-16" style={{ background: FIG.white, zIndex: 1 }}>
       <img
         src={decoHero}
         alt=""
@@ -87,16 +90,16 @@ export function Hero({ onCta }: { onCta: () => void }) {
       />
       <div className="relative mx-auto max-w-xl">
         <h1
-          className="text-[36px] leading-[1.15] sm:text-[52px]"
-          style={{ fontFamily: SERIF, color: FIG.charcoal, fontWeight: 400 }}
+          className="text-center text-[42px] leading-[1.15] sm:text-[58px]"
+          style={{ fontFamily: TITLE, color: FIG.charcoal, fontWeight: 800 }}
         >
           Cultive o amor-próprio, alimente a autoconfiança e manifeste seus desejos com o
           Ressignifica.
         </h1>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        {/* <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <BigCta label="Quero Recuperar Meus Dias" onClick={onCta} />
           <BigCta label="Escolher Meu Plano" onClick={onCta} tone="yellow" />
-        </div>
+        </div> */}
       </div>
     </section>
   );
@@ -111,6 +114,7 @@ function FeatureBlock({
   title,
   text,
   bg,
+  zIndex,
 }: {
   num: string;
   tag: string;
@@ -118,9 +122,10 @@ function FeatureBlock({
   title: string;
   text: string;
   bg: string;
+  zIndex: number;
 }) {
   return (
-    <section className="px-6 py-16" style={{ background: bg }}>
+    <section className="pie-stack px-6 py-16" style={{ background: bg, zIndex }}>
       <div className="mx-auto max-w-xl">
         <Reveal>
           <div
@@ -143,15 +148,15 @@ function FeatureBlock({
         </Reveal>
         <Reveal delay={0.1}>
           <h2
-            className="mt-10 text-[30px] leading-[1.2] sm:text-[40px]"
-            style={{ fontFamily: SERIF, color: FIG.charcoal, fontWeight: 400 }}
+            className="mt-10 text-[34px] leading-[1.2] sm:text-[46px]"
+            style={{ fontFamily: TITLE, color: FIG.charcoal, fontWeight: 700 }}
           >
             {title}
           </h2>
         </Reveal>
         <Reveal delay={0.15}>
           <p
-            className="mt-4 text-[17px] leading-relaxed"
+            className="mt-4 text-[19px] leading-relaxed"
             style={{ fontFamily: SANS, color: `${FIG.charcoal}cc` }}
           >
             {text}
@@ -169,8 +174,9 @@ export function Afirmacoes() {
       tag="Afirmações"
       image={mok01}
       bg={FIG.white}
+      zIndex={2}
       title="Cultive o seu amor-próprio"
-      text="Fortaleça o amor-próprio e a autoaceitação enquanto alivia emoções negativas com afirmações poderosas e inspiradoras."
+      text="Cultive o amor-próprio e a autoaceitação, aliviando emoções negativas com afirmações poderosas e inspiradoras."
     />
   );
 }
@@ -179,11 +185,12 @@ export function Conquista() {
   return (
     <FeatureBlock
       num="02"
-      tag="Conquista"
+      tag="Categorias"
       image={mok02}
       bg={FIG.mint}
+      zIndex={3}
       title="Escolha afirmações que ressoem profundamente em você"
-      text="Selecione as categorias que melhor representam as áreas da vida que você quer melhorar e pratique afirmações profundas e significativas todos os dias."
+      text="Selecione as categorias que melhor representam as áreas da sua vida que você gostaria de melhorar e pratique afirmações profundas e significativas diariamente."
     />
   );
 }
@@ -195,6 +202,7 @@ export function Temas() {
       tag="Temas"
       image={mok03}
       bg={FIG.white}
+      zIndex={4}
       title="Personalize sua experiência com temas, lembretes e widgets"
       text="Deixe o Ressignifica com a sua cara escolhendo um fundo personalizado. Ajuste os lembretes e instale widgets para ter sua inspiração diária sempre à mão."
     />
@@ -206,21 +214,25 @@ export function Temas() {
 const BENEFITS = [
   {
     n: "01",
+    image: handsImg,
     title: "Acesse sua conexão interior",
     text: "Aprofunde sua conexão espiritual e seu senso de propósito com a prática constante de afirmações positivas e revigorantes.",
   },
   {
     n: "02",
+    image: handsHeartImg,
     title: "Fortaleça os seus relacionamentos",
     text: "Irradie amor e compaixão pelas pessoas que você ama com afirmações que melhoram seus relacionamentos e elevam seu senso de união.",
   },
   {
     n: "03",
+    image: sunImg,
     title: "Encontre a paz interior",
     text: "Cultive a tranquilidade praticando afirmações espirituais, criando um santuário interno que ajuda você a lidar melhor com os desafios da vida.",
   },
   {
     n: "04",
+    image: treeImg,
     title: "Alimente o seu crescimento pessoal",
     text: "Concentre-se em cumprir o propósito da sua vida com afirmações que apoiam sua jornada de autodesenvolvimento e autoconhecimento.",
   },
@@ -228,12 +240,12 @@ const BENEFITS = [
 
 export function Beneficios() {
   return (
-    <section className="px-6 py-20" style={{ background: GRADIENT_SOFT }}>
+    <section className="pie-stack px-6 py-20" style={{ background: FIG.mint, zIndex: 5 }}>
       <div className="mx-auto max-w-xl">
         <Reveal>
           <h2
             className="text-center text-[38px] sm:text-[52px]"
-            style={{ fontFamily: SERIF, color: FIG.charcoal, fontWeight: 400 }}
+            style={{ fontFamily: TITLE, color: FIG.charcoal, fontWeight: 800 }}
           >
             Benefícios
           </h2>
@@ -247,12 +259,16 @@ export function Beneficios() {
           ))}
 
           <Reveal>
-            <blockquote
-              className="py-6 text-[30px] leading-[1.25] sm:text-[44px]"
-              style={{ fontFamily: SERIF, color: FIG.charcoal, fontWeight: 400 }}
-            >
-              Eu sou digna de uma vida que seja prazerosa de viver.
-            </blockquote>
+            <div className="pie-marquee py-6">
+              <div className="pie-marquee-track">
+                <span className="pie-marquee-item" style={{ fontFamily: TITLE, color: FIG.charcoal, fontWeight: 800 }}>
+                  Eu mereço uma vida que seja prazerosa de viver.
+                </span>
+                <span className="pie-marquee-item" style={{ fontFamily: TITLE, color: FIG.charcoal, fontWeight: 800 }}>
+                  Eu mereço uma vida que seja prazerosa de viver.
+                </span>
+              </div>
+            </div>
           </Reveal>
 
           {BENEFITS.slice(2).map((b, i) => (
@@ -266,18 +282,29 @@ export function Beneficios() {
   );
 }
 
-function BenefitItem({ n, title, text }: { n: string; title: string; text: string }) {
+function BenefitItem({
+  n,
+  image,
+  title,
+  text,
+}: {
+  n: string;
+  image: string;
+  title: string;
+  text: string;
+}) {
   return (
     <div>
-      <div
-        className="flex h-12 w-12 items-center justify-center rounded-2xl"
-        style={{ background: FIG.white }}
-      >
-        <img src={decoLeaf} alt="" aria-hidden loading="lazy" className="h-9 w-9 object-contain" />
-      </div>
+      <img
+        src={image}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="h-auto w-[180px] object-contain"
+      />
       <h3
         className="mt-5 text-[22px] leading-snug sm:text-[26px]"
-        style={{ fontFamily: SERIF, color: FIG.charcoal, fontWeight: 500 }}
+        style={{ fontFamily: TITLE, color: FIG.charcoal, fontWeight: 500 }}
       >
         {n}. {title}
       </h3>
@@ -318,12 +345,12 @@ const TESTIMONIALS = [
 
 export function Depoimentos() {
   return (
-    <section className="px-6 py-20" style={{ background: FIG.white }}>
+    <section className="pie-stack px-6 py-20" style={{ background: FIG.white, zIndex: 6 }}>
       <div className="mx-auto max-w-xl">
         <Reveal>
           <h2
             className="text-center text-[34px] sm:text-[46px]"
-            style={{ fontFamily: SERIF, color: FIG.charcoal, fontWeight: 400 }}
+            style={{ fontFamily: TITLE, color: FIG.charcoal, fontWeight: 400 }}
           >
             Depoimentos
           </h2>
@@ -337,7 +364,7 @@ export function Depoimentos() {
               >
                 <div className="flex gap-1">
                   {Array.from({ length: 5 }).map((_, s) => (
-                    <Star key={s} size={16} fill={FIG.yellow} color={FIG.yellow} />
+                    <Star key={s} size={16} fill={FIG.terracota} color={FIG.terracota} />
                   ))}
                 </div>
                 <p className="mt-4 text-[16px] leading-relaxed" style={{ color: FIG.charcoal }}>
@@ -432,7 +459,7 @@ export function Oferta() {
   const { m, s } = useCountdown();
 
   return (
-    <section id="oferta" className="px-6 py-20" style={{ background: GRADIENT_SOFT }}>
+    <section id="oferta" className="pie-stack px-6 py-20" style={{ background: FIG.mint, zIndex: 7 }}>
       <div className="mx-auto max-w-xl">
         <Reveal>
           <div
@@ -447,7 +474,7 @@ export function Oferta() {
         <Reveal delay={0.05}>
           <h2
             className="mt-8 text-center text-[32px] leading-[1.2] sm:text-[44px]"
-            style={{ fontFamily: SERIF, color: FIG.charcoal, fontWeight: 400 }}
+            style={{ fontFamily: TITLE, color: FIG.charcoal, fontWeight: 400 }}
           >
             Escolha o seu plano e comece hoje
           </h2>
@@ -496,7 +523,7 @@ export function Oferta() {
                 {p.save && (
                   <span
                     className="mt-4 inline-block rounded-full px-3 py-1 text-[12px] font-bold"
-                    style={{ background: FIG.yellow, color: FIG.charcoal }}
+                    style={{ background: FIG.dark_green, color: FIG.white }}
                   >
                     {p.save}
                   </span>
@@ -526,7 +553,7 @@ export function Oferta() {
                   style={
                     p.featured
                       ? { background: FIG.charcoal, color: FIG.white }
-                      : { background: FIG.yellow, color: FIG.charcoal }
+                      : { background: FIG.orange, color: FIG.charcoal }
                   }
                 >
                   {p.cta}
@@ -558,11 +585,11 @@ export function Oferta() {
 
 export function Rodape({ onCta }: { onCta: () => void }) {
   return (
-    <footer className="px-6 py-16" style={{ background: FIG.charcoal }}>
+    <footer className="pie-stack px-6 py-16" style={{ background: FIG.charcoal, zIndex: 8 }}>
       <div className="mx-auto max-w-xl">
         <h2
           className="text-[34px] leading-tight sm:text-[44px]"
-          style={{ fontFamily: SERIF, color: FIG.white, fontWeight: 400 }}
+          style={{ fontFamily: TITLE, color: FIG.white, fontWeight: 400 }}
         >
           Baixe já o Ressignifica
         </h2>

@@ -1,9 +1,15 @@
-import nodeHTTP from "node:http";
+import "node:http";
 import { PassThrough, Readable } from "node:stream";
-import { pipeline } from "node:stream/promises";
-import nodeHTTPS from "node:https";
-import nodeHTTP2 from "node:http2";
-//#region node_modules/srvx/dist/_chunks/_url.mjs
+import "node:stream/promises";
+import "node:https";
+import "node:http2";
+//#region node_modules/h3/node_modules/rou3/dist/index.mjs
+var NullProtoObj = /* @__PURE__ */ (() => {
+	const e = function() {};
+	return e.prototype = Object.create(null), Object.freeze(e.prototype), e;
+})();
+//#endregion
+//#region node_modules/h3/node_modules/srvx/dist/_chunks/_url.mjs
 function lazyInherit(target, source, sourceKey) {
 	for (const key of [...Object.getOwnPropertyNames(source), ...Object.getOwnPropertySymbols(source)]) {
 		if (key === "constructor") continue;
@@ -31,9 +37,50 @@ function lazyInherit(target, source, sourceKey) {
 		if (modified) Object.defineProperty(target, key, desc);
 	}
 }
-var _needsNormRE = /(?:(?:^|\/)(?:\.|\.\.|%2e|%2e\.|\.%2e|%2e%2e)(?:\/|$))|[\\^#"<>{}`\x80-\uffff]/i;
+var _needsNormRE = /(?:(?:^|\/)(?:\.|\.\.|%2e|%2e\.|\.%2e|%2e%2e)(?:\/|$))|[\\^#"<>{}`\x00-\x20\x7f-\uffff]/i;
+var _searchNeedsNormRE = /[#"'<>\x00-\x20\x7f-\uffff]/;
 var FastURL = /* @__PURE__ */ (() => {
 	const NativeURL = globalThis.URL;
+	const NativeSearchParams = globalThis.URLSearchParams;
+	const FastURLSearchParams = class URLSearchParams {
+		#owner;
+		#params;
+		constructor(owner) {
+			this.#owner = owner;
+		}
+		static [Symbol.hasInstance](val) {
+			return val instanceof NativeSearchParams;
+		}
+		_adopt(params) {
+			this.#params = params;
+		}
+		get _params() {
+			if (!this.#params) {
+				const search = this.#owner.search;
+				this.#params ??= new NativeSearchParams(search);
+			}
+			return this.#params;
+		}
+		#mutable() {
+			this.#owner._url;
+			return this.#params;
+		}
+		append(name, value) {
+			this.#mutable().append(name, value);
+		}
+		set(name, value) {
+			this.#mutable().set(name, value);
+		}
+		delete(name, value) {
+			this.#mutable().delete(name, value);
+		}
+		sort() {
+			this.#mutable().sort();
+		}
+	};
+	lazyInherit(FastURLSearchParams.prototype, NativeSearchParams.prototype, "_params");
+	Object.setPrototypeOf(FastURLSearchParams.prototype, NativeSearchParams.prototype);
+	Object.setPrototypeOf(FastURLSearchParams, NativeSearchParams);
 	const FastURL = class URL {
 		#url;
 		#href;
@@ -46,9 +93,9 @@ var FastURL = /* @__PURE__ */ (() => {
 		constructor(url) {
 			if (typeof url === "string") {
 				const isOriginForm = url[0] === "/";
-				if (isOriginForm && !url.includes("#")) this.#href = url;
+				if (isOriginForm && !_searchNeedsNormRE.test(url)) this.#href = `http://localhost${url}`;
 				else this.#url = new NativeURL(isOriginForm ? `http://localhost${url}` : url);
-			} else if (_needsNormRE.test(url.pathname) || url.search?.includes("#")) this.#url = new NativeURL(`${url.protocol || "http:"}//${url.host || "localhost"}${url.pathname}${url.search || ""}`);
+			} else if (_needsNormRE.test(url.pathname) || url.search && _searchNeedsNormRE.test(url.search)) this.#url = new NativeURL(`${url.protocol || "http:"}//${url.host || "localhost"}${url.pathname}${url.search || ""}`);
 			else {
 				this.#protocol = url.protocol;
 				this.#host = url.host;
@@ -67,8 +114,8 @@ var FastURL = /* @__PURE__ */ (() => {
 			this.#host = void 0;
 			this.#pathname = void 0;
 			this.#search = void 0;
-			this.#searchParams = void 0;
 			this.#pos = void 0;
+			this.#searchParams?._adopt(this.#url.searchParams);
 			return this.#url;
 		}
 		get href() {
@@ -110,9 +157,9 @@ var FastURL = /* @__PURE__ */ (() => {
 			return this.#search;
 		}
 		get searchParams() {
+			if (this.#searchParams) return this.#searchParams;
 			if (this.#url) return this.#url.searchParams;
-			if (!this.#searchParams) this.#searchParams = new URLSearchParams(this.search);
-			return this.#searchParams;
+			return this.#searchParams = new FastURLSearchParams(this);
 		}
 		get protocol() {
 			if (this.#url) return this.#url.protocol;
@@ -137,448 +184,9 @@ var FastURL = /* @__PURE__ */ (() => {
 	return FastURL;
 })();
 //#endregion
-//#region node_modules/srvx/dist/_chunks/_utils2.mjs
-function resolvePortAndHost(opts) {
-	const _port = opts.port ?? globalThis.process?.env.PORT ?? 3e3;
-	const port = typeof _port === "number" ? _port : Number.parseInt(_port, 10);
-	if (port < 0 || port > 65535) throw new RangeError(`Port must be between 0 and 65535 (got "${port}").`);
-	return {
-		port,
-		hostname: opts.hostname ?? globalThis.process?.env.HOST
-	};
-}
-function fmtURL(host, port, secure) {
-	if (!host || !port) return;
-	if (host.includes(":")) host = `[${host}]`;
-	return `http${secure ? "s" : ""}://${host}:${port}/`;
-}
-function printListening(opts, url) {
-	if (!url || (opts.silent ?? globalThis.process?.env?.TEST)) return;
-	let additionalInfo = "";
-	try {
-		const _url = new URL(url);
-		if (_url.hostname === "[::]" || _url.hostname === "0.0.0.0") {
-			_url.hostname = "localhost";
-			url = _url.href;
-			additionalInfo = " (all interfaces)";
-		}
-	} catch {}
-	let listeningOn = `➜ Listening on:`;
-	if (globalThis.process.stdout?.isTTY) {
-		listeningOn = `\u001B[32m${listeningOn}\u001B[0m`;
-		url = `\u001B[36m${url}\u001B[0m`;
-		additionalInfo = `\u001B[2m${additionalInfo}\u001B[0m`;
-	}
-	console.log(`${listeningOn} ${url}${additionalInfo}`);
-}
-function resolveTLSOptions(opts) {
-	if (!opts.tls || opts.protocol === "http") return;
-	const cert = resolveCertOrKey(opts.tls.cert);
-	const key = resolveCertOrKey(opts.tls.key);
-	if (!cert && !key) {
-		if (opts.protocol === "https") throw new TypeError("TLS `cert` and `key` must be provided for `https` protocol.");
-		return;
-	}
-	if (!cert || !key) throw new TypeError("TLS `cert` and `key` must be provided together.");
-	return {
-		cert,
-		key,
-		passphrase: opts.tls.passphrase
-	};
-}
-function resolveCertOrKey(value) {
-	if (!value) return;
-	if (typeof value !== "string") throw new TypeError("TLS certificate and key must be strings in PEM format or file paths.");
-	if (value.startsWith("-----BEGIN ")) return value;
-	const { readFileSync } = process.getBuiltinModule("node:fs");
-	return readFileSync(value, "utf8");
-}
-function createWaitUntil() {
-	const promises = /* @__PURE__ */ new Set();
-	return {
-		waitUntil: (promise) => {
-			if (typeof promise?.then !== "function") return;
-			promises.add(Promise.resolve(promise).catch(console.error).finally(() => {
-				promises.delete(promise);
-			}));
-		},
-		wait: () => {
-			return Promise.all(promises);
-		}
-	};
-}
-//#endregion
-//#region node_modules/srvx/dist/_chunks/_utils.mjs
-var noColor = /* @__PURE__ */ (() => {
-	const env = globalThis.process?.env ?? {};
-	return env.NO_COLOR === "1" || env.TERM === "dumb";
-})();
-var _c = (c, r = 39) => (t) => noColor ? t : `\u001B[${c}m${t}\u001B[${r}m`;
-var bold = /* @__PURE__ */ _c(1, 22);
-var red = /* @__PURE__ */ _c(31);
-var green = /* @__PURE__ */ _c(32);
-var gray = /* @__PURE__ */ _c(90);
-//#endregion
-//#region node_modules/srvx/dist/_chunks/_plugins.mjs
-function wrapFetch(server) {
-	const fetchHandler = server.options.fetch;
-	const middleware = server.options.middleware || [];
-	return middleware.length === 0 ? fetchHandler : (request) => callMiddleware$1(request, fetchHandler, middleware, 0);
-}
-function callMiddleware$1(request, fetchHandler, middleware, index) {
-	if (index === middleware.length) return fetchHandler(request);
-	return middleware[index](request, () => callMiddleware$1(request, fetchHandler, middleware, index + 1));
-}
-var errorPlugin = (server) => {
-	const errorHandler = server.options.error;
-	if (!errorHandler) return;
-	server.options.middleware.unshift((_req, next) => {
-		try {
-			const res = next();
-			return res instanceof Promise ? res.catch((error) => errorHandler(error)) : res;
-		} catch (error) {
-			return errorHandler(error);
-		}
-	});
-};
-var gracefulShutdownPlugin = (server) => {
-	const config = server.options?.gracefulShutdown;
-	if (!globalThis.process?.on || config === false || config === void 0 && (process.env.CI || process.env.TEST)) return;
-	const gracefulTimeout = config === true || !config?.gracefulTimeout ? Number.parseInt(process.env.SERVER_SHUTDOWN_TIMEOUT || "") || 5 : config.gracefulTimeout;
-	let isClosing = false;
-	let isClosed = false;
-	const w = server.options.silent ? () => {} : process.stderr.write.bind(process.stderr);
-	const forceClose = async () => {
-		if (isClosed) return;
-		w(red("\x1B[2K\rForcibly closing connections...\n"));
-		isClosed = true;
-		await server.close(true);
-	};
-	const shutdown = async () => {
-		if (isClosing || isClosed) return;
-		setTimeout(() => {
-			globalThis.process.once("SIGINT", forceClose);
-		}, 100);
-		isClosing = true;
-		const closePromise = server.close();
-		for (let remaining = gracefulTimeout; remaining > 0; remaining--) {
-			w(gray(`\rStopping server gracefully (${remaining}s)... Press ${bold("Ctrl+C")} again to force close.`));
-			if (await Promise.race([closePromise.then(() => true), new Promise((r) => setTimeout(() => r(false), 1e3))])) {
-				w("\x1B[2K\r" + green("Server closed successfully.\n"));
-				isClosed = true;
-				return;
-			}
-		}
-		w("\x1B[2K\rGraceful shutdown timed out.\n");
-		await forceClose();
-	};
-	for (const sig of ["SIGINT", "SIGTERM"]) globalThis.process.on(sig, shutdown);
-};
-//#endregion
-//#region node_modules/srvx/dist/adapters/node.mjs
-async function sendNodeResponse(nodeRes, webRes) {
-	if (!webRes) {
-		nodeRes.statusCode = 500;
-		return endNodeResponse(nodeRes);
-	}
-	if (webRes._toNodeResponse) {
-		const res = webRes._toNodeResponse();
-		if (res.body) {
-			if (res.body instanceof ReadableStream) {
-				writeHead(nodeRes, res.status, res.statusText, res.headers);
-				return streamBody(res.body, nodeRes);
-			} else if (typeof res.body?.pipe === "function") return pipeBody(res.body, nodeRes, res.status, res.statusText, res.headers);
-			writeHead(nodeRes, res.status, res.statusText, res.headers);
-			nodeRes.write(res.body);
-		} else writeHead(nodeRes, res.status, res.statusText, res.headers);
-		return endNodeResponse(nodeRes);
-	}
-	const rawHeaders = [...webRes.headers];
-	writeHead(nodeRes, webRes.status, webRes.statusText, rawHeaders);
-	return webRes.body ? streamBody(webRes.body, nodeRes) : endNodeResponse(nodeRes);
-}
-function writeHead(nodeRes, status, statusText, rawHeaders) {
-	const writeHeaders = rawHeaders.flat();
-	if (!nodeRes.headersSent) if (nodeRes.req?.httpVersion === "2.0") nodeRes.writeHead(status, writeHeaders);
-	else nodeRes.writeHead(status, statusText, writeHeaders);
-}
-function endNodeResponse(nodeRes) {
-	return new Promise((resolve) => nodeRes.end(resolve));
-}
-function pipeBody(stream, nodeRes, status, statusText, headers) {
-	if (nodeRes.destroyed) {
-		stream.destroy?.();
-		return;
-	}
-	if (typeof stream.on !== "function" || typeof stream.destroy !== "function") {
-		writeHead(nodeRes, status, statusText, headers);
-		stream.pipe(nodeRes);
-		return new Promise((resolve) => nodeRes.on("close", resolve));
-	}
-	if (stream.destroyed) {
-		writeHead(nodeRes, 500, "Internal Server Error", []);
-		return endNodeResponse(nodeRes);
-	}
-	return new Promise((resolve) => {
-		function onEarlyError() {
-			stream.off("readable", onReadable);
-			stream.destroy();
-			writeHead(nodeRes, 500, "Internal Server Error", []);
-			endNodeResponse(nodeRes).then(resolve);
-		}
-		function onReadable() {
-			stream.off("error", onEarlyError);
-			if (nodeRes.destroyed) {
-				stream.destroy();
-				return resolve();
-			}
-			writeHead(nodeRes, status, statusText, headers);
-			pipeline(stream, nodeRes).catch(() => {}).then(() => resolve());
-		}
-		stream.once("error", onEarlyError);
-		stream.once("readable", onReadable);
-	});
-}
-function streamBody(stream, nodeRes) {
-	if (nodeRes.destroyed) {
-		stream.cancel();
-		return;
-	}
-	const reader = stream.getReader();
-	function streamCancel(error) {
-		reader.cancel(error).catch(() => {});
-		if (error) nodeRes.destroy(error);
-	}
-	function streamHandle({ done, value }) {
-		try {
-			if (done) nodeRes.end();
-			else if (nodeRes.write(value)) reader.read().then(streamHandle, streamCancel);
-			else nodeRes.once("drain", () => reader.read().then(streamHandle, streamCancel));
-		} catch (error) {
-			streamCancel(error instanceof Error ? error : void 0);
-		}
-	}
-	nodeRes.on("close", streamCancel);
-	nodeRes.on("error", streamCancel);
-	reader.read().then(streamHandle, streamCancel);
-	return reader.closed.catch(streamCancel).finally(() => {
-		nodeRes.off("close", streamCancel);
-		nodeRes.off("error", streamCancel);
-	});
-}
-var HOST_RE = /^(\[(?:[A-Fa-f0-9:.]+)\]|(?:[A-Za-z0-9_-]+\.)*[A-Za-z0-9_-]+|(?:\d{1,3}\.){3}\d{1,3})(:\d{1,5})?$/;
-var NodeRequestURL = class extends FastURL {
-	#req;
-	constructor({ req }) {
-		const path = req.url || "/";
-		let host = req.headers.host || req.headers[":authority"];
-		if (host && !HOST_RE.test(host)) host = "_invalid_";
-		else if (!host) if (req.socket) host = `${req.socket.localFamily === "IPv6" ? "[" + req.socket.localAddress + "]" : req.socket.localAddress}:${req.socket?.localPort || "80"}`;
-		else host = "localhost";
-		const protocol = req.socket?.encrypted || req.headers["x-forwarded-proto"] === "https" || req.headers[":scheme"] === "https" ? "https:" : "http:";
-		if (path[0] === "/") {
-			const qIndex = path.indexOf("?");
-			super({
-				protocol,
-				host,
-				pathname: qIndex === -1 ? path : path.slice(0, qIndex) || "/",
-				search: qIndex === -1 ? "" : path.slice(qIndex) || ""
-			});
-		} else if (path === "*") super({
-			protocol,
-			host,
-			pathname: "/*",
-			search: ""
-		});
-		else super(path);
-		this.#req = req;
-	}
-	get pathname() {
-		return super.pathname;
-	}
-	set pathname(value) {
-		this._url.pathname = value;
-		this.#req.url = this._url.pathname + this._url.search;
-	}
-};
-var NodeRequestHeaders = /* @__PURE__ */ (() => {
-	const NativeHeaders = globalThis.Headers;
-	class Headers {
-		#req;
-		#headers;
-		constructor(req) {
-			this.#req = req;
-		}
-		static [Symbol.hasInstance](val) {
-			return val instanceof NativeHeaders;
-		}
-		get _headers() {
-			if (!this.#headers) {
-				const headers = new NativeHeaders();
-				const rawHeaders = this.#req.rawHeaders;
-				const len = rawHeaders.length;
-				for (let i = 0; i < len; i += 2) {
-					const key = rawHeaders[i];
-					if (key.charCodeAt(0) === 58) continue;
-					const value = rawHeaders[i + 1];
-					headers.append(key, value);
-				}
-				this.#headers = headers;
-			}
-			return this.#headers;
-		}
-		get(name) {
-			if (this.#headers) return this.#headers.get(name);
-			const value = this.#req.headers[name.toLowerCase()];
-			return Array.isArray(value) ? value.join(", ") : value || null;
-		}
-		has(name) {
-			if (this.#headers) return this.#headers.has(name);
-			return name.toLowerCase() in this.#req.headers;
-		}
-		getSetCookie() {
-			if (this.#headers) return this.#headers.getSetCookie();
-			const value = this.#req.headers["set-cookie"];
-			return Array.isArray(value) ? value : value ? [value] : [];
-		}
-		entries() {
-			return this._headers.entries();
-		}
-		[Symbol.iterator]() {
-			return this.entries();
-		}
-	}
-	lazyInherit(Headers.prototype, NativeHeaders.prototype, "_headers");
-	Object.setPrototypeOf(Headers, NativeHeaders);
-	Object.setPrototypeOf(Headers.prototype, NativeHeaders.prototype);
-	return Headers;
-})();
-var kNativeRequest = /* @__PURE__ */ Symbol.for("srvx.nativeRequest");
-var NodeRequest = /* @__PURE__ */ (() => {
-	const NativeRequest = getNativeRequest();
-	class Request {
-		runtime;
-		#req;
-		#url;
-		#bodyStream;
-		#request;
-		#headers;
-		#abortController;
-		constructor(ctx) {
-			this.#req = ctx.req;
-			this.runtime = {
-				name: "node",
-				node: ctx
-			};
-		}
-		static [Symbol.hasInstance](val) {
-			return val instanceof NativeRequest;
-		}
-		get ip() {
-			return this.#req.socket?.remoteAddress;
-		}
-		get method() {
-			if (this.#request) return this.#request.method;
-			return this.#req.method || "GET";
-		}
-		get _url() {
-			return this.#url ||= new NodeRequestURL({ req: this.#req });
-		}
-		set _url(url) {
-			this.#url = url;
-		}
-		get url() {
-			if (this.#request) return this.#request.url;
-			return this._url.href;
-		}
-		get headers() {
-			if (this.#request) return this.#request.headers;
-			return this.#headers ||= new NodeRequestHeaders(this.#req);
-		}
-		get _abortController() {
-			if (!this.#abortController) {
-				this.#abortController = new AbortController();
-				const { req, res } = this.runtime.node;
-				const abortController = this.#abortController;
-				const abort = (err) => abortController.abort?.(err);
-				if (res) res.once("close", () => {
-					const reqError = req.errored;
-					if (reqError) abort(reqError);
-					else if (!res.writableEnded) abort();
-				});
-				else req.once("close", () => {
-					if (!req.complete) abort();
-				});
-			}
-			return this.#abortController;
-		}
-		get signal() {
-			return this.#request ? this.#request.signal : this._abortController.signal;
-		}
-		get body() {
-			if (this.#request) return this.#request.body;
-			if (this.#bodyStream === void 0) {
-				const method = this.method;
-				const hasBody = !(method === "GET" || method === "HEAD");
-				this.#bodyStream = hasBody ? Readable.toWeb(this.#req) : null;
-			}
-			return this.#bodyStream;
-		}
-		text() {
-			if (this.#request) return this.#request.text();
-			if (this.#bodyStream !== void 0) return this.#bodyStream ? new Response(this.#bodyStream).text() : Promise.resolve("");
-			return readBody(this.#req).then((buf) => buf.toString());
-		}
-		json() {
-			if (this.#request) return this.#request.json();
-			return this.text().then((text) => JSON.parse(text));
-		}
-		get _request() {
-			if (!this.#request) {
-				const body = this.body;
-				this.#request = new NativeRequest(this.url, {
-					method: this.method,
-					headers: this.headers,
-					signal: this._abortController.signal,
-					body,
-					duplex: body ? "half" : void 0
-				});
-				this.#headers = void 0;
-				this.#bodyStream = void 0;
-			}
-			return this.#request;
-		}
-	}
-	lazyInherit(Request.prototype, NativeRequest.prototype, "_request");
-	Object.setPrototypeOf(Request.prototype, NativeRequest.prototype);
-	return Request;
-})();
-function readBody(req) {
-	if ("rawBody" in req && Buffer.isBuffer(req.rawBody)) return Promise.resolve(req.rawBody);
-	return new Promise((resolve, reject) => {
-		const chunks = [];
-		const onData = (chunk) => {
-			chunks.push(chunk);
-		};
-		const onError = (err) => {
-			reject(err);
-		};
-		const onEnd = () => {
-			req.off("error", onError);
-			req.off("data", onData);
-			resolve(Buffer.concat(chunks));
-		};
-		req.on("data", onData).once("end", onEnd).once("error", onError);
-	});
-}
-function getNativeRequest() {
-	let R = globalThis[kNativeRequest] || globalThis.Request;
-	while (R?._srvx) R = Object.getPrototypeOf(R);
-	return globalThis[kNativeRequest] ??= R;
-}
+//#region node_modules/h3/node_modules/srvx/dist/adapters/node.mjs
 var NodeResponse = /* @__PURE__ */ (() => {
 	const NativeResponse = globalThis.Response;
-	const STATUS_CODES = globalThis.process?.getBuiltinModule?.("node:http")?.STATUS_CODES || {};
 	class NodeResponse {
 		#body;
 		#init;
@@ -591,17 +199,31 @@ var NodeResponse = /* @__PURE__ */ (() => {
 		static [Symbol.hasInstance](val) {
 			return val instanceof NativeResponse;
 		}
+		static json(data, init) {
+			const body = JSON.stringify(data);
+			if (body === void 0) throw new TypeError("Value is not JSON serializable");
+			let headers = init?.headers;
+			if (!headers) headers = { "content-type": "application/json" };
+			else {
+				const merged = new Headers(headers);
+				if (!merged.has("content-type")) merged.set("content-type", "application/json");
+				headers = merged;
+			}
+			return new NodeResponse(body, init ? {
+				...init,
+				headers
+			} : { headers });
+		}
 		get status() {
 			return this.#response?.status || this.#init?.status || 200;
 		}
 		get statusText() {
-			return this.#response?.statusText || this.#init?.statusText || STATUS_CODES[this.status] || "";
+			return this.#response?.statusText || this.#init?.statusText || "";
 		}
 		get headers() {
 			if (this.#response) return this.#response.headers;
 			if (this.#headers) return this.#headers;
-			const initHeaders = this.#init?.headers;
-			return this.#headers = initHeaders instanceof Headers ? initHeaders : new Headers(initHeaders);
+			return this.#headers = new Headers(this.#init?.headers);
 		}
 		get ok() {
 			if (this.#response) return this.#response.ok;
@@ -634,7 +256,7 @@ var NodeResponse = /* @__PURE__ */ (() => {
 			let contentType;
 			let contentLength;
 			if (this.#response) body = this.#response.body;
-			else if (this.#body) if (this.#body instanceof ReadableStream) body = this.#body;
+			else if (this.#body != null) if (this.#body instanceof ReadableStream) body = this.#body;
 			else if (typeof this.#body === "string") {
 				body = this.#body;
 				contentType = "text/plain; charset=UTF-8";
@@ -646,7 +268,7 @@ var NodeResponse = /* @__PURE__ */ (() => {
 				body = this.#body;
 				contentLength = this.#body.byteLength;
 			} else if (this.#body instanceof DataView) {
-				body = Buffer.from(this.#body.buffer);
+				body = Buffer.from(this.#body.buffer, this.#body.byteOffset, this.#body.byteLength);
 				contentLength = this.#body.byteLength;
 			} else if (this.#body instanceof Blob) {
 				body = this.#body.stream();
@@ -656,17 +278,18 @@ var NodeResponse = /* @__PURE__ */ (() => {
 			else body = this._response.body;
 			const headers = [];
 			const initHeaders = this.#init?.headers;
-			const headerEntries = this.#response?.headers || this.#headers || (initHeaders ? Array.isArray(initHeaders) ? initHeaders : initHeaders?.entries ? initHeaders.entries() : Object.entries(initHeaders).map(([k, v]) => [k.toLowerCase(), v]) : void 0);
+			const headerEntries = this.#response?.headers || this.#headers || (initHeaders ? Array.isArray(initHeaders) ? initHeaders : initHeaders?.entries ? initHeaders.entries() : Object.entries(initHeaders) : void 0);
 			let hasContentTypeHeader;
 			let hasContentLength;
 			if (headerEntries) for (const [key, value] of headerEntries) {
-				if (Array.isArray(value)) for (const v of value) headers.push([key, v]);
-				else headers.push([key, value]);
-				if (key === "content-type") hasContentTypeHeader = true;
-				else if (key === "content-length") hasContentLength = true;
+				const lowerKey = typeof key === "string" ? key.toLowerCase() : String(key);
+				if (Array.isArray(value)) for (const v of value) headers.push(lowerKey, v);
+				else headers.push(lowerKey, value);
+				if (lowerKey === "content-type") hasContentTypeHeader = true;
+				else if (lowerKey === "content-length") hasContentLength = true;
 			}
-			if (contentType && !hasContentTypeHeader) headers.push(["content-type", contentType]);
-			if (contentLength && !hasContentLength) headers.push(["content-length", String(contentLength)]);
+			if (contentType && !hasContentTypeHeader) headers.push("content-type", contentType);
+			if (contentLength != null && !hasContentLength) headers.push("content-length", String(contentLength));
 			this.#init = void 0;
 			this.#headers = void 0;
 			this.#response = void 0;
@@ -684,127 +307,6 @@ var NodeResponse = /* @__PURE__ */ (() => {
 	Object.setPrototypeOf(NodeResponse.prototype, NativeResponse.prototype);
 	return NodeResponse;
 })();
-function serve(options) {
-	return new NodeServer(options);
-}
-var NodeServer = class {
-	runtime = "node";
-	options;
-	node;
-	serveOptions;
-	fetch;
-	waitUntil;
-	#isSecure;
-	#listeningPromise;
-	#listenError;
-	#wait;
-	constructor(options) {
-		this.options = {
-			...options,
-			middleware: [...options.middleware || []]
-		};
-		for (const plugin of options.plugins || []) plugin(this);
-		errorPlugin(this);
-		const fetchHandler = this.fetch = wrapFetch(this);
-		const handler = (nodeReq, nodeRes) => {
-			const reqUrl = nodeReq.url;
-			if (reqUrl && reqUrl[0] !== "/" && reqUrl !== "*" && !URL.canParse(reqUrl)) {
-				nodeRes.statusCode = 400;
-				nodeRes.end();
-				return;
-			}
-			const request = new NodeRequest({
-				req: nodeReq,
-				res: nodeRes
-			});
-			request.waitUntil = this.#wait?.waitUntil;
-			const res = fetchHandler(request);
-			return res instanceof Promise ? res.then((resolvedRes) => sendNodeResponse(nodeRes, resolvedRes)) : sendNodeResponse(nodeRes, res);
-		};
-		this.node = {
-			handler,
-			server: void 0
-		};
-		const loader = globalThis.__srvxLoader__;
-		if (loader) {
-			loader({ server: this });
-			return;
-		}
-		gracefulShutdownPlugin(this);
-		this.#wait = createWaitUntil();
-		this.waitUntil = this.#wait.waitUntil;
-		const tls = resolveTLSOptions(this.options);
-		const { port, hostname: host } = resolvePortAndHost(this.options);
-		this.serveOptions = {
-			port,
-			host,
-			exclusive: !this.options.reusePort,
-			...tls ? {
-				cert: tls.cert,
-				key: tls.key,
-				passphrase: tls.passphrase
-			} : {},
-			...this.options.node
-		};
-		let server;
-		this.#isSecure = !!this.serveOptions.cert && this.options.protocol !== "http";
-		if (this.options.node?.http2 ?? this.#isSecure) if (this.#isSecure) server = nodeHTTP2.createSecureServer({
-			allowHTTP1: true,
-			...this.serveOptions
-		}, handler);
-		else throw new Error("node.http2 option requires tls certificate!");
-		else if (this.#isSecure) server = nodeHTTPS.createServer(this.serveOptions, handler);
-		else server = nodeHTTP.createServer(this.serveOptions, handler);
-		this.node.server = server;
-		if (!options.manual) this.serve().catch(() => {});
-	}
-	serve() {
-		if (this.#listeningPromise) return this.#listeningPromise.then(() => this);
-		const server = this.node?.server;
-		if (!server) return Promise.reject(/* @__PURE__ */ new Error("Server not initialized"));
-		this.#listenError = void 0;
-		this.#listeningPromise = new Promise((resolve, reject) => {
-			const onError = (error) => {
-				server.off("listening", onListening);
-				this.#listenError = error;
-				this.#listeningPromise = void 0;
-				reject(error);
-			};
-			const onListening = () => {
-				server.off("error", onError);
-				printListening(this.options, this.url);
-				resolve();
-			};
-			server.once("error", onError);
-			server.once("listening", onListening);
-			server.listen(this.serveOptions);
-		});
-		return this.#listeningPromise.then(() => this);
-	}
-	get url() {
-		const addr = this.node?.server?.address();
-		if (!addr) return;
-		return typeof addr === "string" ? addr : fmtURL(addr.address, addr.port, this.#isSecure);
-	}
-	ready() {
-		if (this.#listenError) return Promise.reject(this.#listenError);
-		return Promise.resolve(this.#listeningPromise).then(() => this);
-	}
-	async close(closeAll) {
-		await Promise.all([this.#wait?.wait(), new Promise((resolve, reject) => {
-			const server = this.node?.server;
-			if (server && closeAll && "closeAllConnections" in server) server.closeAllConnections();
-			if (!server || !server.listening) return resolve();
-			server.close((error) => error ? reject(error) : resolve());
-		})]);
-	}
-};
-//#endregion
-//#region node_modules/rou3/dist/index.mjs
-var NullProtoObj = /* @__PURE__ */ (() => {
-	const e = function() {};
-	return e.prototype = Object.create(null), Object.freeze(e.prototype), e;
-})();
 //#endregion
 //#region node_modules/h3/dist/h3.mjs
 function decodePathname(pathname) {
@@ -814,6 +316,7 @@ var kEventNS = "h3.internal.event.";
 var kEventRes = /* @__PURE__ */ Symbol.for(`${kEventNS}res`);
 var kEventResHeaders = /* @__PURE__ */ Symbol.for(`${kEventNS}res.headers`);
 var kEventResErrHeaders = /* @__PURE__ */ Symbol.for(`${kEventNS}res.err.headers`);
+var kMalformedURL = /* @__PURE__ */ Symbol.for(`${kEventNS}malformed`);
 var H3Event = class {
 	app;
 	req;
@@ -821,12 +324,17 @@ var H3Event = class {
 	context;
 	static __is_event__ = true;
 	constructor(req, context, app) {
-		this.context = context || req.context || new NullProtoObj();
+		this.context = req.context = context || req.context || new NullProtoObj();
 		this.req = req;
 		this.app = app;
 		const _url = req._url;
-		const url = _url && _url instanceof URL ? _url : new FastURL(req.url);
-		if (url.pathname.includes("%")) url.pathname = decodePathname(url.pathname);
+		let url = _url && _url instanceof URL ? _url : new FastURL(req.url);
+		if (url.pathname.includes("%")) try {
+			const pathname = decodePathname(url.pathname);
+			if (pathname !== url.pathname) url = new FastURL(`${url.protocol}//${url.host}${pathname}${url.search}`);
+		} catch {
+			this[kMalformedURL] = true;
+		}
 		this.url = url;
 	}
 	get res() {
@@ -874,7 +382,7 @@ function sanitizeStatusMessage(statusMessage = "") {
 function sanitizeStatusCode(statusCode, defaultStatusCode = 200) {
 	if (!statusCode) return defaultStatusCode;
 	if (typeof statusCode === "string") statusCode = +statusCode;
-	if (statusCode < 100 || statusCode > 599) return defaultStatusCode;
+	if (!Number.isInteger(statusCode) || statusCode < 100 || statusCode > 599) return defaultStatusCode;
 	return statusCode;
 }
 var HTTPError = class HTTPError extends Error {
@@ -950,14 +458,33 @@ function isJSONSerializable(value, _type) {
 	const proto = Object.getPrototypeOf(value);
 	return proto === Object.prototype || proto === null;
 }
+var kEventDispose = /* @__PURE__ */ Symbol.for("h3.internal.event.dispose");
 var kNotFound = /* @__PURE__ */ Symbol.for("h3.notFound");
 var kHandled = /* @__PURE__ */ Symbol.for("h3.handled");
 function toResponse(val, event, config = {}) {
-	if (typeof val?.then === "function") return val.then((resolvedVal) => toResponse(resolvedVal, event, config), (r) => toResponse(typeof r === "number" ? new HTTPError({ status: r }) : r, event, config));
-	const response = prepareResponse(val, event, config);
+	if (typeof val?.then === "function") return val.then((resolvedVal) => toResponse(resolvedVal, event, config), (r) => toResponse(toError(r), event, config));
+	let response;
+	try {
+		response = prepareResponse(val, event, config);
+	} catch (error) {
+		return toResponse(toError(error), event, config);
+	}
 	if (typeof response?.then === "function") return toResponse(response, event, config);
 	const { onResponse } = config;
-	return onResponse ? Promise.resolve(onResponse(response, event)).then(() => response) : response;
+	if (onResponse) return Promise.resolve().then(() => onResponse(response, event)).catch((error) => {
+		if (!config.silent) console.error(error);
+	}).then(() => event[kEventDispose]?.observe(response, val) ?? response);
+	return event[kEventDispose]?.observe(response, val) ?? response;
+}
+function toError(value) {
+	if (value === kNotFound || value === kHandled || value instanceof Error) return value;
+	if (typeof value === "number") return new HTTPError({ status: value });
+	const error = new HTTPError({
+		status: 500,
+		unhandled: true
+	});
+	error.cause = value;
+	return error;
 }
 var HTTPResponse = class {
 	#headers;
@@ -968,10 +495,10 @@ var HTTPResponse = class {
 		this.#init = init;
 	}
 	get status() {
-		return this.#init?.status || 200;
+		return this.#init?.status;
 	}
 	get statusText() {
-		return this.#init?.statusText || "OK";
+		return this.#init?.statusText;
 	}
 	get headers() {
 		return this.#headers ||= new Headers(this.#init?.headers);
@@ -993,10 +520,10 @@ function prepareResponse(val, event, config, nested) {
 		if (error.unhandled && !config.silent) console.error(error);
 		const { onError } = config;
 		const errHeaders = event[kEventRes]?.[kEventResErrHeaders];
-		return onError && !nested ? Promise.resolve(onError(error, event)).catch((error) => error).then((newVal) => prepareResponse(newVal ?? val, event, config, true)) : errorResponse(error, config.debug, errHeaders);
+		return onError && !nested ? Promise.resolve().then(() => onError(error, event)).catch((error) => error).then((newVal) => prepareResponse(newVal ?? val, event, config, true)) : errorResponse(error, config.debug, errHeaders);
 	}
 	const preparedRes = event[kEventRes];
-	const preparedHeaders = preparedRes?.[kEventResHeaders];
+	let preparedHeaders = preparedRes?.[kEventResHeaders];
 	event[kEventRes] = void 0;
 	if (!(val instanceof Response)) {
 		const res = prepareResponseBody(val, event, config);
@@ -1007,10 +534,9 @@ function prepareResponse(val, event, config, nested) {
 			headers: res.headers && preparedHeaders ? mergeHeaders$1(res.headers, preparedHeaders) : res.headers || preparedHeaders
 		});
 	}
-	if (!preparedHeaders || nested || !val.ok) return val;
-	try {
+	if (val.status >= 400) preparedHeaders = preparedRes?.[kEventResErrHeaders];
+	if (preparedHeaders && !nested) try {
 		mergeHeaders$1(val.headers, preparedHeaders, val.headers);
-		return val;
 	} catch {
 		return new NodeResponse(nullBody(event.req.method, val.status) ? null : val.body, {
 			status: val.status,
@@ -1018,6 +544,11 @@ function prepareResponse(val, event, config, nested) {
 			headers: mergeHeaders$1(val.headers, preparedHeaders)
 		});
 	}
+	return event.req.method === "HEAD" && val.body !== null ? new NodeResponse(null, {
+		status: val.status,
+		statusText: val.statusText,
+		headers: val.headers
+	}) : val;
 }
 function mergeHeaders$1(base, overrides, target = new Headers(base)) {
 	for (const [name, value] of overrides) if (name === "set-cookie") target.append(name, value);
@@ -1041,10 +572,10 @@ function prepareResponseBody(val, event, config) {
 	};
 	const valType = typeof val;
 	if (valType === "string") return { body: val };
-	if (val instanceof Uint8Array) {
-		event.res.headers.set("content-length", val.byteLength.toString());
-		return { body: val };
-	}
+	if (val instanceof Uint8Array) return {
+		body: val,
+		headers: new Headers({ "content-length": val.byteLength.toString() })
+	};
 	if (val instanceof HTTPResponse || val?.constructor?.name === "HTTPResponse") return val;
 	if (isJSONSerializable(val, valType)) return {
 		body: JSON.stringify(val, void 0, config.debug ? 2 : void 0),
@@ -1088,15 +619,31 @@ function errorResponse(error, debug, errHeaders) {
 		headers
 	});
 }
+function composeMiddleware(middleware) {
+	let chain = (event, handler) => handler(event);
+	for (let i = middleware.length - 1; i >= 0; i--) {
+		const fn = middleware[i];
+		const inner = chain;
+		chain = (event, handler) => callLayer(fn, event, handler, inner);
+	}
+	return chain;
+}
+function composeHandler(middleware, handler) {
+	const chain = composeMiddleware(middleware);
+	return function _composedHandler(event) {
+		return chain(event, handler);
+	};
+}
 function callMiddleware(event, middleware, handler, index = 0) {
-	if (index === middleware.length) return handler(event);
-	const fn = middleware[index];
+	return index === middleware.length ? handler(event) : callLayer(middleware[index], event, handler, (_event, _handler) => callMiddleware(_event, middleware, _handler, index + 1));
+}
+function callLayer(fn, event, handler, inner) {
 	let nextCalled;
 	let nextResult;
 	const next = () => {
 		if (nextCalled) return nextResult;
 		nextCalled = true;
-		nextResult = callMiddleware(event, middleware, handler, index + 1);
+		nextResult = inner(event, handler);
 		return nextResult;
 	};
 	const ret = fn(event, next);
@@ -1111,7 +658,7 @@ function toRequest(input, options) {
 		if (url[0] === "/") {
 			const headers = options?.headers ? new Headers(options.headers) : void 0;
 			const host = headers?.get("host") || "localhost";
-			url = `${headers?.get("x-forwarded-proto") === "https" ? "https" : "http"}://${host}${url}`;
+			url = `${(headers?.get("x-forwarded-proto") || "").split(",")[0].trim() === "https" ? "https" : "http"}://${host}${url}`;
 		}
 		return new Request(url, options);
 	} else if (options || input instanceof URL) return new Request(input, options);
@@ -1122,9 +669,7 @@ function defineHandler(input) {
 	const handler = input.handler || (input.fetch ? function _fetchHandler(event) {
 		return input.fetch(event.req);
 	} : NoHandler);
-	return Object.assign(handlerWithFetch(input.middleware?.length ? function _handlerMiddleware(event) {
-		return callMiddleware(event, input.middleware, handler);
-	} : handler), input);
+	return Object.assign(handlerWithFetch(input.middleware?.length ? composeHandler(input.middleware, handler) : handler), input);
 }
 function handlerWithFetch(handler) {
 	if ("fetch" in handler) return handler;
@@ -1135,7 +680,7 @@ function handlerWithFetch(handler) {
 		try {
 			return Promise.resolve(toResponse(handler(event), event));
 		} catch (error) {
-			return Promise.resolve(toResponse(error, event));
+			return Promise.resolve(toResponse(toError(error), event));
 		}
 	} });
 }
@@ -1163,6 +708,8 @@ var H3Core = class {
 	config;
 	"~middleware";
 	"~routes" = [];
+	"~dispatch";
+	"~composed";
 	constructor(config = {}) {
 		this["~middleware"] = [];
 		this.config = config;
@@ -1178,14 +725,16 @@ var H3Core = class {
 			event.context.params = route.params;
 			event.context.matchedRoute = route.data;
 		}
-		const routeHandler = route?.data.handler || NoHandler;
-		const middleware = this["~getMiddleware"](event, route);
-		return middleware.length > 0 ? callMiddleware(event, middleware, routeHandler) : routeHandler(event);
+		return (this["~dispatch"] ??= createDispatcher(this))(event, route);
 	}
 	"~request"(request, context) {
 		const event = new H3Event(request, context, this);
 		let handlerRes;
 		try {
+			if (event[kMalformedURL] && !this.config.allowMalformedURL) throw new HTTPError({
+				status: 400,
+				message: "Bad Request"
+			});
 			if (this.config.onRequest) {
 				const hookRes = this.config.onRequest(event);
 				handlerRes = typeof hookRes?.then === "function" ? hookRes.then(() => this.handler(event)) : this.handler(event);
@@ -1205,5 +754,19 @@ var H3Core = class {
 		return routeMiddleware ? [...globalMiddleware, ...routeMiddleware] : globalMiddleware;
 	}
 };
+function createDispatcher(app) {
+	if (app["~getMiddleware"] !== H3Core.prototype["~getMiddleware"]) return (event, route) => callMiddleware(event, app["~getMiddleware"](event, route), route?.data.handler || NoHandler);
+	const middleware = app["~middleware"];
+	if (middleware.length === 0) return (event, route) => routeHandler(route)(event);
+	const composed = app["~composed"] ??= composeMiddleware(middleware);
+	return (event, route) => composed(event, routeHandler(route));
+}
+function routeHandler(route) {
+	const data = route?.data;
+	if (!data) return NoHandler;
+	return data.middleware?.length ? data["~composed"] ??= composeHandler(data.middleware, data.handler) : data.handler;
+}
+String.raw`(?:^|/)(?:\.|%(?:25)*2e){1,2}(?:/|$)`;
+String.raw`%(?:25)*(?:2f|5c)`;
 //#endregion
-export { toEventHandler as a, NodeResponse as c, defineLazyEventHandler as i, serve as l, HTTPError as n, toRequest as o, defineHandler as r, NullProtoObj as s, H3Core as t, FastURL as u };
+export { toEventHandler as a, defineLazyEventHandler as i, HTTPError as n, toRequest as o, defineHandler as r, H3Core as t };

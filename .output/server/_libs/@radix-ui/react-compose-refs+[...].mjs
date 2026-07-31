@@ -10,7 +10,19 @@ import { o as __toESM, t as __commonJSMin } from "../../_runtime.mjs";
 * LICENSE file in the root directory of this source tree.
 */
 var require_react_production = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
+	var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element");
+	var REACT_PORTAL_TYPE = Symbol.for("react.portal");
+	var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
+	var REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode");
+	var REACT_PROFILER_TYPE = Symbol.for("react.profiler");
+	var REACT_CONSUMER_TYPE = Symbol.for("react.consumer");
+	var REACT_CONTEXT_TYPE = Symbol.for("react.context");
+	var REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref");
+	var REACT_SUSPENSE_TYPE = Symbol.for("react.suspense");
+	var REACT_MEMO_TYPE = Symbol.for("react.memo");
+	var REACT_LAZY_TYPE = Symbol.for("react.lazy");
+	var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
+	var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 	function getIteratorFn(maybeIterable) {
 		if (null === maybeIterable || "object" !== typeof maybeIterable) return null;
 		maybeIterable = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable["@@iterator"];
@@ -23,7 +35,9 @@ var require_react_production = /* @__PURE__ */ __commonJSMin(((exports) => {
 		enqueueForceUpdate: function() {},
 		enqueueReplaceState: function() {},
 		enqueueSetState: function() {}
-	}, assign = Object.assign, emptyObject = {};
+	};
+	var assign = Object.assign;
+	var emptyObject = {};
 	function Component(props, context, updater) {
 		this.props = props;
 		this.context = context;
@@ -57,7 +71,8 @@ var require_react_production = /* @__PURE__ */ __commonJSMin(((exports) => {
 		A: null,
 		T: null,
 		S: null
-	}, hasOwnProperty = Object.prototype.hasOwnProperty;
+	};
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	function ReactElement(type, key, props) {
 		var refProp = props.ref;
 		return {
@@ -171,7 +186,8 @@ var require_react_production = /* @__PURE__ */ __commonJSMin(((exports) => {
 			return;
 		}
 		console.error(error);
-	}, Children = {
+	};
+	var Children = {
 		map: mapChildren,
 		forEach: function(children, forEachFunc, forEachContext) {
 			mapChildren(children, function() {
@@ -356,7 +372,7 @@ var require_react_production = /* @__PURE__ */ __commonJSMin(((exports) => {
 	exports.useTransition = function() {
 		return ReactSharedInternals.H.useTransition();
 	};
-	exports.version = "19.2.7";
+	exports.version = "19.2.8";
 }));
 //#endregion
 //#region node_modules/react/index.js
@@ -366,10 +382,16 @@ var require_react = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 //#endregion
 //#region node_modules/@radix-ui/react-compose-refs/dist/index.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", {
+	value,
+	configurable: true
+});
 function setRef(ref, value) {
 	if (typeof ref === "function") return ref(value);
 	else if (ref !== null && ref !== void 0) ref.current = value;
 }
+__name(setRef, "setRef");
 function composeRefs(...refs) {
 	return (node) => {
 		let hasCleanup = false;
@@ -387,8 +409,10 @@ function composeRefs(...refs) {
 		};
 	};
 }
+__name(composeRefs, "composeRefs");
 function useComposedRefs(...refs) {
 	return import_react.useCallback(composeRefs(...refs), refs);
 }
+__name(useComposedRefs, "useComposedRefs");
 //#endregion
 export { require_react as n, useComposedRefs as t };

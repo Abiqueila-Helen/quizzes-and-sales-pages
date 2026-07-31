@@ -882,7 +882,8 @@ function SlideLooper(axis, viewSize, contentSize, slideSizes, slideSizesWithGaps
 		return findLoopPoints(slidesInGap(descItems, gap), contentSize, false);
 	}
 	function endPoints() {
-		return findLoopPoints(slidesInGap(ascItems, viewSize - scrollSnaps[0] - 1), -contentSize, true);
+		const gap = viewSize - scrollSnaps[0] - 1;
+		return findLoopPoints(slidesInGap(ascItems, gap), -contentSize, true);
 	}
 	function canLoop() {
 		return loopPoints.every(({ index }) => {

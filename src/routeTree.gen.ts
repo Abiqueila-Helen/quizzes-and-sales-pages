@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
+import { Route as RessignificaAppSellPieRouteImport } from './routes/ressignifica-app-sell-pie'
 import { Route as RessignificaAppSellRouteImport } from './routes/ressignifica-app-sell'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as JornadaDeHonraRouteImport } from './routes/jornada-de-honra'
@@ -21,6 +22,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
   id: '/termos-de-uso',
   path: '/termos-de-uso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RessignificaAppSellPieRoute = RessignificaAppSellPieRouteImport.update({
+  id: '/ressignifica-app-sell-pie',
+  path: '/ressignifica-app-sell-pie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RessignificaAppSellRoute = RessignificaAppSellRouteImport.update({
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/jornada-de-honra': typeof JornadaDeHonraRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/ressignifica-app-sell': typeof RessignificaAppSellRoute
+  '/ressignifica-app-sell-pie': typeof RessignificaAppSellPieRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/jornada-de-honra': typeof JornadaDeHonraRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/ressignifica-app-sell': typeof RessignificaAppSellRoute
+  '/ressignifica-app-sell-pie': typeof RessignificaAppSellPieRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/jornada-de-honra': typeof JornadaDeHonraRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/ressignifica-app-sell': typeof RessignificaAppSellRoute
+  '/ressignifica-app-sell-pie': typeof RessignificaAppSellPieRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/jornada-de-honra'
     | '/politica-de-privacidade'
     | '/ressignifica-app-sell'
+    | '/ressignifica-app-sell-pie'
     | '/termos-de-uso'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/jornada-de-honra'
     | '/politica-de-privacidade'
     | '/ressignifica-app-sell'
+    | '/ressignifica-app-sell-pie'
     | '/termos-de-uso'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/jornada-de-honra'
     | '/politica-de-privacidade'
     | '/ressignifica-app-sell'
+    | '/ressignifica-app-sell-pie'
     | '/termos-de-uso'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   JornadaDeHonraRoute: typeof JornadaDeHonraRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   RessignificaAppSellRoute: typeof RessignificaAppSellRoute
+  RessignificaAppSellPieRoute: typeof RessignificaAppSellPieRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
 }
 
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/termos-de-uso'
       fullPath: '/termos-de-uso'
       preLoaderRoute: typeof TermosDeUsoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ressignifica-app-sell-pie': {
+      id: '/ressignifica-app-sell-pie'
+      path: '/ressignifica-app-sell-pie'
+      fullPath: '/ressignifica-app-sell-pie'
+      preLoaderRoute: typeof RessignificaAppSellPieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ressignifica-app-sell': {
@@ -203,18 +223,9 @@ const rootRouteChildren: RootRouteChildren = {
   JornadaDeHonraRoute: JornadaDeHonraRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   RessignificaAppSellRoute: RessignificaAppSellRoute,
+  RessignificaAppSellPieRoute: RessignificaAppSellPieRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

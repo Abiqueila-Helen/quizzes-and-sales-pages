@@ -44,17 +44,27 @@ export function Hero({ onCta }: { onCta: () => void }) {
               Sistema Intervenção Emocional
             </span>
           </div>
-          <img
+          <SectionTitle
+          eyebrow="O ciclo invisível"
+          title={
+            <>
+              Sua MENTE <br></br>não está apenas{" "}<br></br>
+              <span style={{ color: "#e8732e" }}>ROUBANDO</span> <br></br>sua PAZ.<br></br> <br></br>Ela pode estar <br></br>roubando o seu futuro{" "}<br></br>
+              <span style={{ color: "#e8732e" }}>financeiro</span>.
+            </>
+          }
+        />
+          {/* <img
             src={titulo01Img}
             alt="Sua mente não está apenas roubando sua paz. Ela pode estar roubando o seu futuro financeiro."
             className="mx-auto mt-5 w-full max-w-[600px] sm:max-w-[700px] h-auto"
-          />
+          /> */}
           <p
             className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed sm:text-lg"
             style={{ color: "#2f3a48cc" }}
           >
-            Medo, insegurança, culpa e <span style={{ color: "#443634", fontWeight: 800 }} className="text-[16px]">ESCASSEZ</span> fazem milhares de pessoas perderem dias inteiros de
-            produtividade. O <span style={{ color: "#443634", fontWeight: 800 }} className="text-[16px]">Ressignifica</span> interrompe esse ciclo em menos de 2 minutos e <span style={{ color: "#e8732e" }} className="text-[16px]">devolve sua
+            Medo, insegurança, culpa e <span style={{ color: "#443634", fontWeight: 800 }} className="text-[16px]">ESCASSEZ</span> <br></br>fazem milhares de pessoas perderem dias <br></br>inteiros de
+            produtividade. <br></br>O <span style={{ color: "#443634", fontWeight: 800 }} className="text-[16px]">Ressignifica</span> interrompe esse ciclo <br></br>em menos de 2 minutos e <br></br><span style={{ color: "#e8732e" }} className="text-[16px]">devolve sua
             capacidade de agir.</span>
           </p>
 
@@ -215,8 +225,8 @@ export function VerdadeiroProblema() {
           tone="green"
           title={
             <>
-              Não é preguiça. É um{" "}
-              <span style={{ color: "#e8732e" }}>dia inteiro sendo sequestrado</span>.
+              Não é preguiça. <br></br>É um{" "}
+              <span style={{ color: "#e8732e" }}>dia inteiro <br></br>sendo sequestrado</span>.
             </>
           }
         />
@@ -461,7 +471,7 @@ export function Transformacao() {
           tone="green"
           title={
             <>
-              De travado a <span style={{ color: "#e8732e" }}>em movimento</span>.
+              De travado para <br></br><span style={{ color: "#e8732e" }}>em movimento</span>.
             </>
           }
         />

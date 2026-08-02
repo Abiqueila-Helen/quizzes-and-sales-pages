@@ -230,7 +230,7 @@ export default function AppsrePage() {
 
       <Nav onCta={scrollToOffer} />
       <Hero onCta={scrollToOffer} />
-      <SocialProofStrip />
+      {/* <SocialProofStrip /> */}
       <Features />
       <FlowSection />
       <Comparison />
@@ -487,6 +487,7 @@ function FloatingChip({
    Social proof strip
    ========================================================================= */
 
+/*
 function SocialProofStrip() {
   return (
     <section className="border-y" style={{ borderColor: BRAND.border, background: BRAND.bg }}>
@@ -506,6 +507,7 @@ function SocialProofStrip() {
     </section>
   );
 }
+*/
 
 /* =========================================================================
    Features
@@ -697,7 +699,7 @@ function Comparison() {
    ========================================================================= */
 
 const carouselModules = import.meta.glob<{ default: string }>(
-  "/src/assets/appsre/carousel/*.jpg",
+  "/src/assets/appsre/carousel/*.avif",
   { eager: true, query: "?url" },
 );
 

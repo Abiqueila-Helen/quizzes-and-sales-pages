@@ -642,7 +642,7 @@ function Rodape({ onCta }) {
 							children: "Termos de Uso"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-							href: "https://wa.me/5511999999999",
+							href: "https://wa.me/5519991703327",
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "hover:underline",

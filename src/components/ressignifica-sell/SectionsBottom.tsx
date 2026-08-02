@@ -275,7 +275,7 @@ export function Oferta() {
 /* --------------------------------------------------------------- Galeria */
 
 const carouselModules = import.meta.glob<{ default: string }>(
-  "/src/assets/appsre/carousel/*.{jpg,jpeg,png,webp}",
+  "/src/assets/appsre/carousel/*.{jpg,jpeg,png,webp,avif}",
   { eager: true, query: "?url" },
 );
 

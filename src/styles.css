@@ -187,7 +187,7 @@
   display: inline-flex;
   width: max-content;
   will-change: transform;
-  animation: pie-marquee-scroll 10s linear infinite;
+  animation: pie-marquee-scroll 15s linear infinite;
 }
 
 .pie-marquee-item {

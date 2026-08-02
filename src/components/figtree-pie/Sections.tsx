@@ -8,7 +8,7 @@ import handsHeartImg from "@/assets/figtree-pie/hands-heart.avif";
 import sunImg from "@/assets/figtree-pie/sun.png";
 import treeImg from "@/assets/figtree-pie/tree.avif";
 import mok01 from "@/assets/figtree-pie/Tela-inicial.avif";
-import mok02 from "@/assets/figtree-pie/explorar-topicos.avif";
+import mok02 from "@/assets/figtree-pie/Tela-explorar-topicos.avif";
 import mok03 from "@/assets/figtree-pie/Tela-tarefas-mock.avif";
 
 import { CHECKOUT, FIG, GRADIENT_SOFT, SANS, SERIF, TITLE, go } from "./theme";
@@ -119,7 +119,7 @@ function FeatureBlock({
   num: string;
   tag: string;
   image: string;
-  title: string;
+  title: React.ReactNode;
   text: string;
   bg: string;
   zIndex: number;
@@ -189,7 +189,12 @@ export function Conquista() {
       image={mok02}
       bg={FIG.mint}
       zIndex={3}
-      title="Escolha afirmações que ressoem profundamente em você"
+      title={
+        <>
+          Escolha afirmações <br />
+          que ressoem profundamente <br /> em você
+        </>
+      }
       text="Selecione as categorias que melhor representam as áreas da sua vida que você gostaria de melhorar e pratique afirmações profundas e significativas diariamente."
     />
   );
@@ -203,8 +208,8 @@ export function Temas() {
       image={mok03}
       bg={FIG.white}
       zIndex={4}
-      title="Personalize sua experiência com temas, lembretes e widgets"
-      text="Deixe o Ressignifica com a sua cara escolhendo um fundo personalizado. Ajuste os lembretes e instale widgets para ter sua inspiração diária sempre à mão."
+      title="Personalize sua experiência com lembretes e widgets"
+      text="Ajuste os lembretes e instale widgets para ter sua inspiração diária sempre à mão."
     />
   );
 }
@@ -323,19 +328,19 @@ function BenefitItem({
 const TESTIMONIALS = [
   {
     text: "Esse é um aplicativo que todo mundo deveria ter. Ele muda seus pensamentos, sentimentos, humores e dias. O Ressignifica me ajuda a valorizar quem eu sou e me motiva. Eu envio afirmações diárias para a minha filha adolescente.",
-    name: "Marge",
+    name: "Rosana",
   },
-  {
-    text: "Estou aproveitando essas afirmações diárias durante a minha reavaliação pessoal. Elas ajudam na minha jornada de me conectar de forma mais saudável comigo mesma, trazendo abundância e me ajudando a espalhar alegria para os outros.",
-    name: "Mike",
-  },
+  // {
+  //   text: "Estou aproveitando essas afirmações diárias durante a minha reavaliação pessoal. Elas ajudam na minha jornada de me conectar de forma mais saudável comigo mesma, trazendo abundância e me ajudando a espalhar alegria para os outros.",
+  //   name: "Mike",
+  // },
   {
     text: "Mais coisas positivas acontecem na minha vida. No começo, eu sentia que essas palavras não fariam diferença. Eu estava errada. As afirmações combatem meus pensamentos negativos e ajudam a quebrar o ciclo.",
-    name: "Becky",
+    name: "Rafael",
   },
   {
     text: "Quando eu duvido de mim mesma, uma notificação é a salvação. Ela me traz de volta ao presente. Aplicativo incrível.",
-    name: "Eu Sou Suficiente",
+    name: "Fernanda",
   },
   {
     text: "Aplicativo maravilhoso! Ajudou a aumentar minha confiança! Eu sempre tive dificuldade com a imagem do meu corpo; esse app me ajudou imensamente. É um salva-vidas para mim.",
@@ -616,7 +621,7 @@ export function Rodape({ onCta }: { onCta: () => void }) {
             Termos de Uso
           </a>
           <a
-            href="https://wa.me/5511999999999"
+            href="https://wa.me/5519991703327"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline"

@@ -7,9 +7,9 @@ import handsImg from "@/assets/figtree-pie/hands.png";
 import handsHeartImg from "@/assets/figtree-pie/hands-heart.avif";
 import sunImg from "@/assets/figtree-pie/sun.png";
 import treeImg from "@/assets/figtree-pie/tree.avif";
-import mok01 from "@/assets/appsre/carousel/mok01.jpg";
-import mok02 from "@/assets/appsre/carousel/mok02.jpg";
-import mok03 from "@/assets/appsre/carousel/mok03.jpg";
+import mok01 from "@/assets/figtree-pie/Tela-inicial.avif";
+import mok02 from "@/assets/figtree-pie/explorar-topicos.avif";
+import mok03 from "@/assets/figtree-pie/Tela-tarefas-mock.avif";
 
 import { CHECKOUT, FIG, GRADIENT_SOFT, SANS, SERIF, TITLE, go } from "./theme";
 
@@ -199,7 +199,7 @@ export function Temas() {
   return (
     <FeatureBlock
       num="03"
-      tag="Temas"
+      tag="Microações"
       image={mok03}
       bg={FIG.white}
       zIndex={4}

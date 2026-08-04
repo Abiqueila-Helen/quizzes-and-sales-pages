@@ -1,6 +1,6 @@
 import { o as __toESM } from "../_runtime.mjs";
 import { n as require_react } from "./@radix-ui/react-compose-refs+[...].mjs";
-import { g as require_react_dom } from "./@tanstack/react-router+[...].mjs";
+import { P as require_react_dom } from "./@tanstack/react-router+[...].mjs";
 //#region node_modules/yet-another-react-lightbox/dist/types.js
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 var MODULE_CAROUSEL = "carousel";

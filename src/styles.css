@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Cause:wght@100..900&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -114,6 +113,10 @@
   .rs-sell button {
     font-family: "Montserrat", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
     letter-spacing: 0.02em;
+  }
+  /* Preload critical font locally if available, fallback to system fonts */
+  .rs-sell h1, .rs-sell h2 {
+    font-family: "Cause", Georgia, "Times New Roman", serif;
   }
   /* Hero background: gradientes radiais */
   .rs-sell .hero-bg {
